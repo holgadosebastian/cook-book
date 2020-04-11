@@ -1,11 +1,25 @@
 {
   "name": "cook-book",
   "version": "1.0.0",
-  "description": "",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "clientInstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holgadosebastian/cook-book.git"
+  },
+  "bugs": {
+    "url": "https://github.com/holgadosebastian/cook-book/issues"
+  },
+  "homepage": "https://github.com/holgadosebastian/cook-book#readme",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
 }
