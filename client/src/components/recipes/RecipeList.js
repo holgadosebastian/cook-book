@@ -1,20 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 
-const RecipeList = () => {
-  const recipes = [
-    {
-      title: 'Sandwich',
-      timeTake: 90,
-      id: 1
-    },
-    {
-      title: 'Toast',
-      timeTake: 90,
-      id: 2
-    }
-  ];
-
+const RecipeList = ({ recipes }) => {
   return (
     <div>
       <ul>
@@ -24,6 +12,10 @@ const RecipeList = () => {
       </ul>
     </div>
   );
+};
+
+RecipeList.propTypes = {
+  recipes: PropTypes.array.isRequired
 };
 
 export default RecipeList;

@@ -1,0 +1,33 @@
+{
+  "recipes": [
+    {
+      "title": "Sandwich",
+      "yield": 6,
+      "totalTime": 30,
+      "description": "Lorem ipsum",
+      "instructions": "Instructions lorem ipsum",
+      "ingredients": [
+        {
+          "name": "2 onions",
+          "id": "13a0d709-ef11-4e09-b924-7731caaced92"
+        },
+        {
+          "name": "1 carrot",
+          "id": "13a0d709-ef11-4e09-b924-22222"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "title": "Test recipe",
+      "ingredients": [
+        {
+          "name": "Test ingredient 1",
+          "id": "13a0d709-ef11-4e09-b924-7731caaced97"
+        }
+      ],
+      "instructions": "These are the instructions",
+      "id": 4
+    }
+  ]
+}

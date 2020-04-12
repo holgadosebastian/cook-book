@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const RecipeCard = ({ recipe: { title } }) => {
+const RecipeCard = ({ recipe: { title, id } }) => {
   return (
     <li style={{ marginTop: '24px' }}>
-      <div className='card'>
+      <Link to={`/recipe/${id}`} className='card' style={{ display: 'block' }}>
         <div className='card-image'>
           <figure className='image is-2by1'>
             <img
@@ -14,10 +15,12 @@ const RecipeCard = ({ recipe: { title } }) => {
         </div>
         <div className='card-content'>
           <div className='content'>
-            <p className='is-size-4'>{title}</p>
+            <p className='is-size-5 has-text-weight-bold has-text-primary'>
+              {title}
+            </p>
           </div>
         </div>
-      </div>
+      </Link>
     </li>
   );
 };

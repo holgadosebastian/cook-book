@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -8,9 +9,12 @@ const Navbar = () => {
       aria-label='main navigation'
     >
       <div className='navbar-brand'>
-        <a className='navbar-item has-text-white' href='/'>
+        <Link
+          to='/'
+          className='navbar-item has-text-white has-text-weight-bold'
+        >
           Cook Book
-        </a>
+        </Link>
 
         <span
           href='#'
