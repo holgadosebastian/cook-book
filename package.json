@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm start --prefix client",
     "clientInstall": "npm install --prefix client",
-    "testServer": "json-server --watch db.json --port 5000",
+    "testServer": "nodemon server.js",
     "dev": "concurrently \"npm run testServer\" \"npm run client start\""
   },
   "author": "",
@@ -22,6 +22,15 @@
   "homepage": "https://github.com/holgadosebastian/cook-book#readme",
   "devDependencies": {
     "concurrently": "^5.1.0",
-    "json-server": "^0.16.1"
+    "json-server": "^0.16.1",
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.7"
   }
 }
