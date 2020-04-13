@@ -79,9 +79,32 @@ const RecipeState = (props) => {
     }
   };
 
+  const updateRecipe = async (recipe) => {
+    const config = {
+      headers: {
+        'Context-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.put(`/recipes/${recipe.id}`, recipe, config);
+
+      dispatch({
+        type: UPDATE_RECIPE,
+        payload: res.data
+      });
+    } catch (error) {
+      console.log(error);
+      // dispatch({
+      //   type: RECIPE_ERROR,
+      //   payload: error.response.msg
+      // });
+    }
+  };
+
   const removeRecipe = async (id) => {
     try {
-      const res = await axios.delete(`/recipes/${id}`);
+      await axios.delete(`/recipes/${id}`);
 
       dispatch({
         type: DELETE_RECIPE,
@@ -105,6 +128,7 @@ const RecipeState = (props) => {
         getRecipes,
         setCurrentRecipe,
         addRecipe,
+        updateRecipe,
         removeRecipe
       }}
     >

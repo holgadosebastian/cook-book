@@ -16,6 +16,19 @@ export default (state, action) => {
         recipes: action.payload,
         loading: false
       };
+    case ADD_RECIPE:
+      return {
+        ...state,
+        recipes: state.recipes.push(action.payload),
+        currentRecipe: action.payload,
+        loading: false
+      };
+    case UPDATE_RECIPE:
+      return {
+        ...state,
+        currentRecipe: action.payload,
+        loading: false
+      };
     case DELETE_RECIPE:
       return {
         ...state,

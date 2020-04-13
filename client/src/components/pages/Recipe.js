@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
 import RecipeContext from '../../context/recipe/recipeContext';
+import EditRecipeModal from '../recipes/EditRecipeModal';
 
 const Recipe = ({ match }) => {
   const [deleteModalActive, setDeleteModalActive] = useState(false);
+  const [editModalActive, setEditModalActive] = useState(false);
 
   const recipeContext = useContext(RecipeContext);
   const {
@@ -65,7 +67,10 @@ const Recipe = ({ match }) => {
           <p className='is-size-5'>Instructions:</p>
           <p>{currentRecipe.instructions}</p>
         </div>
-        <div style={{ marginTop: '12px' }}>
+        <div
+          style={{ marginTop: '12px' }}
+          onClick={() => setEditModalActive(true)}
+        >
           <span className='button is-info is-fullwidth is-rounded'>Edit</span>
         </div>
         <div style={{ marginTop: '12px' }}>
@@ -104,6 +109,12 @@ const Recipe = ({ match }) => {
           aria-label='close'
         ></button>
       </div>
+
+      <EditRecipeModal
+        modalActive={editModalActive}
+        recipe={currentRecipe}
+        setModalActive={setEditModalActive}
+      />
     </Fragment>
   );
 };

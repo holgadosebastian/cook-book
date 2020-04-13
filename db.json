@@ -1,22 +1,15 @@
 {
   "recipes": [
     {
+      "id": 1,
       "title": "Sandwich",
-      "yield": 6,
-      "totalTime": 30,
-      "description": "Lorem ipsum",
-      "instructions": "Instructions lorem ipsum",
       "ingredients": [
         {
-          "name": "2 onions",
-          "id": "13a0d709-ef11-4e09-b924-7731caaced92"
-        },
-        {
-          "name": "1 carrot",
-          "id": "13a0d709-ef11-4e09-b924-22222"
+          "name": "2 carrots",
+          "id": "aa774e69-e70b-4444-bfc9-e1152fddb604"
         }
       ],
-      "id": 1
+      "instructions": "Instructions lorem ipsum"
     },
     {
       "title": "Test recipe",
@@ -28,6 +21,37 @@
       ],
       "instructions": "These are the instructions",
       "id": 4
+    },
+    {
+      "title": "No tengo idea",
+      "ingredients": [
+        {
+          "name": "3 morrones",
+          "id": "dead1638-5ac9-4c1b-a7cb-cc14f7892c18"
+        },
+        {
+          "name": "Zanahoria",
+          "id": "e8d6564e-73b3-415e-84bc-fc94f76915c5"
+        },
+        {
+          "name": "Arroz",
+          "id": "8004526e-c74a-4209-acf3-018457036b83"
+        },
+        {
+          "name": "Pasta de curry",
+          "id": "7fca106a-69be-4561-ada3-0fd2c5eb5744"
+        },
+        {
+          "name": "Leche de coco",
+          "id": "bdf28644-443a-464f-a1fa-5792b0991708"
+        },
+        {
+          "name": "Crema de mani",
+          "id": "9095c0b7-789f-462a-9e2a-5be9a03282c0"
+        }
+      ],
+      "instructions": "Tu vieja",
+      "id": 5
     }
   ]
 }
