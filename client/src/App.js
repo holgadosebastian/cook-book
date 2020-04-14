@@ -7,6 +7,7 @@ import Recipe from './components/pages/Recipe';
 import NewRecipe from './components/pages/NewRecipe';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
+import PrivateRoute from './components/routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 
 import AuthState from './context/auth/AuthState';
@@ -25,7 +26,7 @@ function App() {
             <Navbar />
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/new-recipe' component={NewRecipe} />
+              <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
               <Route exact path='/recipe/:id' component={Recipe} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />

@@ -19,7 +19,6 @@ export default (state, action) => {
     case ADD_RECIPE:
       return {
         ...state,
-        recipes: state.recipes.push(action.payload),
         currentRecipe: action.payload,
         loading: false
       };
@@ -42,7 +41,7 @@ export default (state, action) => {
       return {
         ...state,
         currentRecipe: action.payload,
-        loading: true
+        loading: false
       };
     default:
       return state;

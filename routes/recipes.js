@@ -7,19 +7,26 @@ const Recipe = require('../models/Recipe');
 
 // @route     GET api/recipes
 // @desc      Get all recipes
-// @access    Private
-router.get('/', auth, (req, res) => {
-  res.send('Get all recipes');
+// @access    Public
+router.get('/', async (req, res) => {
+  try {
+    let recipes = await Recipe.find();
+
+    res.json({ recipes });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
 });
 
 // @route     GET api/recipes/:id
 // @desc      Get a recipe
-// @access    Private
-router.get('/:id', auth, async (req, res) => {
+// @access    Public
+router.get('/:id', async (req, res) => {
   try {
     let recipe = await Recipe.findOne({ _id: req.params.id });
 
-    res.json({ data: recipe });
+    res.json({ recipe });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -78,21 +85,76 @@ router.post(
 // @route     PUT api/recipes/:id
 // @desc      Update recipe
 // @access    Private
-router.put('/:id', (req, res) => {
-  res.send('Update recipe');
+router.put('/:id', auth, async (req, res) => {
+  const {
+    title,
+    ingredients,
+    instructions,
+    description,
+    servingSize,
+    cookingTime
+  } = req.body;
+
+  const recipeFields = {};
+  if (title) recipeFields.title = title;
+  if (ingredients) recipeFields.ingredients = ingredients;
+  if (instructions) recipeFields.instructions = instructions;
+  if (description) recipeFields.description = description;
+  if (servingSize) recipeFields.servingSize = servingSize;
+  if (cookingTime) recipeFields.cookingTime = cookingTime;
+
+  try {
+    let recipe = await Recipe.findById(req.params.id);
+
+    if (!recipe) return res.status(404).json({ msg: 'Contact not found' });
+
+    if (recipe.creatorId.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    recipe = await Recipe.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: recipeFields
+      },
+      {
+        new: true
+      }
+    );
+
+    res.json(recipe);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server error');
+  }
 });
 
 // @route     DELETE api/recipes/:id
 // @desc      Delete recipe
 // @access    Private
-router.delete('/:id', (req, res) => {
-  res.send('Delete recipe');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    let recipe = await Recipe.findById(req.params.id);
+
+    if (!recipe) return res.status(404).json({ msg: 'Contact not found' });
+
+    if (recipe.creatorId.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    await Recipe.findByIdAndRemove(req.params.id);
+
+    res.json({ msg: 'Recipe deleted' });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server error');
+  }
 });
 
 // @route     GET api/recipes/user/:id
 // @desc      Get all recipes from a user
-// @access    Private
-router.get('/user/:id', auth, async (req, res) => {
+// @access    Public
+router.get('/user/:id', async (req, res) => {
   try {
     let recipes = await Recipe.find({ creatorId: req.params.id });
 

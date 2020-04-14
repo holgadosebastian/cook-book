@@ -47,7 +47,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
     }
 
     const updatedRecipe = {
-      id: recipe.id,
+      id: recipe._id,
       title: title,
       ingredients: ingredients,
       instructions: instructions

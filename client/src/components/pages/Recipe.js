@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
 import RecipeContext from '../../context/recipe/recipeContext';
+import AuthContext from '../../context/auth/authContext';
 import EditRecipeModal from '../recipes/EditRecipeModal';
 
 const Recipe = ({ match }) => {
@@ -14,13 +15,16 @@ const Recipe = ({ match }) => {
     loading
   } = recipeContext;
 
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated, user } = authContext;
+
   useEffect(() => {
     setCurrentRecipe(match.params.id);
     // eslint-disable-next-line
   }, []);
 
   const onRemove = () => {
-    removeRecipe(currentRecipe.id);
+    removeRecipe(currentRecipe._id);
   };
 
   if (currentRecipe === null || loading) return <p>Loading...</p>;
@@ -67,20 +71,27 @@ const Recipe = ({ match }) => {
           <p className='is-size-5'>Instructions:</p>
           <p>{currentRecipe.instructions}</p>
         </div>
-        <div
-          style={{ marginTop: '12px' }}
-          onClick={() => setEditModalActive(true)}
-        >
-          <span className='button is-info is-fullwidth is-rounded'>Edit</span>
-        </div>
-        <div style={{ marginTop: '12px' }}>
-          <span
-            className='button is-danger is-fullwidth is-rounded'
-            onClick={() => setDeleteModalActive(true)}
-          >
-            Delete
-          </span>
-        </div>
+
+        {isAuthenticated && user._id === currentRecipe.creatorId && (
+          <Fragment>
+            <div
+              style={{ marginTop: '12px' }}
+              onClick={() => setEditModalActive(true)}
+            >
+              <span className='button is-info is-fullwidth is-rounded'>
+                Edit
+              </span>
+            </div>
+            <div style={{ marginTop: '12px' }}>
+              <span
+                className='button is-danger is-fullwidth is-rounded'
+                onClick={() => setDeleteModalActive(true)}
+              >
+                Delete
+              </span>
+            </div>
+          </Fragment>
+        )}
       </div>
 
       <div className={`modal ${deleteModalActive && 'is-active'}`}>

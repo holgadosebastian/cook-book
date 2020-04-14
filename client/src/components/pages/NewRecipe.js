@@ -7,6 +7,8 @@ const NewRecipe = () => {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState('');
   const [newIngredient, setNewIngredient] = useState('');
+  const [cookingTime, setCookingTime] = useState('');
+  const [servingSize, setServingSize] = useState('');
   const [formError, setFormError] = useState('');
 
   const recipeContext = useContext(RecipeContext);
@@ -35,15 +37,23 @@ const NewRecipe = () => {
   const onSubmit = () => {
     setFormError('');
 
-    if (title === '' || !ingredients.length || instructions === '') {
+    if (
+      title === '' ||
+      !ingredients.length ||
+      instructions === '' ||
+      cookingTime === '' ||
+      servingSize === ''
+    ) {
       setFormError('Some fields are empty');
       return false;
     }
 
     const recipe = {
-      title: title,
-      ingredients: ingredients,
-      instructions: instructions
+      title,
+      ingredients,
+      instructions,
+      servingSize: parseInt(servingSize),
+      cookingTime: parseInt(cookingTime)
     };
 
     addRecipe(recipe);
@@ -108,12 +118,40 @@ const NewRecipe = () => {
           </p>
         </div>
 
+        <div className='columns is-mobile'>
+          <div className='column'>
+            <div className='field'>
+              <label className='label'>Serving Size</label>
+              <div className='control'>
+                <input
+                  className='input'
+                  type='number'
+                  value={servingSize}
+                  onChange={(e) => setServingSize(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className='column'>
+            <div className='field'>
+              <label className='label'>Cooking Time (min)</label>
+              <div className='control'>
+                <input
+                  className='input'
+                  type='number'
+                  value={cookingTime}
+                  onChange={(e) => setCookingTime(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className='field'>
           <label className='label'>Instructions</label>
           <div className='control'>
             <textarea
               className='textarea'
-              placeholder='Textarea'
               onChange={(e) => setInstructions(e.target.value)}
               value={instructions}
             ></textarea>
