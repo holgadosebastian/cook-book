@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import LoginForm from '../auth/LoginForm';
+import AuthContext from '../../context/auth/authContext';
 
-const Login = () => {
+const Login = (props) => {
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+  }, [isAuthenticated, props.history]);
+
   return (
     <div className='container is-fluid' style={{ paddingTop: '80px' }}>
       <LoginForm />

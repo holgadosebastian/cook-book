@@ -3,7 +3,7 @@ import AuthContext from '../../context/auth/authContext';
 
 const LoginForm = () => {
   const authContext = useContext(AuthContext);
-  const { loginUser, errors } = authContext;
+  const { loginUser, setUserErrors, errors } = authContext;
 
   const [user, setUser] = useState({
     username: '',
@@ -18,7 +18,30 @@ const LoginForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submit');
+
+    let submitErrors = [];
+
+    if (username === '') {
+      submitErrors.push({
+        msg: 'Username is required'
+      });
+    }
+
+    if (password === '') {
+      submitErrors.push({
+        msg: 'Password is required'
+      });
+    }
+
+    if (!!submitErrors.length) {
+      setUserErrors(submitErrors);
+      return false;
+    }
+
+    loginUser({
+      username,
+      password
+    });
   };
 
   return (
@@ -54,6 +77,19 @@ const LoginForm = () => {
             />
           </div>
         </div>
+
+        {!!errors.length && (
+          <article className='message is-danger'>
+            <div className='message-body'>
+              <ul>
+                {errors.map((error) => (
+                  // TODO: Add key
+                  <li className='is-size-7'>{error.msg}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        )}
 
         <button
           className='button is-primary is-rounded is-fullwidth'

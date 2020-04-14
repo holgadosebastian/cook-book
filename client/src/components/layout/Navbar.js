@@ -1,8 +1,40 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/auth/authContext';
 
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated, logoutUser } = authContext;
+
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const authLinks = (
+    <Fragment>
+      <Link to='/register' className='button is-rounded is-light'>
+        My account
+      </Link>
+      <span
+        className='button is-rounded is-primary is-inverted is-outlined'
+        onClick={() => logoutUser()}
+      >
+        Logout
+      </span>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <Link to='/register' className='button is-rounded is-light'>
+        <strong>Register</strong>
+      </Link>
+      <Link
+        to='/login'
+        className='button is-rounded is-primary is-inverted is-outlined'
+      >
+        Log in
+      </Link>
+    </Fragment>
+  );
 
   return (
     <nav
@@ -44,25 +76,7 @@ const Navbar = () => {
         <div className='navbar-end'>
           <div className='navbar-item'>
             <div className='buttons'>
-              <Link
-                to='/register'
-                className='button is-rounded is-light'
-                href='#'
-              >
-                <strong>Register</strong>
-              </Link>
-              <Link
-                to='/login'
-                className='button is-rounded is-primary is-inverted is-outlined'
-              >
-                Log in
-              </Link>
-              <Link
-                to='/login'
-                className='button is-rounded is-primary is-inverted is-outlined'
-              >
-                Logout
-              </Link>
+              {isAuthenticated ? authLinks : guestLinks}
             </div>
           </div>
         </div>
