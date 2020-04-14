@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import RecipeContext from '../../context/recipe/recipeContext';
 
@@ -9,7 +9,7 @@ const NewRecipe = () => {
   const [newIngredient, setNewIngredient] = useState('');
   const [cookingTime, setCookingTime] = useState('');
   const [servingSize, setServingSize] = useState('');
-  const [formError, setFormError] = useState('');
+  const [formErrors, setFormErrors] = useState([]);
 
   const recipeContext = useContext(RecipeContext);
   const { addRecipe } = recipeContext;
@@ -35,16 +35,31 @@ const NewRecipe = () => {
   };
 
   const onSubmit = () => {
-    setFormError('');
+    setFormErrors([]);
+    let newFormErrors = [];
 
-    if (
-      title === '' ||
-      !ingredients.length ||
-      instructions === '' ||
-      cookingTime === '' ||
-      servingSize === ''
-    ) {
-      setFormError('Some fields are empty');
+    if (title === '') {
+      newFormErrors.push({
+        msg: 'Recipe title is required'
+      });
+    }
+
+    if (!ingredients.length) {
+      newFormErrors.push({
+        msg: 'At least one ingredient is required'
+      });
+    }
+
+    if (instructions === '') {
+      newFormErrors.push({
+        msg: 'Basic instructions are required'
+      });
+    }
+
+    console.log(newFormErrors);
+
+    if (!!newFormErrors.length) {
+      setFormErrors(newFormErrors);
       return false;
     }
 
@@ -56,6 +71,7 @@ const NewRecipe = () => {
       cookingTime: parseInt(cookingTime)
     };
 
+    console.log(recipe);
     addRecipe(recipe);
 
     setTitle('');
@@ -65,25 +81,41 @@ const NewRecipe = () => {
   };
 
   return (
-    <Fragment>
-      <div className='container is-fluid'>
-        <p className='is-size-4'>Create New Recipe</p>
-      </div>
-      <div className='container is-fluid'>
+    <div
+      style={{ paddingTop: '24px', paddingBottom: '48px' }}
+      className='container is-fluid'
+    >
+      <div className='box'>
+        <p
+          className='is-size-4 has-text-centered has-text-weight-light is-uppercase has-text-grey-light'
+          style={{ marginBottom: '24px' }}
+        >
+          Create New Recipe
+        </p>
         <div className='field'>
-          <label className='label'>Title</label>
+          <label
+            className='label is-uppercase has-text-weight-light has-text-grey-darker'
+            htmlFor='title'
+          >
+            Title <span className='has-text-danger'>*</span>
+          </label>
           <div className='control'>
             <input
+              id='title'
               className='input'
               type='text'
-              placeholder='Title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
         </div>
 
-        <label className='label'>Ingredients</label>
+        <label
+          className='label is-uppercase has-text-weight-light has-text-grey-darker'
+          htmlFor='ingredients'
+        >
+          Ingredients <span className='has-text-danger'>*</span>
+        </label>
         <div>
           {ingredients.map((ingredient) => (
             <div
@@ -100,30 +132,39 @@ const NewRecipe = () => {
           ))}
         </div>
 
-        <div className='field is-grouped'>
-          <p className='control is-expanded'>
+        <div className='field has-addons'>
+          <div className='control is-expanded'>
             <input
+              id='ingredients'
               className='input'
               type='text'
-              placeholder='Ingredient'
               value={newIngredient}
               onChange={(e) => setNewIngredient(e.target.value)}
               onKeyDown={(e) => e.keyCode === 13 && addIngredient()}
             />
-          </p>
-          <p className='control'>
-            <span className='button is-info is-rounded' onClick={addIngredient}>
+          </div>
+          <div className='control'>
+            <span
+              className='button is-info is-uppercase'
+              onClick={addIngredient}
+            >
               Add
             </span>
-          </p>
+          </div>
         </div>
 
         <div className='columns is-mobile'>
-          <div className='column'>
+          <div style={{ paddingBottom: 0 }} className='column'>
             <div className='field'>
-              <label className='label'>Serving Size</label>
+              <label
+                className='label is-uppercase has-text-weight-light has-text-grey-darker'
+                htmlFor='servingsize'
+              >
+                Serving Size
+              </label>
               <div className='control'>
                 <input
+                  id='servingsize'
                   className='input'
                   type='number'
                   value={servingSize}
@@ -132,11 +173,17 @@ const NewRecipe = () => {
               </div>
             </div>
           </div>
-          <div className='column'>
+          <div style={{ paddingBottom: 0 }} className='column'>
             <div className='field'>
-              <label className='label'>Cooking Time (min)</label>
+              <label
+                className='label is-uppercase has-text-weight-light has-text-grey-darker'
+                htmlFor='cookingtime'
+              >
+                Cooking Time
+              </label>
               <div className='control'>
                 <input
+                  id='cookingtime'
                   className='input'
                   type='number'
                   value={cookingTime}
@@ -148,9 +195,15 @@ const NewRecipe = () => {
         </div>
 
         <div className='field'>
-          <label className='label'>Instructions</label>
+          <label
+            className='label is-uppercase has-text-weight-light has-text-grey-darker'
+            htmlFor='instructions'
+          >
+            Instructions <span className='has-text-danger'>*</span>
+          </label>
           <div className='control'>
             <textarea
+              id='instructions'
               className='textarea'
               onChange={(e) => setInstructions(e.target.value)}
               value={instructions}
@@ -158,16 +211,28 @@ const NewRecipe = () => {
           </div>
         </div>
 
-        {formError !== '' && <div>All fields are mandatory</div>}
+        {!!formErrors.length && (
+          <article className='message is-danger'>
+            <div className='message-body'>
+              <ul>
+                {formErrors.map((error) => (
+                  // TODO: Add key
+                  <li className='is-size-7'>{error.msg}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        )}
 
         <span
-          className='button is-primary is-fullwidth is-rounded'
+          style={{ marginTop: '24px' }}
+          className='button is-primary is-uppercase is-fullwidth is-rounded'
           onClick={onSubmit}
         >
           Create
         </span>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

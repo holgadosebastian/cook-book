@@ -43,9 +43,14 @@ router.post(
     check('title', 'A title for a recipe is required').not().isEmpty(),
     check('ingredients', 'Ingredients for a recipe are required')
       .not()
-      .isEmpty(),
-    check('servingSize', 'Serving size must be an integer').isInt(),
-    check('cookingTime', 'Cooking time must be an integer').isInt()
+      .isEmpty()
+
+    // TODO: Add correct validation for servingSize and cookingTime
+    // check('servingSize', 'Serving size must be an integer')
+    //   .isInt()
+    //   .bail()
+    //   .isEmpty(),
+    // check('cookingTime', 'Cooking time must be an integer').isEmpty().isInt()
   ],
   async (req, res) => {
     const errors = validationResult(req);

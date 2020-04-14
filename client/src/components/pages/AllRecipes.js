@@ -17,13 +17,18 @@ const AllRecipes = () => {
   }, []);
 
   return (
-    <div className='container is-fluid'>
-      <div style={{ marginTop: '24px', position: 'relative' }}>
-        <p className='is-size-4'>All Recipes</p>
+    <div
+      className='container is-fluid'
+      style={{ paddingTop: '24px', paddingBottom: '48px' }}
+    >
+      <div style={{ position: 'relative' }}>
+        <p className='is-size-4 has-text-grey-darker is-uppercase has-text-weight-light'>
+          Latest Recipes
+        </p>
         {isAuthenticated && (
           <Link
             to='/new-recipe'
-            className='button is-primary is-outlined is-rounded is-small'
+            className='button is-primary is-uppercase is-outlined is-rounded is-small'
             style={{
               position: 'absolute',
               top: '50%',
@@ -31,7 +36,7 @@ const AllRecipes = () => {
               marginTop: '-15px'
             }}
           >
-            + Recipe
+            Add Recipe
           </Link>
         )}
       </div>

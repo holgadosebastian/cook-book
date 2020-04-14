@@ -15,7 +15,7 @@ const RecipeCard = ({ recipe: { title, _id } }) => {
         </div>
         <div className='card-content'>
           <div className='content'>
-            <p className='is-size-5 has-text-weight-bold has-text-primary'>
+            <p className='is-size-5 has-text-weight-lighter is-uppercase has-text-primary'>
               {title}
             </p>
           </div>

@@ -13,7 +13,10 @@ const Register = (props) => {
   }, [isAuthenticated, props.history]);
 
   return (
-    <div className='container is-fluid' style={{ paddingTop: '80px' }}>
+    <div
+      className='container is-fluid'
+      style={{ paddingTop: '80px', paddingBottom: '80px' }}
+    >
       <RegisterForm />
     </div>
   );
