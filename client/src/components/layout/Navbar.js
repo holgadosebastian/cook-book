@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <nav
       className='navbar has-background-primary'
@@ -17,12 +19,11 @@ const Navbar = () => {
         </Link>
 
         <span
-          href='#'
           role='button'
           className='navbar-burger burger'
           aria-label='menu'
           aria-expanded='false'
-          data-target='navbarBasicExample'
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
@@ -30,25 +31,38 @@ const Navbar = () => {
         </span>
       </div>
 
-      <div id='navbarBasicExample' className='navbar-menu'>
+      <div
+        className={`navbar-menu has-background-primary ${
+          menuOpen && 'is-active'
+        }`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <div className='navbar-start'>
-          <span className='navbar-item' href='#'>
-            Home
-          </span>
+          <span className='navbar-item'>Home</span>
         </div>
 
         <div className='navbar-end'>
           <div className='navbar-item'>
             <div className='buttons'>
-              <span className='button is-rounded is-light' href='#'>
-                <strong>Sign up</strong>
-              </span>
-              <span
-                className='button is-rounded is-primary is-inverted is-outlined'
+              <Link
+                to='/register'
+                className='button is-rounded is-light'
                 href='#'
               >
+                <strong>Register</strong>
+              </Link>
+              <Link
+                to='/login'
+                className='button is-rounded is-primary is-inverted is-outlined'
+              >
                 Log in
-              </span>
+              </Link>
+              <Link
+                to='/login'
+                className='button is-rounded is-primary is-inverted is-outlined'
+              >
+                Logout
+              </Link>
             </div>
           </div>
         </div>

@@ -4,24 +4,36 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import Recipe from './components/pages/Recipe';
-
-import RecipeState from './context/recipe/RecipeState';
 import NewRecipe from './components/pages/NewRecipe';
+import Register from './components/pages/Register';
+import Login from './components/pages/Login';
+import setAuthToken from './utils/setAuthToken';
+
+import AuthState from './context/auth/AuthState';
+import RecipeState from './context/recipe/RecipeState';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
   return (
-    <RecipeState>
-      <Router>
-        <div className='App'>
-          <Navbar />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/new-recipe' component={NewRecipe} />
-            <Route exact path='/recipe/:id' component={Recipe} />
-          </Switch>
-        </div>
-      </Router>
-    </RecipeState>
+    <AuthState>
+      <RecipeState>
+        <Router>
+          <div className='App'>
+            <Navbar />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/new-recipe' component={NewRecipe} />
+              <Route exact path='/recipe/:id' component={Recipe} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+            </Switch>
+          </div>
+        </Router>
+      </RecipeState>
+    </AuthState>
   );
 }
 

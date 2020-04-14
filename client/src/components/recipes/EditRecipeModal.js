@@ -41,7 +41,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   const onSubmit = () => {
     setFormError('');
 
-    if (title === '' || !ingredients.length || instructions == '') {
+    if (title === '' || !ingredients.length || instructions === '') {
       setFormError('Some fields are empty');
       return false;
     }

@@ -14,7 +14,6 @@ router.post(
   '/',
   [
     check('username', 'Username is required').not().isEmpty(),
-    check('email', 'A valid email is required').isEmail(),
     check('password', 'Password must have 6 or more characters').isLength({
       min: 6
     })
@@ -26,22 +25,23 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { firstName, lastName, username, email, password } = req.body;
+    const { firstName, lastName, username, password } = req.body;
 
     try {
-      let user = await User.findOne({ email: email });
+      let user = await User.findOne({ username });
 
       if (user) {
-        return res.status(400).json({
-          msg: 'User already exists'
-        });
+        return res.status(400).json([
+          {
+            msg: 'User already exists'
+          }
+        ]);
       }
 
       user = new User({
         firstName,
         lastName,
         username,
-        email,
         password
       });
 

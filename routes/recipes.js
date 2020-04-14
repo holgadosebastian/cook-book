@@ -17,7 +17,6 @@ router.get('/', auth, (req, res) => {
 // @access    Private
 router.get('/:id', auth, async (req, res) => {
   try {
-    console.log(req.params.id);
     let recipe = await Recipe.findOne({ _id: req.params.id });
 
     res.json({ data: recipe });

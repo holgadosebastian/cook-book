@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm start --prefix client",
     "clientInstall": "npm install --prefix client",
-    "testServer": "nodemon server.js",
-    "dev": "concurrently \"npm run testServer\" \"npm run client start\""
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "devTest": "concurrently \"json-server --watch db.json --port 5000\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -32,5 +33,6 @@
     "express-validator": "^6.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.7"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
