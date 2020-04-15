@@ -43,8 +43,10 @@ router.post(
     check('title', 'A title for a recipe is required').not().isEmpty(),
     check('ingredients', 'Ingredients for a recipe are required')
       .not()
+      .isEmpty(),
+    check('instructions', 'Basic instructions for a recipe are required')
+      .not()
       .isEmpty()
-
     // TODO: Add correct validation for servingSize and cookingTime
     // check('servingSize', 'Serving size must be an integer')
     //   .isInt()
@@ -62,6 +64,7 @@ router.post(
     const {
       title,
       ingredients,
+      instructions,
       description,
       servingSize,
       cookingTime
@@ -71,6 +74,7 @@ router.post(
       let recipe = new Recipe({
         title,
         ingredients,
+        instructions,
         description,
         servingSize,
         cookingTime,

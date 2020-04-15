@@ -24,12 +24,12 @@ const Navbar = () => {
 
   const guestLinks = (
     <Fragment>
-      <Link to='/register' className='button is-rounded is-light'>
-        <strong>Register</strong>
+      <Link to='/register' className='button is-rounded is-light is-uppercase'>
+        Register
       </Link>
       <Link
         to='/login'
-        className='button is-rounded is-primary is-inverted is-outlined'
+        className='button is-rounded is-primary is-inverted is-outlined is-uppercase'
       >
         Log in
       </Link>
@@ -45,7 +45,7 @@ const Navbar = () => {
       <div className='navbar-brand'>
         <Link
           to='/'
-          className='navbar-item has-text-white has-text-weight-bold'
+          className='navbar-item has-text-white has-text-weight-medium is-uppercase'
         >
           Cook Book
         </Link>

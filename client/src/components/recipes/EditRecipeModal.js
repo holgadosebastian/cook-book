@@ -7,6 +7,8 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState('');
   const [newIngredient, setNewIngredient] = useState('');
+  const [cookingTime, setCookingTime] = useState('');
+  const [servingSize, setServingSize] = useState('');
   const [formError, setFormError] = useState('');
 
   const recipeContext = useContext(RecipeContext);
@@ -16,6 +18,8 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
     setTitle(recipe.title);
     setIngredients(recipe.ingredients);
     setInstructions(recipe.instructions);
+    setCookingTime(recipe.cookingTime);
+    setServingSize(recipe.servingSize);
   }, [recipe]);
 
   const addIngredient = () => {
@@ -63,19 +67,29 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
       <div className='modal-content'>
         <div className='box'>
           <div className='field'>
-            <label className='label'>Title</label>
+            <label
+              className='label is-uppercase has-text-weight-light has-text-grey-darker'
+              htmlFor='title'
+            >
+              Title <span className='has-text-danger'>*</span>
+            </label>
             <div className='control'>
               <input
+                id='title'
                 className='input'
                 type='text'
-                placeholder='Title'
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
           </div>
 
-          <label className='label'>Ingredients</label>
+          <label
+            className='label is-uppercase has-text-weight-light has-text-grey-darker'
+            htmlFor='ingredients'
+          >
+            Ingredients <span className='has-text-danger'>*</span>
+          </label>
           <div>
             {ingredients.map((ingredient) => (
               <div
@@ -92,33 +106,79 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
             ))}
           </div>
 
-          <div className='field is-grouped'>
-            <p className='control is-expanded'>
+          <div className='field has-addons'>
+            <div className='control is-expanded'>
               <input
+                id='ingredients'
                 className='input'
                 type='text'
-                placeholder='Ingredient'
                 value={newIngredient}
                 onChange={(e) => setNewIngredient(e.target.value)}
                 onKeyDown={(e) => e.keyCode === 13 && addIngredient()}
               />
-            </p>
-            <p className='control'>
+            </div>
+            <div className='control'>
               <span
-                className='button is-info is-rounded'
+                className='button is-info is-uppercase'
                 onClick={addIngredient}
               >
                 Add
               </span>
-            </p>
+            </div>
+          </div>
+
+          <div className='columns is-mobile'>
+            <div style={{ paddingBottom: 0 }} className='column'>
+              <div className='field'>
+                <label
+                  className='label is-uppercase has-text-weight-light has-text-grey-darker'
+                  htmlFor='servingsize'
+                >
+                  Serving Size
+                </label>
+                <div className='control'>
+                  <input
+                    id='servingsize'
+                    className='input'
+                    type='number'
+                    value={servingSize}
+                    onChange={(e) => setServingSize(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div style={{ paddingBottom: 0 }} className='column'>
+              <div className='field'>
+                <label
+                  className='label is-uppercase has-text-weight-light has-text-grey-darker'
+                  htmlFor='cookingtime'
+                >
+                  Cooking Time
+                </label>
+                <div className='control'>
+                  <input
+                    id='cookingtime'
+                    className='input'
+                    type='number'
+                    value={cookingTime}
+                    onChange={(e) => setCookingTime(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className='field'>
-            <label className='label'>Instructions</label>
+            <label
+              className='label is-uppercase has-text-weight-light has-text-grey-darker'
+              htmlFor='instructions'
+            >
+              Instructions <span className='has-text-danger'>*</span>
+            </label>
             <div className='control'>
               <textarea
+                id='instructions'
                 className='textarea'
-                placeholder='Textarea'
                 onChange={(e) => setInstructions(e.target.value)}
                 value={instructions}
               ></textarea>
@@ -128,7 +188,8 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
           {formError !== '' && <div>All fields are mandatory</div>}
 
           <span
-            className='button is-primary is-fullwidth is-rounded'
+            style={{ marginTop: '24px' }}
+            className='button is-primary is-fullwidth is-rounded is-uppercase'
             onClick={onSubmit}
           >
             Update
@@ -136,7 +197,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
 
           <span
             style={{ marginTop: '12px' }}
-            className='button is-outlined is-fullwidth is-rounded'
+            className='button is-text is-fullwidth is-rounded is-uppercase'
             onClick={onSubmit}
           >
             Cancel

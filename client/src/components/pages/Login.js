@@ -14,7 +14,7 @@ const Login = (props) => {
 
   return (
     <div
-      className='container is-fluid'
+      className='container is-form is-fluid'
       style={{ paddingTop: '80px', paddingBottom: '80px' }}
     >
       <LoginForm />
