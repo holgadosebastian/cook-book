@@ -45,7 +45,7 @@ const Recipe = ({ match }) => {
 
       <div style={{ paddingTop: '24px' }} className='container is-fluid'>
         <div className='columns'>
-          <div className='column one-third'>
+          <div className='column is-one-third'>
             {(!!currentRecipe.servingSize || !!currentRecipe.cookingTime) && (
               <div>
                 <p

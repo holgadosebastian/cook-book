@@ -10,11 +10,14 @@ const Navbar = () => {
 
   const authLinks = (
     <Fragment>
-      <Link to='/register' className='button is-rounded is-light'>
+      <Link
+        to='/register'
+        className='button is-rounded is-light is-block-touch'
+      >
         My account
       </Link>
       <span
-        className='button is-rounded is-primary is-inverted is-outlined'
+        className='button is-rounded is-primary is-inverted is-outlined is-block-touch'
         onClick={() => logoutUser()}
       >
         Logout
@@ -24,12 +27,15 @@ const Navbar = () => {
 
   const guestLinks = (
     <Fragment>
-      <Link to='/register' className='button is-rounded is-light is-uppercase'>
+      <Link
+        to='/register'
+        className='button is-rounded is-light is-uppercase is-block-touch'
+      >
         Register
       </Link>
       <Link
         to='/login'
-        className='button is-rounded is-primary is-inverted is-outlined is-uppercase'
+        className='button is-rounded is-primary is-inverted is-outlined is-uppercase is-block-touch'
       >
         Log in
       </Link>
@@ -69,13 +75,9 @@ const Navbar = () => {
         }`}
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <div className='navbar-start'>
-          <span className='navbar-item'>Home</span>
-        </div>
-
         <div className='navbar-end'>
           <div className='navbar-item'>
-            <div className='buttons'>
+            <div className='buttons is-block-touch'>
               {isAuthenticated ? authLinks : guestLinks}
             </div>
           </div>
