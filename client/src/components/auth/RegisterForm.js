@@ -11,10 +11,11 @@ const RegisterForm = () => {
     lastName: '',
     username: '',
     password: '',
-    password2: ''
+    password2: '',
+    secret: ''
   });
 
-  const { firstName, lastName, username, password, password2 } = user;
+  const { firstName, lastName, username, password, password2, secret } = user;
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -36,9 +37,14 @@ const RegisterForm = () => {
         msg: 'Password is required'
       });
     } else if (password !== password2) {
-      console.log(password, password2);
       submitErrors.push({
         msg: 'Passwords do not match'
+      });
+    }
+
+    if (secret === '') {
+      submitErrors.push({
+        msg: 'Secret is required'
       });
     }
 
@@ -51,7 +57,8 @@ const RegisterForm = () => {
       firstName,
       lastName,
       username,
-      password
+      password,
+      secret
     });
   };
 
@@ -169,6 +176,24 @@ const RegisterForm = () => {
                 name='password2'
                 type='password'
                 value={password2}
+                onChange={onChange}
+              />
+            </div>
+          </div>
+
+          <div className='field'>
+            <label
+              className='label is-uppercase has-text-weight-light has-text-grey-darker'
+              htmlFor='secret'
+            >
+              Secret <span className='has-text-danger'>*</span>
+            </label>
+            <div className='control'>
+              <input
+                className='input'
+                name='secret'
+                type='text'
+                value={secret}
                 onChange={onChange}
               />
             </div>

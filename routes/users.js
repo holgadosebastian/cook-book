@@ -16,7 +16,8 @@ router.post(
     check('username', 'Username is required').not().isEmpty(),
     check('password', 'Password must have 6 or more characters').isLength({
       min: 6
-    })
+    }),
+    check('secret', 'Secret is required').not().isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -25,7 +26,17 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { firstName, lastName, username, password } = req.body;
+    const { firstName, lastName, username, password, secret } = req.body;
+
+    // Register user only if they know the secret
+    if (
+      typeof secret !== 'string' ||
+      secret.toLowerCase() !== config.get('registerSecret')
+    ) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Secret is not correct' }] });
+    }
 
     try {
       let user = await User.findOne({ username });
