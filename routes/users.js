@@ -7,6 +7,19 @@ const config = require('config');
 
 const User = require('../models/User');
 
+// @route     GET api/users
+// @desc      Get a user
+// @access    Private
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route     POST api/users
 // @desc      Register a User
 // @access    Public

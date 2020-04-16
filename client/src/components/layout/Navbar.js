@@ -4,14 +4,14 @@ import AuthContext from '../../context/auth/authContext';
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, logoutUser } = authContext;
+  const { user, isAuthenticated, logoutUser } = authContext;
 
   const [menuOpen, setMenuOpen] = useState(false);
 
   const authLinks = (
     <Fragment>
       <Link
-        to='/register'
+        to={`/users/${user !== null && user._id}`}
         className='button is-rounded is-light is-block-touch'
       >
         My account

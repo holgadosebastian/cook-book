@@ -133,7 +133,7 @@ router.put('/:id', auth, async (req, res) => {
 
     res.json(recipe);
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.status(500).send('Server error');
   }
 });
@@ -155,7 +155,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     res.json({ msg: 'Recipe deleted' });
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.status(500).send('Server error');
   }
 });
@@ -167,7 +167,7 @@ router.get('/user/:id', async (req, res) => {
   try {
     let recipes = await Recipe.find({ creatorId: req.params.id });
 
-    res.json({ data: recipes });
+    res.json({ recipes });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');

@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import Recipe from './components/pages/Recipe';
+import User from './components/pages/User';
 import NewRecipe from './components/pages/NewRecipe';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
@@ -28,6 +29,7 @@ function App() {
               <Route exact path='/' component={Home} />
               <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
               <Route exact path='/recipe/:id' component={Recipe} />
+              <Route exact path='/users/:id' component={User} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
             </Switch>

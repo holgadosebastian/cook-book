@@ -181,7 +181,7 @@ const Recipe = ({ match }) => {
 
             <span
               style={{ marginTop: '16px' }}
-              className='button is-text is-outlined is-fullwidth is-outlined is-rounded'
+              className='button is-text is-outlined is-fullwidth is-outlined is-rounded is-uppercase'
               onClick={() => setDeleteModalActive(false)}
             >
               Cancel

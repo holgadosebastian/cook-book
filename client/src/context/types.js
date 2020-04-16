@@ -1,4 +1,5 @@
 export const GET_RECIPES = 'GET_RECIPES';
+export const GET_USER_RECIPES = 'GET_USER_RECIPES';
 export const ADD_RECIPE = 'ADD_RECIPE';
 export const DELETE_RECIPE = 'DELETE_RECIPE';
 export const RECIPE_ERROR = 'RECIPE_ERROR';

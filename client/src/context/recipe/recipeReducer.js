@@ -1,5 +1,6 @@
 import {
   GET_RECIPES,
+  GET_USER_RECIPES,
   ADD_RECIPE,
   DELETE_RECIPE,
   RECIPE_ERROR,
@@ -11,6 +12,7 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case GET_RECIPES:
+    case GET_USER_RECIPES:
       return {
         ...state,
         recipes: action.payload,

@@ -4,6 +4,7 @@ import RecipeContext from './recipeContext';
 import recipeReducer from './recipeReducer';
 import {
   GET_RECIPES,
+  GET_USER_RECIPES,
   ADD_RECIPE,
   DELETE_RECIPE,
   RECIPE_ERROR,
@@ -36,6 +37,19 @@ const RecipeState = (props) => {
       //   type: RECIPE_ERROR,
       //   payload: err.response.msg
       // });
+    }
+  };
+
+  const getUserRecipes = async (id) => {
+    try {
+      const res = await axios.get(`/api/recipes/user/${id}`);
+
+      dispatch({
+        type: GET_USER_RECIPES,
+        payload: res.data.recipes
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -126,6 +140,7 @@ const RecipeState = (props) => {
         currentRecipe: state.currentRecipe,
         error: state.error,
         getRecipes,
+        getUserRecipes,
         setCurrentRecipe,
         addRecipe,
         updateRecipe,

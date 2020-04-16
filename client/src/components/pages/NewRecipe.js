@@ -56,8 +56,6 @@ const NewRecipe = () => {
       });
     }
 
-    console.log(newFormErrors);
-
     if (!!newFormErrors.length) {
       setFormErrors(newFormErrors);
       return false;
@@ -71,7 +69,6 @@ const NewRecipe = () => {
       cookingTime: parseInt(cookingTime)
     };
 
-    console.log(recipe);
     addRecipe(recipe);
 
     setTitle('');
