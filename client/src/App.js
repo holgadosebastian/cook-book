@@ -12,6 +12,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 
 import AuthState from './context/auth/AuthState';
+import UserState from './context/user/UserState';
 import RecipeState from './context/recipe/RecipeState';
 
 if (localStorage.token) {
@@ -21,21 +22,23 @@ if (localStorage.token) {
 function App() {
   return (
     <AuthState>
-      <RecipeState>
-        <Router>
-          <div className='App'>
-            <Navbar />
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
-              <Route exact path='/recipe/:id' component={Recipe} />
-              <Route exact path='/users/:id' component={User} />
-              <Route exact path='/register' component={Register} />
-              <Route exact path='/login' component={Login} />
-            </Switch>
-          </div>
-        </Router>
-      </RecipeState>
+      <UserState>
+        <RecipeState>
+          <Router>
+            <div className='App'>
+              <Navbar />
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
+                <Route exact path='/recipe/:id' component={Recipe} />
+                <Route exact path='/users/:id' component={User} />
+                <Route exact path='/register' component={Register} />
+                <Route exact path='/login' component={Login} />
+              </Switch>
+            </div>
+          </Router>
+        </RecipeState>
+      </UserState>
     </AuthState>
   );
 }

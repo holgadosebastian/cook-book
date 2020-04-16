@@ -5,7 +5,7 @@ import RecipeCard from './RecipeCard';
 const RecipeList = ({ recipes }) => {
   return (
     <div>
-      <ul>
+      <ul className='columns' style={{ flexWrap: 'wrap' }}>
         {recipes.map((recipe) => (
           <RecipeCard key={recipe._id} recipe={recipe} />
         ))}

@@ -16,3 +16,5 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const USER_CLEAR_ERRORS = 'USER_CLEAR_ERRORS';
 export const USER_SET_ERRORS = 'USER_SET_ERRORS';
+
+export const GET_USER = 'GET_USER';

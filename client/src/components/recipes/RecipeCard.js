@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const RecipeCard = ({ recipe: { title, _id } }) => {
   return (
-    <li style={{ marginTop: '24px' }}>
+    <li style={{ marginTop: '24px' }} className='column is-one-third'>
       <Link to={`/recipe/${_id}`} className='card' style={{ display: 'block' }}>
         <div className='card-image'>
           <figure className='image is-2by1'>
