@@ -80,9 +80,10 @@ router.post(
       };
 
       jwt.sign(
+        payload,
         process.env.JWT_SECRET,
         {
-          expiresIn: 10800
+          expiresIn: 360000
         },
         (err, token) => {
           if (err) throw err;
