@@ -3,7 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
-const config = require('config');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const User = require('../models/User');
 
@@ -44,7 +45,7 @@ router.post(
     // Register user only if they know the secret
     if (
       typeof secret !== 'string' ||
-      secret.toLowerCase() !== config.get('registerSecret')
+      secret.toLowerCase() !== process.env.REGISTER_SECRET
     ) {
       return res
         .status(400)
@@ -82,8 +83,7 @@ router.post(
       };
 
       jwt.sign(
-        payload,
-        config.get('jwtSecret'),
+        process.env.JWT_SECRET,
         {
           expiresIn: 10800
         },
