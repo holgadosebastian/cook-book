@@ -12,16 +12,22 @@ const Navbar = () => {
     <Fragment>
       <Link
         to={`/users/${user !== null && user._id}`}
-        className='button is-rounded is-light is-block-touch'
+        className='button is-rounded is-text has-text-white is-block-touch is-uppercase'
       >
-        My account
+        My recipes
       </Link>
       <span
-        className='button is-rounded is-primary is-inverted is-outlined is-block-touch'
+        className='button is-rounded is-text has-text-white is-inverted is-outlined is-block-touch is-uppercase'
         onClick={() => logoutUser()}
       >
         Logout
       </span>
+      <Link
+        to='/new-recipe'
+        className='button is-rounded is-light is-block-touch is-uppercase'
+      >
+        Add Recipe
+      </Link>
     </Fragment>
   );
 
