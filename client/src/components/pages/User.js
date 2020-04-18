@@ -5,7 +5,7 @@ import RecipeContext from '../../context/recipe/recipeContext';
 
 const User = (props) => {
   const recipeContext = useContext(RecipeContext);
-  const { recipes, getUserRecipes } = recipeContext;
+  const { recipes, getUserRecipes, loading } = recipeContext;
 
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
@@ -28,7 +28,11 @@ const User = (props) => {
             : user.username)}
         's Recipes
       </h1>
-      <RecipeList recipes={recipes} />
+      <RecipeList
+        recipes={recipes}
+        loading={loading}
+        noRecipesMessage="User doesn't seem to have any public recipes"
+      />
     </div>
   );
 };

@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 
-const RecipeList = ({ recipes, loading }) => {
+const RecipeList = ({
+  recipes,
+  loading,
+  noRecipesMessage = 'No recipes found'
+}) => {
   return (
     <div>
       {loading ? (
@@ -11,12 +15,16 @@ const RecipeList = ({ recipes, loading }) => {
           <RecipeCard loader />
           <RecipeCard loader />
         </ul>
-      ) : (
+      ) : !!recipes.length ? (
         <ul className='columns' style={{ flexWrap: 'wrap' }}>
           {recipes.map((recipe) => (
             <RecipeCard key={recipe._id} recipe={recipe} />
           ))}
         </ul>
+      ) : (
+        <div>
+          <p className='is-size-5'>{noRecipesMessage}</p>
+        </div>
       )}
     </div>
   );
