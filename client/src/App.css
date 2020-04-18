@@ -29,3 +29,23 @@ body {
   top: 50%;
   margin-top: -1rem;
 }
+
+.card.is-loading {
+  animation-name: card-is-loading;
+  animation-duration: 3.5s;
+  opacity: 1;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes card-is-loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -5,8 +5,8 @@ import {
   DELETE_RECIPE,
   RECIPE_ERROR,
   SET_CURRENT_RECIPE,
-  CLEAR_CURRENT_RECIPE,
-  UPDATE_RECIPE
+  UPDATE_RECIPE,
+  RECIPE_LOADING
 } from '../types';
 
 export default (state, action) => {
@@ -34,9 +34,6 @@ export default (state, action) => {
       return {
         ...state,
         currentRecipe: null,
-        recipes: state.recipes.filter((recipe) => {
-          return recipe.id !== action.payload;
-        }),
         loading: false
       };
     case SET_CURRENT_RECIPE:
@@ -44,6 +41,17 @@ export default (state, action) => {
         ...state,
         currentRecipe: action.payload,
         loading: false
+      };
+    case RECIPE_ERROR:
+      return {
+        ...state,
+        errors: action.payload,
+        loading: false
+      };
+    case RECIPE_LOADING:
+      return {
+        ...state,
+        loading: true
       };
     default:
       return state;

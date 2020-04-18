@@ -26,7 +26,7 @@ const Navbar = () => {
         to='/new-recipe'
         className='button is-rounded is-light is-block-touch is-uppercase'
       >
-        Add Recipe
+        Create Recipe
       </Link>
     </Fragment>
   );
@@ -34,16 +34,16 @@ const Navbar = () => {
   const guestLinks = (
     <Fragment>
       <Link
-        to='/register'
-        className='button is-rounded is-light is-uppercase is-block-touch'
-      >
-        Register
-      </Link>
-      <Link
         to='/login'
         className='button is-rounded is-primary is-inverted is-outlined is-uppercase is-block-touch'
       >
         Log in
+      </Link>
+      <Link
+        to='/register'
+        className='button is-rounded is-light is-uppercase is-block-touch'
+      >
+        Register
       </Link>
     </Fragment>
   );

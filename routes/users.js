@@ -42,6 +42,8 @@ router.post(
 
     const { firstName, lastName, username, password, secret } = req.body;
 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     try {
       // Register user only if they know the secret
       if (secret !== process.env.REGISTER_SECRET) {

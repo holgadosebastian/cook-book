@@ -4,7 +4,7 @@ import AuthContext from '../../context/auth/authContext';
 
 const RegisterForm = () => {
   const authContext = useContext(AuthContext);
-  const { registerUser, setUserErrors, errors } = authContext;
+  const { registerUser, setUserErrors, errors, loading } = authContext;
 
   const [user, setUser] = useState({
     firstName: '',
@@ -214,7 +214,9 @@ const RegisterForm = () => {
 
           <button
             style={{ marginTop: '24px' }}
-            className='button is-primary is-rounded is-fullwidth is-uppercase'
+            className={`button is-primary is-rounded is-fullwidth is-uppercase ${
+              loading && 'is-loading'
+            }`}
             type='submit'
           >
             Register

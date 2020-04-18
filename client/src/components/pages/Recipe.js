@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import EditRecipeModal from '../recipes/EditRecipeModal';

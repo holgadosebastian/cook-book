@@ -7,12 +7,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  REGISTER_USER,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  USER_CLEAR_ERRORS,
   USER_SET_ERRORS,
   USER_LOADED,
+  AUTH_LOADING,
   AUTH_ERROR
 } from '../types';
 
@@ -21,7 +20,7 @@ const AuthState = (props) => {
     token: localStorage.getItem('token'),
     user: null,
     isAuthenticated: null,
-    loading: true,
+    loading: false,
     errors: []
   };
 
@@ -54,6 +53,8 @@ const AuthState = (props) => {
 
   // Register User
   const registerUser = async (formData) => {
+    setLoading();
+
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -80,6 +81,8 @@ const AuthState = (props) => {
 
   // Login User
   const loginUser = async (formData) => {
+    setLoading();
+
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -112,17 +115,19 @@ const AuthState = (props) => {
     });
   };
 
+  // Sets loading to true
+  const setLoading = () => {
+    dispatch({
+      type: AUTH_LOADING
+    });
+  };
+
   // Set Errors
   const setUserErrors = (errors) => {
     dispatch({
       type: USER_SET_ERRORS,
       payload: errors
     });
-  };
-
-  // Clear Errors
-  const clearUserErrors = () => {
-    console.log('Clear Errors');
   };
 
   return (
@@ -137,7 +142,7 @@ const AuthState = (props) => {
         registerUser,
         loginUser,
         logoutUser,
-        clearUserErrors,
+        setLoading,
         setUserErrors
       }}
     >

@@ -12,7 +12,7 @@ const NewRecipe = () => {
   const [formErrors, setFormErrors] = useState([]);
 
   const recipeContext = useContext(RecipeContext);
-  const { addRecipe } = recipeContext;
+  const { addRecipe, loading } = recipeContext;
 
   const addIngredient = () => {
     setIngredients([
@@ -71,10 +71,13 @@ const NewRecipe = () => {
 
     addRecipe(recipe);
 
+    // TODO: Redirect to recipe after creation
     setTitle('');
     setIngredients([]);
     setNewIngredient('');
     setInstructions('');
+    setCookingTime('');
+    setServingSize('');
   };
 
   return (
@@ -223,7 +226,9 @@ const NewRecipe = () => {
 
         <span
           style={{ marginTop: '24px' }}
-          className='button is-primary is-uppercase is-fullwidth is-rounded'
+          className={`button is-primary is-uppercase is-fullwidth is-rounded ${
+            loading && 'is-loading'
+          }`}
           onClick={onSubmit}
         >
           Create

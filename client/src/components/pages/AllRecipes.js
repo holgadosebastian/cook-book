@@ -4,7 +4,7 @@ import RecipeContext from '../../context/recipe/recipeContext';
 
 const AllRecipes = () => {
   const recipeContext = useContext(RecipeContext);
-  const { recipes, getRecipes } = recipeContext;
+  const { recipes, getRecipes, loading } = recipeContext;
 
   useEffect(() => {
     getRecipes();
@@ -21,7 +21,7 @@ const AllRecipes = () => {
           Latest Recipes
         </p>
       </div>
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes} loading={loading} />
     </div>
   );
 };

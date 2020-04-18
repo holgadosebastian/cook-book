@@ -58,6 +58,8 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
     };
 
     updateRecipe(updatedRecipe);
+
+    // TODO: Close modal after recipe has been updated
     setModalActive(false);
   };
 

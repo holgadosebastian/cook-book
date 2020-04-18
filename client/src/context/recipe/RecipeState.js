@@ -9,21 +9,24 @@ import {
   DELETE_RECIPE,
   RECIPE_ERROR,
   SET_CURRENT_RECIPE,
-  CLEAR_CURRENT_RECIPE,
-  UPDATE_RECIPE
+  UPDATE_RECIPE,
+  RECIPE_LOADING
 } from '../types';
 
 const RecipeState = (props) => {
   const initialState = {
     recipes: [],
     currentRecipe: null,
-    error: null
+    errors: null,
+    loading: false
   };
 
   const [state, dispatch] = useReducer(recipeReducer, initialState);
 
   // Get all recipes
   const getRecipes = async () => {
+    setRecipesLoading();
+
     try {
       const res = await axios.get('/api/recipes');
 
@@ -40,7 +43,10 @@ const RecipeState = (props) => {
     }
   };
 
+  // Get all recipes from a user
   const getUserRecipes = async (id) => {
+    setRecipesLoading();
+
     try {
       const res = await axios.get(`/api/recipes/user/${id}`);
 
@@ -53,7 +59,10 @@ const RecipeState = (props) => {
     }
   };
 
+  // Gets a recipe and sets it as current recipe
   const setCurrentRecipe = async (id) => {
+    setRecipesLoading();
+
     try {
       const res = await axios.get(`/api/recipes/${id}`);
 
@@ -61,8 +70,8 @@ const RecipeState = (props) => {
         type: SET_CURRENT_RECIPE,
         payload: res.data.recipe
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
       // dispatch({
       //   type: RECIPE_ERROR,
       //   payload: err.response.msg
@@ -70,7 +79,10 @@ const RecipeState = (props) => {
     }
   };
 
+  // Creates a recipe
   const addRecipe = async (recipe) => {
+    setRecipesLoading();
+
     const config = {
       headers: {
         'Context-Type': 'application/json'
@@ -93,7 +105,10 @@ const RecipeState = (props) => {
     }
   };
 
+  // Updates a recipe
   const updateRecipe = async (recipe) => {
+    setRecipesLoading();
+
     const config = {
       headers: {
         'Context-Type': 'application/json'
@@ -116,7 +131,10 @@ const RecipeState = (props) => {
     }
   };
 
+  // Removes a recipe
   const removeRecipe = async (id) => {
+    setRecipesLoading();
+
     try {
       await axios.delete(`/api/recipes/${id}`);
 
@@ -124,13 +142,19 @@ const RecipeState = (props) => {
         type: DELETE_RECIPE,
         payload: id
       });
-    } catch (err) {
-      console.log(err);
-      // dispatch({
-      //   type: RECIPE_ERROR,
-      //   payload: err.response.msg
-      // });
+    } catch (error) {
+      console.log(error.message);
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.errors
+      });
     }
+  };
+
+  const setRecipesLoading = () => {
+    dispatch({
+      type: RECIPE_LOADING
+    });
   };
 
   return (
@@ -138,13 +162,15 @@ const RecipeState = (props) => {
       value={{
         recipes: state.recipes,
         currentRecipe: state.currentRecipe,
-        error: state.error,
+        errors: state.errors,
+        loading: state.loading,
         getRecipes,
         getUserRecipes,
         setCurrentRecipe,
         addRecipe,
         updateRecipe,
-        removeRecipe
+        removeRecipe,
+        setRecipesLoading
       }}
     >
       {props.children}

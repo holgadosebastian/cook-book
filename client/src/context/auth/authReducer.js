@@ -2,12 +2,12 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  REGISTER_USER,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_CLEAR_ERRORS,
   USER_SET_ERRORS,
   USER_LOADED,
+  AUTH_LOADING,
   AUTH_ERROR
 } from '../types';
 
@@ -45,6 +45,11 @@ export default (state, action) => {
         loading: false,
         user: null,
         errors: action.payload
+      };
+    case AUTH_LOADING:
+      return {
+        ...state,
+        loading: true
       };
     case USER_CLEAR_ERRORS:
       return {
