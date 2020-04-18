@@ -64,7 +64,7 @@ const Navbar = () => {
 
         <span
           role='button'
-          className='navbar-burger burger'
+          className='navbar-burger burger has-text-white'
           aria-label='menu'
           aria-expanded='false'
           onClick={() => setMenuOpen(!menuOpen)}
