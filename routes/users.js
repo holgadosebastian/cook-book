@@ -42,17 +42,14 @@ router.post(
 
     const { firstName, lastName, username, password, secret } = req.body;
 
-    // Register user only if they know the secret
-    if (
-      typeof secret !== 'string' ||
-      secret.toLowerCase() !== process.env.REGISTER_SECRET
-    ) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Secret is not correct' }] });
-    }
-
     try {
+      // Register user only if they know the secret
+      if (secret !== process.env.REGISTER_SECRET) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Secret is not correct' }] });
+      }
+
       let user = await User.findOne({ username });
 
       if (user) {
@@ -83,9 +80,10 @@ router.post(
       };
 
       jwt.sign(
+        payload,
         process.env.JWT_SECRET,
         {
-          expiresIn: 10800
+          expiresIn: 360000
         },
         (err, token) => {
           if (err) throw err;
