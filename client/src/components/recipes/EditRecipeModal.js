@@ -1,6 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import RecipeContext from '../../context/recipe/recipeContext';
+import {
+  parseInstructionsToHtml,
+  parseInstructionsFromHtml
+} from '../../utils/recipeUtils';
 
 const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   const [title, setTitle] = useState('');
@@ -17,7 +21,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   useEffect(() => {
     setTitle(recipe.title);
     setIngredients(recipe.ingredients);
-    setInstructions(recipe.instructions);
+    setInstructions(parseInstructionsFromHtml(recipe.instructions));
     setCookingTime(recipe.cookingTime);
     setServingSize(recipe.servingSize);
   }, [recipe]);
@@ -54,7 +58,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
       id: recipe._id,
       title: title,
       ingredients: ingredients,
-      instructions: instructions
+      instructions: parseInstructionsToHtml(instructions)
     };
 
     updateRecipe(updatedRecipe);

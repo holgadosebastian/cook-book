@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import Interweave from 'interweave';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import EditRecipeModal from '../recipes/EditRecipeModal';
@@ -131,7 +132,7 @@ const Recipe = ({ match }) => {
               Instructions
             </p>
             <p className='is-size-6 has-text-weight-light has-text-grey-darker'>
-              {currentRecipe.instructions}
+              <Interweave content={currentRecipe.instructions} />
             </p>
           </div>
         </div>

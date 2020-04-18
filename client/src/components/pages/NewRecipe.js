@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { parseInstructionsToHtml } from '../../utils/recipeUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
 
 const NewRecipe = () => {
@@ -35,6 +36,8 @@ const NewRecipe = () => {
   };
 
   const onSubmit = () => {
+    console.log(parseInstructionsToHtml(instructions));
+
     setFormErrors([]);
     let newFormErrors = [];
 
@@ -64,7 +67,7 @@ const NewRecipe = () => {
     const recipe = {
       title,
       ingredients,
-      instructions,
+      instructions: parseInstructionsToHtml(instructions),
       servingSize: parseInt(servingSize),
       cookingTime: parseInt(cookingTime)
     };
