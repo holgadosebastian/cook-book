@@ -41,9 +41,8 @@ const autoPopulateRecipes = function (next) {
   next();
 };
 
-RecipeSchema.pre('findOne', autoPopulateRecipes).pre(
-  'find',
-  autoPopulateRecipes
-);
+RecipeSchema.pre('findOne', autoPopulateRecipes)
+  .pre('find', autoPopulateRecipes)
+  .pre('findOneAndUpdate', autoPopulateRecipes);
 
 module.exports = mongoose.model('recipe', RecipeSchema);

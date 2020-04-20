@@ -162,7 +162,7 @@ const Recipe = ({ match }) => {
           </div>
         </div>
 
-        {isAuthenticated && user._id === currentRecipe.creatorId && (
+        {isAuthenticated && user._id === currentRecipe.author._id && (
           <div className='is-hidden-desktop'>
             <p className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'>
               Actions
