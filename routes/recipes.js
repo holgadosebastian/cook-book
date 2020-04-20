@@ -78,7 +78,7 @@ router.post(
         description,
         servingSize,
         cookingTime,
-        creatorId: req.user.id
+        author: req.user.id
       });
 
       await recipe.save();
@@ -113,11 +113,11 @@ router.put('/:id', auth, async (req, res) => {
   if (cookingTime) recipeFields.cookingTime = cookingTime;
 
   try {
-    let recipe = await Recipe.findById(req.params.id);
+    let recipe = await Recipe.findOne({ _id: req.params.id });
 
     if (!recipe) return res.status(404).json({ msg: 'Contact not found' });
 
-    if (recipe.creatorId.toString() !== req.user.id) {
+    if (recipe.author.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized' });
     }
 
@@ -143,11 +143,11 @@ router.put('/:id', auth, async (req, res) => {
 // @access    Private
 router.delete('/:id', auth, async (req, res) => {
   try {
-    let recipe = await Recipe.findById(req.params.id);
+    let recipe = await Recipe.findOne({ _id: req.params.id });
 
     if (!recipe) return res.status(404).json({ msg: 'Contact not found' });
 
-    if (recipe.creatorId.toString() !== req.user.id) {
+    if (recipe.author.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized' });
     }
 
@@ -165,7 +165,7 @@ router.delete('/:id', auth, async (req, res) => {
 // @access    Public
 router.get('/user/:id', async (req, res) => {
   try {
-    let recipes = await Recipe.find({ creatorId: req.params.id });
+    let recipes = await Recipe.find({ author: req.params.id });
 
     res.json({ recipes });
   } catch (error) {

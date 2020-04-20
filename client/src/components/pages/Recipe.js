@@ -1,9 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import EditRecipeModal from '../recipes/EditRecipeModal';
 import { parseCookingTime } from '../../utils/recipeUtils';
+import { getUserName } from '../../utils/userUtils';
 
 const Recipe = ({ match }) => {
   const [deleteModalActive, setDeleteModalActive] = useState(false);
@@ -37,9 +39,23 @@ const Recipe = ({ match }) => {
       <section className='hero is-medium is-primary is-bold'>
         <div className='hero-body'>
           <div className='container'>
-            <h1 className='title has-text-weight-light is-uppercase has-text-centered'>
+            <h1 className='title is-spaced has-text-weight-light is-uppercase has-text-centered'>
               {currentRecipe.title}
             </h1>
+            <p className='subtitle has-text-centered has-text-weight-light'>
+              by{' '}
+              <Link
+                to={`/users/${currentRecipe.author._id}`}
+                className='has-text-white'
+                style={{ textDecoration: 'underline' }}
+              >
+                {getUserName(
+                  currentRecipe.author.firstName,
+                  currentRecipe.author.lastName,
+                  currentRecipe.author.username
+                )}
+              </Link>
+            </p>
           </div>
         </div>
       </section>
@@ -101,7 +117,7 @@ const Recipe = ({ match }) => {
               </ul>
             </div>
 
-            {isAuthenticated && user._id === currentRecipe.creatorId && (
+            {isAuthenticated && user._id === currentRecipe.author._id && (
               <div className='is-hidden-touch'>
                 <p className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'>
                   Actions

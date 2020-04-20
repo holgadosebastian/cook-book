@@ -25,14 +25,25 @@ const RecipeSchema = mongoose.Schema({
     type: Number,
     required: false
   },
-  creatorId: {
+  author: {
     type: mongoose.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'user'
   },
   date: {
     type: Date,
     default: Date.now
   }
 });
+
+const autoPopulateRecipes = function (next) {
+  this.populate('author', '-password');
+  next();
+};
+
+RecipeSchema.pre('findOne', autoPopulateRecipes).pre(
+  'find',
+  autoPopulateRecipes
+);
 
 module.exports = mongoose.model('recipe', RecipeSchema);
