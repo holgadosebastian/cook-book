@@ -4,10 +4,10 @@ import RecipeContext from '../../context/recipe/recipeContext';
 
 const AllRecipes = () => {
   const recipeContext = useContext(RecipeContext);
-  const { recipes, getRecipes, loading } = recipeContext;
+  const { recipes, getLatestRecipes, loading } = recipeContext;
 
   useEffect(() => {
-    getRecipes();
+    getLatestRecipes();
     // eslint-disable-next-line
   }, []);
 

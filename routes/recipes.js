@@ -19,6 +19,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route     GET api/recipes/latest
+// @desc      Get latest recipes feed
+// @access    Public
+router.get('/latest', async (req, res) => {
+  try {
+    let recipes = await Recipe.find().sort({ date: -1 }).limit(5);
+
+    res.json({ recipes });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route     GET api/recipes/:id
 // @desc      Get a recipe
 // @access    Public

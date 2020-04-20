@@ -37,7 +37,7 @@ const RecipeSchema = mongoose.Schema({
 });
 
 const autoPopulateRecipes = function (next) {
-  this.populate('author', '-password');
+  this.populate('author', ['-password', '-date', '-__v']);
   next();
 };
 
