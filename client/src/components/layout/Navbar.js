@@ -59,7 +59,7 @@ const Navbar = () => {
           to='/'
           className='navbar-item has-text-white has-text-weight-medium is-uppercase'
         >
-          Cook Book
+          Recipgeek
         </Link>
 
         <span
