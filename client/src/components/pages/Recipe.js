@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
+import Spinner from '../common/Spinner';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import EditRecipeModal from '../recipes/EditRecipeModal';
@@ -32,7 +33,15 @@ const Recipe = ({ match }) => {
     removeRecipe(currentRecipe._id);
   };
 
-  if (currentRecipe === null || loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className='container has-text-centered'>
+        <Spinner />
+        <p>Loading recipe</p>
+      </div>
+    );
+
+  if (currentRecipe === null) return <p>No recipe found</p>;
 
   return (
     <div>

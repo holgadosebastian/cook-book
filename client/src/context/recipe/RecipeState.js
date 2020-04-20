@@ -34,12 +34,12 @@ const RecipeState = (props) => {
         type: GET_RECIPES,
         payload: res.data.recipes
       });
-    } catch (err) {
-      console.log(err);
-      // dispatch({
-      //   type: RECIPE_ERROR,
-      //   payload: err.response.msg
-      // });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.msg
+      });
     }
   };
 
@@ -56,6 +56,10 @@ const RecipeState = (props) => {
       });
     } catch (error) {
       console.log(error);
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.msg
+      });
     }
   };
 
@@ -72,10 +76,10 @@ const RecipeState = (props) => {
       });
     } catch (error) {
       console.log(error);
-      // dispatch({
-      //   type: RECIPE_ERROR,
-      //   payload: err.response.msg
-      // });
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.msg
+      });
     }
   };
 
@@ -96,12 +100,12 @@ const RecipeState = (props) => {
         type: ADD_RECIPE,
         payload: res.data
       });
-    } catch (err) {
-      console.log(err);
-      // dispatch({
-      //   type: RECIPE_ERROR,
-      //   payload: err.response.msg
-      // });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.msg
+      });
     }
   };
 
@@ -124,10 +128,10 @@ const RecipeState = (props) => {
       });
     } catch (error) {
       console.log(error);
-      // dispatch({
-      //   type: RECIPE_ERROR,
-      //   payload: error.response.msg
-      // });
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.msg
+      });
     }
   };
 
