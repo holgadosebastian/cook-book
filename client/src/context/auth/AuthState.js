@@ -48,12 +48,14 @@ const AuthState = (props) => {
           ]
         });
       }
+    } else {
+      setLoading(false);
     }
   };
 
   // Register User
   const registerUser = async (formData) => {
-    setLoading();
+    setLoading(true);
 
     const config = {
       headers: {
@@ -81,7 +83,7 @@ const AuthState = (props) => {
 
   // Login User
   const loginUser = async (formData) => {
-    setLoading();
+    setLoading(true);
 
     const config = {
       headers: {
@@ -116,9 +118,10 @@ const AuthState = (props) => {
   };
 
   // Sets loading to true
-  const setLoading = () => {
+  const setLoading = (loading) => {
     dispatch({
-      type: AUTH_LOADING
+      type: AUTH_LOADING,
+      payload: loading
     });
   };
 

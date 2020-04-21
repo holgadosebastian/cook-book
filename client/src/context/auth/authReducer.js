@@ -49,7 +49,7 @@ export default (state, action) => {
     case AUTH_LOADING:
       return {
         ...state,
-        loading: true
+        loading: action.payload
       };
     case USER_CLEAR_ERRORS:
       return {

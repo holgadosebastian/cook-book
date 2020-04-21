@@ -1,21 +1,16 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../elements/Button';
+import FormField from '../form/FormField';
+import Message from '../common/Message';
 import AuthContext from '../../context/auth/authContext';
 
 const LoginForm = () => {
   const authContext = useContext(AuthContext);
   const { loginUser, setUserErrors, errors, loading } = authContext;
 
-  const [user, setUser] = useState({
-    username: '',
-    password: ''
-  });
-
-  const { username, password } = user;
-
-  const onChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -58,66 +53,26 @@ const LoginForm = () => {
           </span>
         </p>
         <form onSubmit={onSubmit}>
-          <div className='field'>
-            <label
-              className='label is-uppercase has-text-weight-light has-text-grey-darker'
-              htmlFor='username'
-            >
-              Username
-            </label>
-            <div className='control'>
-              <input
-                id='username'
-                className='input'
-                name='username'
-                type='text'
-                value={username}
-                onChange={onChange}
-              />
-            </div>
-          </div>
+          <FormField
+            id='username'
+            name='Username'
+            value={username}
+            onChange={setUsername}
+          />
 
-          <div className='field'>
-            <label
-              className='label is-uppercase has-text-weight-light has-text-grey-darker'
-              htmlFor='password'
-            >
-              Password
-            </label>
-            <div className='control'>
-              <input
-                className='input'
-                id='password'
-                name='password'
-                type='password'
-                value={password}
-                onChange={onChange}
-              />
-            </div>
-          </div>
+          <FormField
+            id='password'
+            name='Password'
+            value={password}
+            type='password'
+            onChange={setPassword}
+          />
 
-          {!!errors.length && (
-            <article className='message is-danger'>
-              <div className='message-body'>
-                <ul>
-                  {errors.map((error) => (
-                    // TODO: Add key
-                    <li className='is-size-6'>{error.msg}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          )}
+          {!!errors.length && <Message messageList={errors} />}
 
-          <button
-            style={{ marginTop: '24px' }}
-            className={`button is-primary is-rounded is-fullwidth is-uppercase ${
-              loading && 'is-loading'
-            }`}
-            type='submit'
-          >
+          <Button cssClasses='is-fullwidth' loading={loading} type='submit'>
             Login
-          </button>
+          </Button>
         </form>
       </div>
       <p className='has-text-centered has-text-grey has-font-weight-light'>

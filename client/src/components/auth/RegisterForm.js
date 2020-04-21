@@ -1,25 +1,20 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../elements/Button';
+import FormField from '../form/FormField';
+import Message from '../common/Message';
 import AuthContext from '../../context/auth/authContext';
 
 const RegisterForm = () => {
   const authContext = useContext(AuthContext);
   const { registerUser, setUserErrors, errors, loading } = authContext;
 
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    password: '',
-    password2: '',
-    secret: ''
-  });
-
-  const { firstName, lastName, username, password, password2, secret } = user;
-
-  const onChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [secret, setSecret] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -79,24 +74,12 @@ const RegisterForm = () => {
               }}
               className='column'
             >
-              <div className='field'>
-                <label
-                  className='label is-uppercase has-text-weight-light has-text-grey-darker'
-                  htmlFor='firstname'
-                >
-                  First Name
-                </label>
-                <div className='control'>
-                  <input
-                    id='firstname'
-                    className='input'
-                    name='firstName'
-                    type='text'
-                    value={firstName}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
+              <FormField
+                id='firstname'
+                name='First Name'
+                value={firstName}
+                onChange={setFirstName}
+              />
             </div>
             <div
               style={{
@@ -104,123 +87,54 @@ const RegisterForm = () => {
               }}
               className='column'
             >
-              <div className='field'>
-                <label
-                  className='label is-uppercase has-text-weight-light has-text-grey-darker'
-                  htmlFor='lastname'
-                >
-                  Last Name
-                </label>
-                <div className='control'>
-                  <input
-                    id='lastname'
-                    className='input'
-                    name='lastName'
-                    type='text'
-                    value={lastName}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='field'>
-            <label
-              className='label is-uppercase has-text-weight-light has-text-grey-darker'
-              htmlFor='username'
-            >
-              Username <span className='has-text-danger'>*</span>
-            </label>
-            <div className='control'>
-              <input
-                id='username'
-                className='input'
-                name='username'
-                type='text'
-                value={username}
-                onChange={onChange}
+              <FormField
+                id='lastname'
+                name='Last Name'
+                value={lastName}
+                onChange={setLastName}
               />
             </div>
           </div>
 
-          <div className='field'>
-            <label
-              className='label is-uppercase has-text-weight-light has-text-grey-darker'
-              htmlFor='password'
-            >
-              Password <span className='has-text-danger'>*</span>
-            </label>
-            <div className='control'>
-              <input
-                id='password'
-                className='input'
-                name='password'
-                type='password'
-                value={password}
-                onChange={onChange}
-              />
-            </div>
-          </div>
+          <FormField
+            id='username'
+            name='Username'
+            value={username}
+            onChange={setUsername}
+            required
+          />
 
-          <div className='field'>
-            <label
-              className='label is-uppercase has-text-weight-light has-text-grey-darker'
-              htmlFor='password2'
-            >
-              Confirm password <span className='has-text-danger'>*</span>
-            </label>
-            <div className='control'>
-              <input
-                className='input'
-                name='password2'
-                type='password'
-                value={password2}
-                onChange={onChange}
-              />
-            </div>
-          </div>
+          <FormField
+            id='password'
+            name='Password'
+            value={password}
+            onChange={setPassword}
+            type='password'
+            required
+          />
 
-          <div className='field'>
-            <label
-              className='label is-uppercase has-text-weight-light has-text-grey-darker'
-              htmlFor='secret'
-            >
-              Secret <span className='has-text-danger'>*</span>
-            </label>
-            <div className='control'>
-              <input
-                className='input'
-                name='secret'
-                type='text'
-                value={secret}
-                onChange={onChange}
-              />
-            </div>
-          </div>
+          <FormField
+            id='password2'
+            name='Confirm Password'
+            value={password2}
+            onChange={setPassword2}
+            type='password'
+            required
+          />
 
-          {!!errors.length && (
-            <article className='message is-danger'>
-              <div className='message-body'>
-                <ul>
-                  {errors.map((error) => (
-                    // TODO: Add key
-                    <li className='is-size-7'>{error.msg}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          )}
+          <FormField
+            id='secret'
+            name='Secret'
+            value={secret}
+            onChange={setSecret}
+            required
+          />
 
-          <button
-            style={{ marginTop: '24px' }}
-            className={`button is-primary is-rounded is-fullwidth is-uppercase ${
-              loading && 'is-loading'
-            }`}
-            type='submit'
-          >
-            Register
-          </button>
+          {!!errors.length && <Message messageList={errors} />}
+
+          <Button cssClasses='is-fullwidth' loading={loading} type='submit'>
+            Login
+          </Button>
         </form>
       </div>
       <p className='has-text-centered has-text-grey has-font-weight-light'>

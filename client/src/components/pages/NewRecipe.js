@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import FormField from '../form/FormField';
 import { parseInstructionsToHtml } from '../../utils/recipeUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
 
@@ -36,8 +37,6 @@ const NewRecipe = () => {
   };
 
   const onSubmit = () => {
-    console.log(parseInstructionsToHtml(instructions));
-
     setFormErrors([]);
     let newFormErrors = [];
 
@@ -95,7 +94,17 @@ const NewRecipe = () => {
         >
           Create New Recipe
         </p>
-        <div className='field'>
+
+        <FormField
+          id='title'
+          name='Title'
+          value={title}
+          onChange={setTitle}
+          required
+        />
+
+        {/* <div className='field'>
+
           <label
             className='label is-uppercase has-text-weight-light has-text-grey-darker'
             htmlFor='title'
@@ -111,7 +120,7 @@ const NewRecipe = () => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-        </div>
+        </div> */}
 
         <label
           className='label is-uppercase has-text-weight-light has-text-grey-darker'
