@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const FileUpload = ({ name, onChange }) => {
+const FileUpload = ({ name, onChange, uploadedImage }) => {
+  let ctaStyles = {
+    minHeight: '72px',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat'
+  };
+  if (uploadedImage) ctaStyles.backgroundImage = `url(${uploadedImage})`;
+
   return (
     <div className='field'>
       <div className='file is-small is-boxed'>
@@ -12,11 +20,15 @@ const FileUpload = ({ name, onChange }) => {
             name='resume'
             onChange={onChange}
           />
-          <span className='file-cta'>
-            <span className='file-icon'>
-              <i className='fas fa-upload'></i>
-            </span>
-            <span className='file-label'>{name}</span>
+          <span className='file-cta' style={ctaStyles}>
+            {uploadedImage === null && (
+              <Fragment>
+                <span className='file-icon'>
+                  <i className='fas fa-upload'></i>
+                </span>
+                <span className='file-label'>{name}</span>
+              </Fragment>
+            )}
           </span>
         </label>
       </div>
@@ -26,7 +38,8 @@ const FileUpload = ({ name, onChange }) => {
 
 FileUpload.propTypes = {
   name: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  uploadedImage: PropTypes.string
 };
 
 export default FileUpload;

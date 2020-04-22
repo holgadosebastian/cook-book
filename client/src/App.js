@@ -29,7 +29,7 @@ function App() {
               <Navbar />
               <Switch>
                 <Route exact path='/' component={Home} />
-                <Route exact path='/new-recipe' component={NewRecipe} />
+                <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
                 <Route exact path='/recipe/:id' component={Recipe} />
                 <Route exact path='/users/:id' component={User} />
                 <Route exact path='/register' component={Register} />

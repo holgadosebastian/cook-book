@@ -45,9 +45,18 @@ const Recipe = ({ match }) => {
 
   if (currentRecipe === null) return <p>No recipe found</p>;
 
+  let heroStyles = {
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  };
+
+  if (currentRecipe.mainImage)
+    heroStyles.backgroundImage = `url(/${currentRecipe.mainImage.imageData})`;
+
   return (
     <div>
-      <section className='hero is-medium is-primary is-bold'>
+      <section className='hero is-medium is-primary is-bold' style={heroStyles}>
         <div className='hero-body'>
           <div className='container'>
             <h1 className='title is-spaced has-text-weight-light is-uppercase has-text-centered'>

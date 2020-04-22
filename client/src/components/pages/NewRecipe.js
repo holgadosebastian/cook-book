@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import FormField from '../form/FormField';
 import FileUpload from '../form/FileUpload';
@@ -9,6 +10,8 @@ import RecipeContext from '../../context/recipe/recipeContext';
 
 const NewRecipe = (props) => {
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState('');
   const [newIngredient, setNewIngredient] = useState('');
@@ -39,8 +42,26 @@ const NewRecipe = (props) => {
     );
   };
 
-  const onFileUpload = (e) => {
-    console.log(e.target.files[0]);
+  const onFileUpload = async (e) => {
+    const config = {
+      headers: {
+        'Context-Type': 'multipart/form-data'
+      }
+    };
+
+    try {
+      let imageFormObj = new FormData();
+
+      imageFormObj.append('imageName', 'multer-image-' + Date.now());
+      imageFormObj.append('imageData', e.target.files[0]);
+
+      let res = await axios.post('/api/image', imageFormObj, config);
+
+      setImage(res.data.result._id);
+      setImageUrl(res.data.result.imageData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onSubmit = async () => {
@@ -75,7 +96,8 @@ const NewRecipe = (props) => {
       ingredients,
       instructions: parseInstructionsToHtml(instructions),
       servingSize: parseInt(servingSize),
-      cookingTime: parseInt(cookingTime)
+      cookingTime: parseInt(cookingTime),
+      mainImage: image
     };
 
     let newRecipe = await createRecipe(recipe);
@@ -100,6 +122,13 @@ const NewRecipe = (props) => {
         </p>
 
         <div className='columns'>
+          <div className='column is-one-quarter'>
+            <FileUpload
+              name='Recipe Image'
+              onChange={onFileUpload}
+              uploadedImage={imageUrl}
+            />
+          </div>
           <div className='column is-three-quarters'>
             <FormField
               id='title'
@@ -108,9 +137,6 @@ const NewRecipe = (props) => {
               onChange={setTitle}
               required
             />
-          </div>
-          <div className='column is-one-quarter'>
-            <FileUpload name='Recipe Image' onChange={onFileUpload} />
           </div>
         </div>
 

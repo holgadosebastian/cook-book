@@ -81,7 +81,8 @@ router.post(
       instructions,
       description,
       servingSize,
-      cookingTime
+      cookingTime,
+      mainImage
     } = req.body;
 
     try {
@@ -92,7 +93,8 @@ router.post(
         description,
         servingSize,
         cookingTime,
-        author: req.user.id
+        author: req.user.id,
+        mainImage
       });
 
       await recipe.save();

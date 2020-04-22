@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const RecipeSchema = mongoose.Schema({
+const RecipeSchema = Schema({
   title: {
     type: String,
     required: true
@@ -30,6 +31,11 @@ const RecipeSchema = mongoose.Schema({
     required: true,
     ref: 'user'
   },
+  mainImage: {
+    type: mongoose.Types.ObjectId,
+    required: false,
+    ref: 'image'
+  },
   date: {
     type: Date,
     default: Date.now
@@ -38,6 +44,7 @@ const RecipeSchema = mongoose.Schema({
 
 const autoPopulateRecipes = function (next) {
   this.populate('author', ['-password', '-date', '-__v']);
+  this.populate('mainImage');
   next();
 };
 
