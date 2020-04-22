@@ -68,9 +68,14 @@ const LoginForm = () => {
             onChange={setPassword}
           />
 
-          {!!errors.length && <Message messageList={errors} />}
+          <Message messageList={errors} />
 
-          <Button cssClasses='is-fullwidth' loading={loading} type='submit'>
+          <Button
+            style={{ marginTop: '24px' }}
+            cssClasses='is-fullwidth'
+            loading={loading}
+            type='submit'
+          >
             Login
           </Button>
         </form>

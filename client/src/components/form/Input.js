@@ -14,10 +14,10 @@ const Input = ({ id, value, type = 'text', onChange }) => {
 };
 
 Input.propTypes = {
-  name: PropTypes.string,
+  id: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  htmlFor: PropTypes.string,
-  required: PropTypes.bool
+  type: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 export default Input;

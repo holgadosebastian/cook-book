@@ -1,29 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Label from './Label';
 import Input from './Input';
 
-const FormField = ({ name, id, type = 'text', value, onChange, required }) => {
+const FormField = ({ id, name, type = 'text', value, onChange, required }) => {
   return (
     <div className='field'>
-      {/* <label
-        className='label is-uppercase has-text-weight-light has-text-grey-darker'
-        htmlFor='title'
-      >
-        Title <span className='has-text-danger'>*</span>
-      </label> */}
       <Label name={name} htmlFor={id} required={required} />
       <div className='control'>
-        {/* <input
-          id='title'
-          className='input'
-          type='text'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        /> */}
         <Input id={id} value={value} onChange={onChange} type={type} />
       </div>
     </div>
   );
+};
+
+FormField.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+  required: PropTypes.bool
 };
 
 export default FormField;

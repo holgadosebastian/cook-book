@@ -161,7 +161,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     if (!recipe) return res.status(404).json({ msg: 'Contact not found' });
 
-    if (recipe.author.toString() !== req.user.id) {
+    if (recipe.author._id.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized' });
     }
 

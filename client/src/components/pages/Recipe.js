@@ -1,10 +1,12 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { Fragment, useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
+import Button from '../elements/Button';
 import Spinner from '../common/Spinner';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import EditRecipeModal from '../recipes/EditRecipeModal';
+import DeleteRecipeModal from '../recipes/DeleteRecipeModal';
 import { parseCookingTime } from '../../utils/recipeUtils';
 import { getUserName } from '../../utils/userUtils';
 
@@ -29,7 +31,7 @@ const Recipe = ({ match }) => {
     // eslint-disable-next-line
   }, []);
 
-  const onRemove = () => {
+  const onDelete = () => {
     removeRecipe(currentRecipe._id);
   };
 
@@ -132,18 +134,20 @@ const Recipe = ({ match }) => {
                   Actions
                 </p>
                 <div style={{ marginTop: '12px' }} className='buttons'>
-                  <span
-                    className='button is-info is-outlined is-rounded is-uppercase'
+                  <Button
+                    color='info'
+                    outlined
                     onClick={() => setEditModalActive(true)}
                   >
                     Edit Recipe
-                  </span>
-                  <span
-                    className='button is-danger is-outlined is-rounded is-uppercase'
+                  </Button>
+                  <Button
+                    color='danger'
+                    outlined
                     onClick={() => setDeleteModalActive(true)}
                   >
                     Delete Recipe
-                  </span>
+                  </Button>
                 </div>
               </div>
             )}
@@ -163,69 +167,43 @@ const Recipe = ({ match }) => {
         </div>
 
         {isAuthenticated && user._id === currentRecipe.author._id && (
-          <div className='is-hidden-desktop'>
-            <p className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'>
-              Actions
-            </p>
-            <div style={{ marginTop: '12px' }}>
-              <span
-                className='button is-info is-fullwidth is-outlined is-rounded'
-                onClick={() => setEditModalActive(true)}
-              >
-                Edit Recipe
-              </span>
+          <Fragment>
+            <div className='is-hidden-desktop'>
+              <p className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'>
+                Actions
+              </p>
+              <div style={{ marginTop: '12px' }}>
+                <span
+                  className='button is-info is-fullwidth is-outlined is-rounded'
+                  onClick={() => setEditModalActive(true)}
+                >
+                  Edit Recipe
+                </span>
+              </div>
+              <div style={{ marginTop: '12px' }}>
+                <span
+                  className='button is-danger is-fullwidth  is-outlined is-rounded'
+                  onClick={() => setDeleteModalActive(true)}
+                >
+                  Delete Recipe
+                </span>
+              </div>
             </div>
-            <div style={{ marginTop: '12px' }}>
-              <span
-                className='button is-danger is-fullwidth  is-outlined is-rounded'
-                onClick={() => setDeleteModalActive(true)}
-              >
-                Delete Recipe
-              </span>
-            </div>
-          </div>
+
+            <DeleteRecipeModal
+              modalActive={deleteModalActive}
+              setModalActive={setDeleteModalActive}
+              onDelete={onDelete}
+            />
+
+            <EditRecipeModal
+              modalActive={editModalActive}
+              recipe={currentRecipe}
+              setModalActive={setEditModalActive}
+            />
+          </Fragment>
         )}
       </div>
-
-      <div className={`modal ${deleteModalActive && 'is-active'}`}>
-        <div
-          className='modal-background'
-          onClick={() => setDeleteModalActive(false)}
-        ></div>
-        <div className='modal-content'>
-          <div className='box'>
-            <p className='is-size-5 has-text-weight-light has-text-grey-darker has-text-centered'>
-              Are you sure you want to delete this recipe?
-            </p>
-            <span
-              style={{ marginTop: '24px' }}
-              className='button is-danger is-fullwidth is-outlined is-rounded is-uppercase'
-              onClick={onRemove}
-            >
-              Delete
-            </span>
-
-            <span
-              style={{ marginTop: '16px' }}
-              className='button is-text is-outlined is-fullwidth is-outlined is-rounded is-uppercase'
-              onClick={() => setDeleteModalActive(false)}
-            >
-              Cancel
-            </span>
-          </div>
-        </div>
-        <button
-          className='modal-close is-large'
-          onClick={() => setDeleteModalActive(false)}
-          aria-label='close'
-        ></button>
-      </div>
-
-      <EditRecipeModal
-        modalActive={editModalActive}
-        recipe={currentRecipe}
-        setModalActive={setEditModalActive}
-      />
     </div>
   );
 };

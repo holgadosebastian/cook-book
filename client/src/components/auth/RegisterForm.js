@@ -130,10 +130,15 @@ const RegisterForm = () => {
             required
           />
 
-          {!!errors.length && <Message messageList={errors} />}
+          <Message messageList={errors} />
 
-          <Button cssClasses='is-fullwidth' loading={loading} type='submit'>
-            Login
+          <Button
+            style={{ marginTop: '24px' }}
+            cssClasses='is-fullwidth'
+            loading={loading}
+            type='submit'
+          >
+            Register
           </Button>
         </form>
       </div>
