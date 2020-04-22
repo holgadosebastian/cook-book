@@ -49,7 +49,7 @@ const LoginForm = () => {
         >
           Login to{' '}
           <span className='has-text-grey-darker has-text-weight-normal'>
-            Cook Book
+            Recipgeek
           </span>
         </p>
         <form onSubmit={onSubmit}>
