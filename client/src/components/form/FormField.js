@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Label from './Label';
 import Input from './Input';
+import Textarea from './Textarea';
 
 const FormField = ({ id, name, type = 'text', value, onChange, required }) => {
   return (
     <div className='field'>
       <Label name={name} htmlFor={id} required={required} />
       <div className='control'>
-        <Input id={id} value={value} onChange={onChange} type={type} />
+        {type === 'textarea' ? (
+          <Textarea id={id} value={value} onChange={onChange} />
+        ) : (
+          <Input id={id} value={value} onChange={onChange} type={type} />
+        )}
       </div>
     </div>
   );

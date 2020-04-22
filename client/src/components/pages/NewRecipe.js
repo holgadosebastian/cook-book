@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import FormField from '../form/FormField';
+import FileUpload from '../form/FileUpload';
+import Button from '../elements/Button';
+import Message from '../common/Message';
 import { parseInstructionsToHtml } from '../../utils/recipeUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
 
@@ -34,6 +37,10 @@ const NewRecipe = () => {
         return ingredient.id !== id;
       })
     );
+  };
+
+  const onFileUpload = (e) => {
+    console.log(e.target.files[0]);
   };
 
   const onSubmit = () => {
@@ -95,32 +102,20 @@ const NewRecipe = () => {
           Create New Recipe
         </p>
 
-        <FormField
-          id='title'
-          name='Title'
-          value={title}
-          onChange={setTitle}
-          required
-        />
-
-        {/* <div className='field'>
-
-          <label
-            className='label is-uppercase has-text-weight-light has-text-grey-darker'
-            htmlFor='title'
-          >
-            Title <span className='has-text-danger'>*</span>
-          </label>
-          <div className='control'>
-            <input
+        <div className='columns'>
+          <div className='column is-three-quarters'>
+            <FormField
               id='title'
-              className='input'
-              type='text'
+              name='Title'
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={setTitle}
+              required
             />
           </div>
-        </div> */}
+          <div className='column is-one-quarter'>
+            <FileUpload name='Recipe Image' onChange={onFileUpload} />
+          </div>
+        </div>
 
         <label
           className='label is-uppercase has-text-weight-light has-text-grey-darker'
@@ -167,84 +162,44 @@ const NewRecipe = () => {
 
         <div className='columns is-mobile'>
           <div style={{ paddingBottom: 0 }} className='column'>
-            <div className='field'>
-              <label
-                className='label is-uppercase has-text-weight-light has-text-grey-darker'
-                htmlFor='servingsize'
-              >
-                Serving Size
-              </label>
-              <div className='control'>
-                <input
-                  id='servingsize'
-                  className='input'
-                  type='number'
-                  value={servingSize}
-                  onChange={(e) => setServingSize(e.target.value)}
-                />
-              </div>
-            </div>
+            <FormField
+              id='servingsize'
+              name='Serving Size'
+              value={servingSize}
+              onChange={setServingSize}
+              type='number'
+            />
           </div>
           <div style={{ paddingBottom: 0 }} className='column'>
-            <div className='field'>
-              <label
-                className='label is-uppercase has-text-weight-light has-text-grey-darker'
-                htmlFor='cookingtime'
-              >
-                Cooking Time
-              </label>
-              <div className='control'>
-                <input
-                  id='cookingtime'
-                  className='input'
-                  type='number'
-                  value={cookingTime}
-                  onChange={(e) => setCookingTime(e.target.value)}
-                />
-              </div>
-            </div>
+            <FormField
+              id='cookingtime'
+              name='Cooking Time'
+              value={cookingTime}
+              onChange={setCookingTime}
+              type='number'
+            />
           </div>
         </div>
 
-        <div className='field'>
-          <label
-            className='label is-uppercase has-text-weight-light has-text-grey-darker'
-            htmlFor='instructions'
-          >
-            Instructions <span className='has-text-danger'>*</span>
-          </label>
-          <div className='control'>
-            <textarea
-              id='instructions'
-              className='textarea'
-              onChange={(e) => setInstructions(e.target.value)}
-              value={instructions}
-            ></textarea>
-          </div>
-        </div>
+        <FormField
+          id='instructions'
+          name='Instructions'
+          value={instructions}
+          onChange={setInstructions}
+          type='textarea'
+          required
+        />
 
-        {!!formErrors.length && (
-          <article className='message is-danger'>
-            <div className='message-body'>
-              <ul>
-                {formErrors.map((error) => (
-                  // TODO: Add key
-                  <li className='is-size-7'>{error.msg}</li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        )}
+        <Message messageList={formErrors} />
 
-        <span
+        <Button
           style={{ marginTop: '24px' }}
-          className={`button is-primary is-uppercase is-fullwidth is-rounded ${
-            loading && 'is-loading'
-          }`}
+          cssClasses='is-fullwidth'
+          loading={loading}
           onClick={onSubmit}
         >
           Create
-        </span>
+        </Button>
       </div>
     </div>
   );
