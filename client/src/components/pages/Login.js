@@ -4,7 +4,7 @@ import AuthContext from '../../context/auth/authContext';
 
 const Login = (props) => {
   const authContext = useContext(AuthContext);
-  const { loadUser, isAuthenticated } = authContext;
+  const { loadUser, isAuthenticated, clearErrors } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -13,7 +13,8 @@ const Login = (props) => {
   }, [isAuthenticated, props.history]);
 
   useEffect(() => {
-    loadUser();
+    console.log(clearErrors);
+    !isAuthenticated && loadUser();
     // eslint-disable-next-line
   }, []);
 
