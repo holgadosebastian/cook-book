@@ -2,7 +2,7 @@ import {
   GET_RECIPES,
   GET_LATEST_RECIPES,
   GET_USER_RECIPES,
-  ADD_RECIPE,
+  CREATE_RECIPE,
   DELETE_RECIPE,
   RECIPE_ERROR,
   SET_CURRENT_RECIPE,
@@ -20,10 +20,9 @@ export default (state, action) => {
         recipes: action.payload,
         loading: false
       };
-    case ADD_RECIPE:
+    case CREATE_RECIPE:
       return {
         ...state,
-        currentRecipe: action.payload,
         loading: false
       };
     case UPDATE_RECIPE:

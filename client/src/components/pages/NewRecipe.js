@@ -7,7 +7,7 @@ import Message from '../common/Message';
 import { parseInstructionsToHtml } from '../../utils/recipeUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
 
-const NewRecipe = () => {
+const NewRecipe = (props) => {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState('');
@@ -17,7 +17,7 @@ const NewRecipe = () => {
   const [formErrors, setFormErrors] = useState([]);
 
   const recipeContext = useContext(RecipeContext);
-  const { addRecipe, loading } = recipeContext;
+  const { createRecipe, loading } = recipeContext;
 
   const addIngredient = () => {
     setIngredients([
@@ -43,7 +43,7 @@ const NewRecipe = () => {
     console.log(e.target.files[0]);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setFormErrors([]);
     let newFormErrors = [];
 
@@ -78,15 +78,12 @@ const NewRecipe = () => {
       cookingTime: parseInt(cookingTime)
     };
 
-    addRecipe(recipe);
+    let newRecipe = await createRecipe(recipe);
 
-    // TODO: Redirect to recipe after creation
-    setTitle('');
-    setIngredients([]);
-    setNewIngredient('');
-    setInstructions('');
-    setCookingTime('');
-    setServingSize('');
+    // Redirects to the newly created recipe
+    if (newRecipe) {
+      props.history.push(`/recipe/${newRecipe._id}`);
+    }
   };
 
   return (

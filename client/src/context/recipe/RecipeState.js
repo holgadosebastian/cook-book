@@ -6,7 +6,7 @@ import {
   GET_RECIPES,
   GET_LATEST_RECIPES,
   GET_USER_RECIPES,
-  ADD_RECIPE,
+  CREATE_RECIPE,
   DELETE_RECIPE,
   RECIPE_ERROR,
   SET_CURRENT_RECIPE,
@@ -105,7 +105,7 @@ const RecipeState = (props) => {
   };
 
   // Creates a recipe
-  const addRecipe = async (recipe) => {
+  const createRecipe = async (recipe) => {
     setRecipesLoading();
 
     const config = {
@@ -118,9 +118,11 @@ const RecipeState = (props) => {
       const res = await axios.post('/api/recipes', recipe, config);
 
       dispatch({
-        type: ADD_RECIPE,
-        payload: res.data
+        type: CREATE_RECIPE,
+        payload: res.data.recipe
       });
+
+      return res.data.recipe;
     } catch (error) {
       console.log(error);
       dispatch({
@@ -193,7 +195,7 @@ const RecipeState = (props) => {
         getLatestRecipes,
         getUserRecipes,
         setCurrentRecipe,
-        addRecipe,
+        createRecipe,
         updateRecipe,
         removeRecipe,
         setRecipesLoading
