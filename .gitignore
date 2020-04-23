@@ -13,7 +13,6 @@
 
 # config
 /config/default.json
-**/config/firebase-config.js
 
 # uploaded files
 /uploads/**
