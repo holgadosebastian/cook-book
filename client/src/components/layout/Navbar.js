@@ -12,12 +12,12 @@ const Navbar = () => {
     <Fragment>
       <Link
         to={`/users/${user !== null && user._id}`}
-        className='button is-rounded is-text has-text-white is-block-touch is-uppercase'
+        className='navbar-item has-text-white has-text-centered is-uppercase'
       >
         My recipes
       </Link>
       <span
-        className='button is-rounded is-text has-text-white is-inverted is-outlined is-block-touch is-uppercase'
+        className='navbar-item has-text-white has-text-centered is-uppercase'
         onClick={() => logoutUser()}
       >
         Logout
@@ -35,7 +35,7 @@ const Navbar = () => {
     <Fragment>
       <Link
         to='/login'
-        className='button is-rounded is-primary is-inverted is-outlined is-uppercase is-block-touch'
+        className='navbar-item has-text-white has-text-centered is-uppercase'
       >
         Log in
       </Link>
@@ -64,7 +64,9 @@ const Navbar = () => {
 
         <span
           role='button'
-          className='navbar-burger burger has-text-white'
+          className={`navbar-burger burger has-text-white ${
+            menuOpen && 'is-active'
+          }`}
           aria-label='menu'
           aria-expanded='false'
           onClick={() => setMenuOpen(!menuOpen)}
@@ -83,9 +85,7 @@ const Navbar = () => {
       >
         <div className='navbar-end'>
           <div className='navbar-item'>
-            <div className='buttons is-block-touch'>
-              {isAuthenticated ? authLinks : guestLinks}
-            </div>
+            {isAuthenticated ? authLinks : guestLinks}
           </div>
         </div>
       </div>

@@ -66,6 +66,12 @@ body {
   justify-content: center;
 }
 
+.file .file-icon {
+  margin-right: 0;
+  height: 2em !important;
+  width: 2em !important;
+}
+
 @keyframes card-is-loading {
   0% {
     opacity: 1;
