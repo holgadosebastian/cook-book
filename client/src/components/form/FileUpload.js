@@ -2,12 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const FileUpload = ({ name, onChange, uploadedImage }) => {
-  let ctaStyles = {
-    minHeight: '72px',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat'
-  };
+  let ctaStyles = {};
   if (uploadedImage) ctaStyles.backgroundImage = `url(${uploadedImage})`;
 
   return (
@@ -24,7 +19,7 @@ const FileUpload = ({ name, onChange, uploadedImage }) => {
             {uploadedImage === null && (
               <Fragment>
                 <span className='file-icon'>
-                  <i className='fas fa-upload'></i>
+                  <i className='fas fa-image'></i>
                 </span>
                 <span className='file-label'>{name}</span>
               </Fragment>

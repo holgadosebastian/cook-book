@@ -10,12 +10,14 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Init Middleware
-app.use(express.json({ extended: false }));
+app.use(express.json({ limit: '5mb' }));
+app.use(
+  express.urlencoded({ limit: '5mb', paremeterLimit: 100000, extended: true })
+);
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/recipes', require('./routes/recipes'));
-app.use('/uploads', express.static('uploads'));
 app.use('/api/image', require('./routes/image'));
 
 // Serve static assets in production

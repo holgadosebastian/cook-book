@@ -52,7 +52,7 @@ const Recipe = ({ match }) => {
   };
 
   if (currentRecipe.mainImage)
-    heroStyles.backgroundImage = `url(/${currentRecipe.mainImage.imageData})`;
+    heroStyles.backgroundImage = `url(${currentRecipe.mainImage.imageUrl})`;
 
   return (
     <div>

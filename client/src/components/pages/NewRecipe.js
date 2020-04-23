@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import { storage } from '../../config/firebase-config';
 import FormField from '../form/FormField';
 import FileUpload from '../form/FileUpload';
 import Button from '../elements/Button';
@@ -43,22 +44,44 @@ const NewRecipe = (props) => {
   };
 
   const onFileUpload = async (e) => {
+    let currentImageName = 'firebase-image-' + Date.now();
+
     const config = {
       headers: {
-        'Context-Type': 'multipart/form-data'
+        'Context-Type': 'application/json'
       }
     };
 
     try {
-      let imageFormObj = new FormData();
+      let uploadImage = storage
+        .ref(`images/${currentImageName}`)
+        .put(e.target.files[0]);
 
-      imageFormObj.append('imageName', 'multer-image-' + Date.now());
-      imageFormObj.append('imageData', e.target.files[0]);
+      uploadImage.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          storage
+            .ref('images')
+            .child(currentImageName)
+            .getDownloadURL()
+            .then(async (url) => {
+              setImageUrl(url);
 
-      let res = await axios.post('/api/image', imageFormObj, config);
+              // store image object in the database
+              let imageObj = {
+                imageName: currentImageName,
+                imageUrl: url
+              };
 
-      setImage(res.data.result._id);
-      setImageUrl(res.data.result.imageData);
+              let res = await axios.post('/api/image', imageObj, config);
+              setImage(res.data.image._id);
+            });
+        }
+      );
     } catch (error) {
       console.log(error);
     }

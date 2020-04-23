@@ -53,6 +53,13 @@ body {
   width: 4rem;
 }
 
+.file .file-cta {
+  min-height: 72px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 @keyframes card-is-loading {
   0% {
     opacity: 1;

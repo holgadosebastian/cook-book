@@ -6,7 +6,7 @@ const RecipeCard = ({ loader, recipe }) => {
 
   let cardImageStyles = {};
   if (recipe && recipe.mainImage)
-    cardImageStyles.backgroundImage = `url(/${recipe.mainImage.imageData})`;
+    cardImageStyles.backgroundImage = `url(${recipe.mainImage.imageUrl})`;
 
   return (
     <li style={{ marginTop: '24px' }} className='column is-one-third'>

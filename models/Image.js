@@ -7,7 +7,7 @@ const ImageSchema = Schema({
     default: 'none',
     required: true
   },
-  imageData: {
+  imageUrl: {
     type: String,
     required: true
   }
