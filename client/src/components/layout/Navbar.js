@@ -1,12 +1,22 @@
-import React, { Fragment, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 
 const Navbar = () => {
+  let history = useHistory();
+
   const authContext = useContext(AuthContext);
   const { user, isAuthenticated, logoutUser } = authContext;
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Closes modal when changing routes
+    history.listen(() => {
+      setMenuOpen(false);
+    });
+    // eslint-disable-next-line
+  }, []);
 
   const authLinks = (
     <Fragment>
