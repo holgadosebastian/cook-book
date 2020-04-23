@@ -13,6 +13,7 @@ const NewRecipe = (props) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [imageUploading, setImageUploading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState('');
   const [newIngredient, setNewIngredient] = useState('');
@@ -44,6 +45,8 @@ const NewRecipe = (props) => {
   };
 
   const onFileUpload = async (e) => {
+    setImageUploading(true);
+
     let currentImageName = 'firebase-image-' + Date.now();
 
     const config = {
@@ -61,7 +64,7 @@ const NewRecipe = (props) => {
         'state_changed',
         (snapshot) => {},
         (error) => {
-          console.error(error);
+          throw error;
         },
         () => {
           storage
@@ -79,6 +82,7 @@ const NewRecipe = (props) => {
 
               let res = await axios.post('/api/image', imageObj, config);
               setImage(res.data.image._id);
+              setImageUploading(false);
             });
         }
       );
@@ -147,9 +151,10 @@ const NewRecipe = (props) => {
         <div className='columns'>
           <div className='column is-one-quarter'>
             <FileUpload
-              name='Recipe Image'
+              name='Image'
               onChange={onFileUpload}
               uploadedImage={imageUrl}
+              loading={imageUploading}
             />
           </div>
           <div className='column is-three-quarters'>

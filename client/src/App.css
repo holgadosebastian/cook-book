@@ -48,6 +48,11 @@ body {
   display: inline-block;
 }
 
+.loader.is-medium {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
 .loader.is-large {
   height: 4rem;
   width: 4rem;
@@ -58,6 +63,7 @@ body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  justify-content: center;
 }
 
 @keyframes card-is-loading {

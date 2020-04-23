@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Spinner = () => {
-  return <span className='loader is-ib is-large'></span>;
+const Spinner = ({ size }) => {
+  return <span className={`loader is-ib ${size && `is-${size}`}`}></span>;
+};
+
+Spinner.propTypes = {
+  size: PropTypes.string
 };
 
 export default Spinner;

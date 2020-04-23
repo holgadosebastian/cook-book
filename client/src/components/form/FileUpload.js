@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Spinner from '../common/Spinner';
 
-const FileUpload = ({ name, onChange, uploadedImage }) => {
+const FileUpload = ({ name, onChange, loading, uploadedImage }) => {
   let ctaStyles = {};
   if (uploadedImage) ctaStyles.backgroundImage = `url(${uploadedImage})`;
 
@@ -16,14 +17,19 @@ const FileUpload = ({ name, onChange, uploadedImage }) => {
             onChange={onChange}
           />
           <span className='file-cta' style={ctaStyles}>
-            {uploadedImage === null && (
-              <Fragment>
-                <span className='file-icon'>
-                  <i className='fas fa-image'></i>
-                </span>
-                <span className='file-label'>{name}</span>
-              </Fragment>
+            {loading ? (
+              <Spinner size='medium' />
+            ) : (
+              uploadedImage === null && (
+                <Fragment>
+                  <span className='file-icon'>
+                    <i className='fas fa-image'></i>
+                  </span>
+                  <span className='file-label'>{name}</span>
+                </Fragment>
+              )
             )}
+            {}
           </span>
         </label>
       </div>
@@ -34,6 +40,7 @@ const FileUpload = ({ name, onChange, uploadedImage }) => {
 FileUpload.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
   uploadedImage: PropTypes.string
 };
 
