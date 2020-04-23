@@ -39,9 +39,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { firstName, lastName, username, password, secret } = req.body;
+    const { firstName, lastName, password, secret } = req.body;
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Username should only be lowercase
+    const username = req.body.username.toLowerCase();
 
     try {
       // Register user only if they know the secret

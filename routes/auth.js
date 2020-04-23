@@ -37,7 +37,9 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, password } = req.body;
+    const { password } = req.body;
+    // Username should only be lowercase
+    const username = req.body.username.toLowerCase();
 
     try {
       let user = await User.findOne({ username });
