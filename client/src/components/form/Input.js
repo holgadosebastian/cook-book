@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ id, value, type = 'text', onChange }) => {
+const Input = ({ id, value, type = 'text', onChange, ...rest }) => {
   return (
     <input
       id={id}
@@ -9,6 +9,7 @@ const Input = ({ id, value, type = 'text', onChange }) => {
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      {...rest}
     />
   );
 };

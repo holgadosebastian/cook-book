@@ -161,6 +161,7 @@ const NewRecipe = (props) => {
             <FormField
               id='title'
               name='Title'
+              placeholder='Something creative'
               value={title}
               onChange={setTitle}
               required
@@ -196,9 +197,12 @@ const NewRecipe = (props) => {
               id='ingredients'
               className='input'
               type='text'
+              placeholder='Onions, garlic...'
               value={newIngredient}
               onChange={(e) => setNewIngredient(e.target.value)}
-              onKeyDown={(e) => e.keyCode === 13 && addIngredient()}
+              onKeyDown={(e) =>
+                (e.keyCode === 13 || e.keyCode === 188) && addIngredient()
+              }
             />
           </div>
           <div className='control'>
@@ -216,18 +220,22 @@ const NewRecipe = (props) => {
             <FormField
               id='servingsize'
               name='Serving Size'
+              placeholder='Portions'
               value={servingSize}
               onChange={setServingSize}
               type='number'
+              min='1'
             />
           </div>
           <div style={{ paddingBottom: 0 }} className='column'>
             <FormField
               id='cookingtime'
               name='Cooking Time'
+              placeholder='In minutes'
               value={cookingTime}
               onChange={setCookingTime}
               type='number'
+              min='1'
             />
           </div>
         </div>
@@ -235,6 +243,7 @@ const NewRecipe = (props) => {
         <FormField
           id='instructions'
           name='Instructions'
+          placeholder='From start to finish'
           value={instructions}
           onChange={setInstructions}
           type='textarea'

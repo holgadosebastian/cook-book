@@ -25,11 +25,10 @@ const FileUpload = ({ name, onChange, loading, uploadedImage }) => {
                   <span className='file-icon'>
                     <i className='fas fa-image'></i>
                   </span>
-                  <span className='file-label'>{name}</span>
+                  <span className='file-label is-uppercase'>{name}</span>
                 </Fragment>
               )
             )}
-            {}
           </span>
         </label>
       </div>
