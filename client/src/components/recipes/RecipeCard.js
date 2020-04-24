@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
 
 const RecipeCard = ({ loader, recipe }) => {
   const LinkElem = loader ? 'div' : Link;
@@ -21,7 +23,7 @@ const RecipeCard = ({ loader, recipe }) => {
         >
           <figure className='image is-2by1'>
             {recipe && !recipe.mainImage && (
-              <img src='https://bulma.io/images/placeholders/1280x960.png' />
+              <img src={recipeCardPlaceholder} alt={recipe.title} />
             )}
           </figure>
         </div>
@@ -56,6 +58,11 @@ const RecipeCard = ({ loader, recipe }) => {
       </LinkElem>
     </li>
   );
+};
+
+RecipeCard.propType = {
+  loader: PropTypes.bool,
+  recipe: PropTypes.object
 };
 
 export default RecipeCard;
