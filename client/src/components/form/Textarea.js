@@ -9,6 +9,7 @@ const Input = ({ id, value, placeholder, onChange, ...rest }) => {
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      {...rest}
     ></textarea>
   );
 };

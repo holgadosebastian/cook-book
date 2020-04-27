@@ -31,7 +31,9 @@ const RecipeList = ({
 };
 
 RecipeList.propTypes = {
-  recipes: PropTypes.array.isRequired
+  recipes: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  noRecipesMessage: PropTypes.string
 };
 
 export default RecipeList;

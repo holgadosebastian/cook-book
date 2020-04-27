@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../elements/Button';
 
 const DeleteRecipeModal = ({ onDelete, modalActive, setModalActive }) => {
@@ -41,6 +42,12 @@ const DeleteRecipeModal = ({ onDelete, modalActive, setModalActive }) => {
       ></button>
     </div>
   );
+};
+
+DeleteRecipeModal.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  modalActive: PropTypes.bool.isRequired,
+  setModalActive: PropTypes.func.isRequired
 };
 
 export default DeleteRecipeModal;

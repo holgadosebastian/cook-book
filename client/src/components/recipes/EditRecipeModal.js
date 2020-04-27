@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import RecipeContext from '../../context/recipe/recipeContext';
 import {
@@ -217,6 +218,12 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
       </div>
     </div>
   );
+};
+
+EditRecipeModal.propTypes = {
+  recipe: PropTypes.object.isRequired,
+  modalActive: PropTypes.bool.isRequired,
+  setModalActive: PropTypes.func.isRequired
 };
 
 export default EditRecipeModal;
