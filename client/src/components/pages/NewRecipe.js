@@ -37,11 +37,7 @@ const NewRecipe = (props) => {
   };
 
   const removeIngredient = (id) => {
-    setIngredients(
-      ingredients.filter((ingredient) => {
-        return ingredient.id !== id;
-      })
-    );
+    setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
   };
 
   const onFileUpload = async (e) => {
@@ -180,12 +176,14 @@ const NewRecipe = (props) => {
             <div
               className='control'
               key={ingredient.id}
-              onClick={() => removeIngredient(ingredient.id)}
               style={{ marginBottom: '12px' }}
             >
               <div className='tags has-addons'>
                 <span className='tag'>{ingredient.name}</span>
-                <span className='tag is-delete'></span>
+                <span
+                  className='tag is-delete'
+                  onClick={() => removeIngredient(ingredient.id)}
+                ></span>
               </div>
             </div>
           ))}
