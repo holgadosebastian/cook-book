@@ -112,6 +112,7 @@ router.post(
 // @access    Private
 router.put('/:id', auth, async (req, res) => {
   const {
+    mainImage,
     title,
     ingredients,
     instructions,
@@ -121,6 +122,7 @@ router.put('/:id', auth, async (req, res) => {
   } = req.body;
 
   const recipeFields = {};
+  if (mainImage) recipeFields.mainImage = mainImage;
   if (title) recipeFields.title = title;
   if (ingredients) recipeFields.ingredients = ingredients;
   if (instructions) recipeFields.instructions = instructions;
@@ -131,7 +133,7 @@ router.put('/:id', auth, async (req, res) => {
   try {
     let recipe = await Recipe.findOne({ _id: req.params.id });
 
-    if (!recipe) return res.status(404).json({ msg: 'Contact not found' });
+    if (!recipe) return res.status(404).json({ msg: 'Recipe not found' });
 
     if (recipe.author._id.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized' });

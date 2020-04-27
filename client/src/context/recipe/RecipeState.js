@@ -149,6 +149,8 @@ const RecipeState = (props) => {
         type: UPDATE_RECIPE,
         payload: res.data
       });
+
+      return res.data;
     } catch (error) {
       console.log(error);
       dispatch({
