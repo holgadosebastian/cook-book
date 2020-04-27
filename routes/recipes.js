@@ -33,6 +33,25 @@ router.get('/latest', async (req, res) => {
   }
 });
 
+// @route     GET api/recipes/search
+// @desc      Search recipes
+// @access    Private
+// TODO: Add auth middleware
+router.get('/search', async (req, res) => {
+  try {
+    let recipes = await Recipe.find({
+      $text: {
+        $search: req.query.q
+      }
+    });
+
+    res.json({ recipes });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route     GET api/recipes/:id
 // @desc      Get a recipe
 // @access    Public

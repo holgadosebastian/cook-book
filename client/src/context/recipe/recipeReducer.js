@@ -2,6 +2,7 @@ import {
   GET_RECIPES,
   GET_LATEST_RECIPES,
   GET_USER_RECIPES,
+  SEARCH_RECIPES,
   CREATE_RECIPE,
   DELETE_RECIPE,
   RECIPE_ERROR,
@@ -18,6 +19,12 @@ export default (state, action) => {
       return {
         ...state,
         recipes: action.payload,
+        loading: false
+      };
+    case SEARCH_RECIPES:
+      return {
+        ...state,
+        searchResults: action.payload,
         loading: false
       };
     case CREATE_RECIPE:

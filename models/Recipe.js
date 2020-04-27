@@ -52,4 +52,8 @@ RecipeSchema.pre('findOne', autoPopulateRecipes)
   .pre('find', autoPopulateRecipes)
   .pre('findOneAndUpdate', autoPopulateRecipes);
 
-module.exports = mongoose.model('recipe', RecipeSchema);
+RecipeSchema.index({ title: 'text', instructions: 'text' });
+
+const Recipe = mongoose.model('recipe', RecipeSchema);
+
+module.exports = Recipe;

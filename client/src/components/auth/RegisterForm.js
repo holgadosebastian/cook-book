@@ -149,7 +149,7 @@ const RegisterForm = () => {
           style={{ textDecoration: 'underline' }}
           className='has-text-primary'
         >
-          Login
+          Log In
         </Link>
       </p>
     </Fragment>

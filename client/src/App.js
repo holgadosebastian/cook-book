@@ -8,6 +8,7 @@ import User from './components/pages/User';
 import NewRecipe from './components/pages/NewRecipe';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
+import Search from './components/pages/Search';
 import PrivateRoute from './components/routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 
@@ -30,6 +31,7 @@ function App() {
               <Switch>
                 <Route exact path='/' component={Home} />
                 <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
+                <Route exact path='/search' component={Search} />
                 <Route exact path='/recipe/:id' component={Recipe} />
                 <Route exact path='/users/:id' component={User} />
                 <Route exact path='/register' component={Register} />

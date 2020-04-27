@@ -6,6 +6,7 @@ import {
   GET_RECIPES,
   GET_LATEST_RECIPES,
   GET_USER_RECIPES,
+  SEARCH_RECIPES,
   CREATE_RECIPE,
   DELETE_RECIPE,
   RECIPE_ERROR,
@@ -17,6 +18,7 @@ import {
 const RecipeState = (props) => {
   const initialState = {
     recipes: [],
+    searchResults: [],
     currentRecipe: null,
     errors: null,
     loading: false
@@ -75,6 +77,34 @@ const RecipeState = (props) => {
         type: GET_USER_RECIPES,
         payload: res.data.recipes
       });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: RECIPE_ERROR,
+        payload: error.response.msg
+      });
+    }
+  };
+
+  // Search for recipes
+  const searchRecipes = async (q) => {
+    setRecipesLoading();
+
+    const config = {
+      params: {
+        q
+      }
+    };
+
+    try {
+      const res = await axios.get('/api/recipes/search', config);
+
+      dispatch({
+        type: SEARCH_RECIPES,
+        payload: res.data.recipes
+      });
+
+      return res.data.recipes;
     } catch (error) {
       console.log(error);
       dispatch({
@@ -190,12 +220,14 @@ const RecipeState = (props) => {
     <RecipeContext.Provider
       value={{
         recipes: state.recipes,
+        searchResults: state.searchResults,
         currentRecipe: state.currentRecipe,
         errors: state.errors,
         loading: state.loading,
         getRecipes,
         getLatestRecipes,
         getUserRecipes,
+        searchRecipes,
         setCurrentRecipe,
         createRecipe,
         updateRecipe,
