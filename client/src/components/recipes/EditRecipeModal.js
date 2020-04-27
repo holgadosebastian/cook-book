@@ -23,8 +23,8 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
     setTitle(recipe.title);
     setIngredients(recipe.ingredients);
     setInstructions(parseInstructionsFromHtml(recipe.instructions));
-    setCookingTime(recipe.cookingTime);
-    setServingSize(recipe.servingSize);
+    !!recipe.cookingTime && setCookingTime(recipe.cookingTime);
+    !!recipe.servingSize && setServingSize(recipe.servingSize);
   }, [recipe]);
 
   const addIngredient = () => {
