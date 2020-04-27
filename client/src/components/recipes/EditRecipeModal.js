@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import Modal from '../common/Modal';
+import Button from '../elements/Button';
 import RecipeForm from './RecipeForm';
 import RecipeContext from '../../context/recipe/recipeContext';
 
@@ -14,36 +16,25 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   };
 
   return (
-    <div className={`modal ${modalActive && 'is-active'}`}>
-      <div
-        className='modal-background'
-        onClick={() => setModalActive(false)}
-      ></div>
-      <div className='modal-content'>
-        <div className='box'>
-          <RecipeForm
-            recipe={recipe}
-            title='Edit Recipe'
-            submitButtonText='Update'
-            onFormSubmit={onRecipeUpdate}
-            loading={loading}
-          />
+    <Modal modalActive={modalActive} setModalActive={setModalActive}>
+      <RecipeForm
+        recipe={recipe}
+        title='Edit Recipe'
+        submitButtonText='Update'
+        onFormSubmit={onRecipeUpdate}
+        loading={loading}
+      />
 
-          <span
-            style={{ marginTop: '12px' }}
-            className='button is-text is-fullwidth is-rounded is-uppercase'
-            onClick={() => setModalActive(false)}
-          >
-            Cancel
-          </span>
-        </div>
-        <button
-          className='modal-close is-large'
-          onClick={() => setModalActive(false)}
-          aria-label='close'
-        ></button>
-      </div>
-    </div>
+      <Button
+        style={{ marginTop: '16px' }}
+        color='text'
+        outlined
+        cssClasses='is-fullwidth'
+        onClick={() => setModalActive(false)}
+      >
+        Cancel
+      </Button>
+    </Modal>
   );
 };
 

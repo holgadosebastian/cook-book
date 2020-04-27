@@ -182,20 +182,22 @@ const Recipe = ({ match }) => {
                 Actions
               </p>
               <div style={{ marginTop: '12px' }}>
-                <span
-                  className='button is-info is-fullwidth is-outlined is-rounded'
+                <Button
+                  color='info'
+                  outlined
                   onClick={() => setEditModalActive(true)}
                 >
                   Edit Recipe
-                </span>
+                </Button>
               </div>
               <div style={{ marginTop: '12px' }}>
-                <span
-                  className='button is-danger is-fullwidth  is-outlined is-rounded'
+                <Button
+                  color='danger'
+                  outlined
                   onClick={() => setDeleteModalActive(true)}
                 >
                   Delete Recipe
-                </span>
+                </Button>
               </div>
             </div>
 
