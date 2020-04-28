@@ -12,6 +12,7 @@ const FormField = ({
   onChange,
   placeholder,
   required,
+  disabled,
   ...rest
 }) => {
   return (
@@ -33,6 +34,7 @@ const FormField = ({
             onChange={onChange}
             type={type}
             placeholder={placeholder}
+            disabled={disabled}
             {...rest}
           />
         )}
@@ -48,7 +50,8 @@ FormField.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 export default FormField;

@@ -5,3 +5,13 @@ export const getUserName = (firstName, lastName, username) => {
     return username;
   }
 };
+
+export const isLoggedInUser = (loggedUser, id) => {
+  if (!loggedUser) {
+    return false;
+  } else if (loggedUser._id !== id) {
+    return false;
+  }
+
+  return true;
+};

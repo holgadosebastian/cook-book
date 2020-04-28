@@ -8,7 +8,7 @@ import LoadingContainer from '../common/LoadingContainer';
 import EditRecipeModal from '../recipes/EditRecipeModal';
 import DeleteRecipeModal from '../recipes/DeleteRecipeModal';
 import { parseCookingTime } from '../../utils/recipeUtils';
-import { getUserName } from '../../utils/userUtils';
+import { getUserName, isLoggedInUser } from '../../utils/userUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
@@ -26,7 +26,7 @@ const Recipe = ({ match }) => {
   } = recipeContext;
 
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, user, loadUser } = authContext;
+  const { user, loadUser } = authContext;
 
   useEffect(() => {
     setCurrentRecipe(match.params.id);
@@ -140,7 +140,7 @@ const Recipe = ({ match }) => {
               </ul>
             </div>
 
-            {isAuthenticated && user._id === currentRecipe.author._id && (
+            {isLoggedInUser(user, currentRecipe.author._id) && (
               <div className='is-hidden-touch'>
                 <p className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'>
                   Actions
@@ -178,7 +178,7 @@ const Recipe = ({ match }) => {
           </div>
         </div>
 
-        {isAuthenticated && user._id === currentRecipe.author._id && (
+        {isLoggedInUser(user, currentRecipe.author._id) && (
           <Fragment>
             <div className='is-hidden-desktop'>
               <p className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'>

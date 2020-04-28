@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
+const auth = require('../middleware/auth');
 require('dotenv').config();
 
 const User = require('../models/User');
@@ -98,5 +99,36 @@ router.post(
     }
   }
 );
+
+// @route     PUT api/users/:id
+// @desc      Updates a User
+// @access    Private
+router.put('/:id', auth, async (req, res) => {
+  if (req.params.id !== req.user.id) {
+    return res.status(401).json([{ msg: 'Not authorized' }]);
+  }
+
+  const { firstName, lastName } = req.body;
+
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        $set: {
+          firstName,
+          lastName
+        }
+      },
+      {
+        new: true
+      }
+    ).select('-password');
+
+    res.json({ user });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;
