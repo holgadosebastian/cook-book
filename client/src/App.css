@@ -19,9 +19,17 @@ body {
 }
 
 .card .card-image {
+  position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.card .card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
 }
 
 .modal-content {

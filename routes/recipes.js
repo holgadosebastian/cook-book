@@ -101,7 +101,8 @@ router.post(
       description,
       servingSize,
       cookingTime,
-      mainImage
+      mainImage,
+      isPrivate
     } = req.body;
 
     try {
@@ -113,7 +114,8 @@ router.post(
         servingSize,
         cookingTime,
         author: req.user.id,
-        mainImage
+        mainImage,
+        isPrivate
       });
 
       await recipe.save();
@@ -137,7 +139,8 @@ router.put('/:id', auth, async (req, res) => {
     instructions,
     description,
     servingSize,
-    cookingTime
+    cookingTime,
+    isPrivate
   } = req.body;
 
   const recipeFields = {};
@@ -148,6 +151,7 @@ router.put('/:id', auth, async (req, res) => {
   if (description) recipeFields.description = description;
   if (servingSize) recipeFields.servingSize = servingSize;
   if (cookingTime) recipeFields.cookingTime = cookingTime;
+  recipeFields.isPrivate = isPrivate;
 
   try {
     let recipe = await Recipe.findOne({ _id: req.params.id });

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
 import Hero from '../common/Hero';
 import Button from '../elements/Button';
+import Tag from '../elements/Tag';
 import LoadingContainer from '../common/LoadingContainer';
 import EditRecipeModal from '../recipes/EditRecipeModal';
 import DeleteRecipeModal from '../recipes/DeleteRecipeModal';
@@ -54,6 +55,11 @@ const Recipe = ({ match }) => {
             style={{ backgroundImage: `url(${recipeImage})` }}
           ></div>
           <div>
+            {currentRecipe.isPrivate && (
+              <p>
+                <Tag color='danger' label='Private' />
+              </p>
+            )}
             <h1 className='is-size-3 is-uppercase has-text-weight-light has-text-grey-darker'>
               {currentRecipe.title}
             </h1>

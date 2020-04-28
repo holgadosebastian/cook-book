@@ -5,6 +5,8 @@ import { v4 as uuid } from 'uuid';
 import { storage } from '../../config/firebase-config';
 import FormField from '../form/FormField';
 import FileUpload from '../form/FileUpload';
+import Radio from '../form/Radio';
+import Label from '../form/Label';
 import Button from '../elements/Button';
 import Message from '../common/Message';
 import {
@@ -28,6 +30,7 @@ const RecipeForm = ({
   const [newIngredient, setNewIngredient] = useState('');
   const [cookingTime, setCookingTime] = useState('');
   const [servingSize, setServingSize] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
 
   useEffect(() => {
@@ -37,6 +40,7 @@ const RecipeForm = ({
       setInstructions(parseInstructionsFromHtml(recipe.instructions));
       !!recipe.cookingTime && setCookingTime(recipe.cookingTime);
       !!recipe.servingSize && setServingSize(recipe.servingSize);
+      setIsPrivate(recipe.isPrivate);
     }
   }, [recipe]);
 
@@ -134,7 +138,8 @@ const RecipeForm = ({
       mainImage: image,
       title,
       ingredients,
-      instructions: parseInstructionsToHtml(instructions)
+      instructions: parseInstructionsToHtml(instructions),
+      isPrivate
     };
 
     if (!!servingSize) {
@@ -228,6 +233,16 @@ const RecipeForm = ({
         </div>
       </div>
 
+      <FormField
+        id='instructions'
+        name='Instructions'
+        placeholder='From start to finish'
+        value={instructions}
+        onChange={setInstructions}
+        type='textarea'
+        required
+      />
+
       <div className='columns is-mobile'>
         <div style={{ paddingBottom: 0 }} className='column'>
           <FormField
@@ -253,15 +268,21 @@ const RecipeForm = ({
         </div>
       </div>
 
-      <FormField
-        id='instructions'
-        name='Instructions'
-        placeholder='From start to finish'
-        value={instructions}
-        onChange={setInstructions}
-        type='textarea'
-        required
-      />
+      <div className='control'>
+        <Label name='Recipe Availability' />
+        <Radio
+          label='Private'
+          value='true'
+          checked={isPrivate}
+          onChange={setIsPrivate}
+        />
+        <Radio
+          label='Public'
+          value='false'
+          checked={!isPrivate}
+          onChange={setIsPrivate}
+        />
+      </div>
 
       <Message messageList={formErrors} />
 

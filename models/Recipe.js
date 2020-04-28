@@ -36,6 +36,11 @@ const RecipeSchema = Schema({
     required: false,
     ref: 'image'
   },
+  isPrivate: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   date: {
     type: Date,
     default: Date.now

@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Tag from '../elements/Tag';
 import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
 import { parseCookingTime } from '../../utils/recipeUtils';
 
 const RecipeCard = ({ loader, recipe = {} }) => {
   const LinkElem = loader ? 'div' : Link;
 
-  const { _id, title, mainImage, cookingTime, servingSize } = recipe;
+  const { _id, title, mainImage, cookingTime, servingSize, isPrivate } = recipe;
 
   let cardImageStyles = {};
   if (mainImage) cardImageStyles.backgroundImage = `url(${mainImage.imageUrl})`;
@@ -25,6 +26,10 @@ const RecipeCard = ({ loader, recipe = {} }) => {
         >
           <figure className='image is-2by1'>
             {!mainImage && <img src={recipeCardPlaceholder} alt={title} />}
+
+            {isPrivate && (
+              <Tag cssClasses='card-badge' color='danger' label='Private' />
+            )}
           </figure>
         </div>
         <div className='card-content'>
