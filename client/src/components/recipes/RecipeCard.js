@@ -2,18 +2,20 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
+import { parseCookingTime } from '../../utils/recipeUtils';
 
-const RecipeCard = ({ loader, recipe }) => {
+const RecipeCard = ({ loader, recipe = {} }) => {
   const LinkElem = loader ? 'div' : Link;
 
+  const { _id, title, mainImage, cookingTime, servingSize } = recipe;
+
   let cardImageStyles = {};
-  if (recipe && recipe.mainImage)
-    cardImageStyles.backgroundImage = `url(${recipe.mainImage.imageUrl})`;
+  if (mainImage) cardImageStyles.backgroundImage = `url(${mainImage.imageUrl})`;
 
   return (
     <li style={{ marginTop: '24px' }} className='column is-one-third'>
       <LinkElem
-        to={recipe && `/recipe/${recipe._id}`}
+        to={_id && `/recipe/${_id}`}
         className={`card ${loader && 'is-loading'}`}
         style={{ display: 'block' }}
       >
@@ -22,9 +24,7 @@ const RecipeCard = ({ loader, recipe }) => {
           style={cardImageStyles}
         >
           <figure className='image is-2by1'>
-            {recipe && !recipe.mainImage && (
-              <img src={recipeCardPlaceholder} alt={recipe.title} />
-            )}
+            {!mainImage && <img src={recipeCardPlaceholder} alt={title} />}
           </figure>
         </div>
         <div className='card-content'>
@@ -50,9 +50,32 @@ const RecipeCard = ({ loader, recipe }) => {
                   ></span>
                 </Fragment>
               ) : (
-                recipe.title
+                title
               )}
             </p>
+            {(cookingTime || servingSize) && (
+              <p className='is-size-6 has-text-grey has-text-centered'>
+                {servingSize && (
+                  <Fragment>
+                    <span className='icon va-b'>
+                      <i className='fas fa-utensils'></i>
+                    </span>{' '}
+                    {servingSize}
+                  </Fragment>
+                )}
+                {cookingTime && servingSize && (
+                  <span className='vertical-divider'></span>
+                )}
+                {cookingTime && (
+                  <Fragment>
+                    <span className='icon va-b'>
+                      <i className='fas fa-clock'></i>
+                    </span>{' '}
+                    {parseCookingTime(cookingTime)}
+                  </Fragment>
+                )}
+              </p>
+            )}
           </div>
         </div>
       </LinkElem>

@@ -72,6 +72,28 @@ body {
   width: 2em !important;
 }
 
+.vertical-divider {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 18px;
+  vertical-align: text-bottom;
+}
+
+.vertical-divider:before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  background-color: #7a7a7a;
+}
+
+/* Utility Classes */
+.va-b {
+  vertical-align: bottom;
+}
+
 @keyframes card-is-loading {
   0% {
     opacity: 1;
