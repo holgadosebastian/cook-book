@@ -24,7 +24,7 @@ const Navbar = () => {
         to={`/users/${user !== null && user._id}`}
         className='navbar-item has-text-white has-text-centered is-uppercase'
       >
-        My recipes
+        My Account
       </Link>
       <span
         className='navbar-item has-text-white has-text-centered is-uppercase'

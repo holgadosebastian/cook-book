@@ -3,8 +3,6 @@ body {
 }
 
 .container {
-  padding-top: 24px;
-  padding-bottom: 48px;
   max-width: 960px !important;
 }
 
@@ -87,6 +85,46 @@ body {
   height: 100%;
   left: 50%;
   background-color: #7a7a7a;
+}
+
+.square-image {
+  width: 120px;
+  height: 120px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid #dbdbdb;
+}
+
+.square-image.is-rounded {
+  border-radius: 50%;
+}
+
+.hero-body {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+@media screen and (max-width: 767px) {
+  .hero-container.with-image {
+    text-align: center;
+  }
+
+  .hero-image {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .hero-container.with-image {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-image {
+    margin-right: 24px;
+  }
 }
 
 /* Utility Classes */
