@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import RecipeList from '../recipes/RecipeList';
 import Hero from '../common/Hero';
+import LoadingContainer from '../common/LoadingContainer';
 import { getUserName } from '../../utils/userUtils';
 import userImagePlaceholder from '../../assets/user_placeholder.png';
 import UserContext from '../../context/user/userContext';
@@ -19,12 +20,14 @@ const User = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  if (user === null) return <div>Loading</div>;
+  if (loading) return <LoadingContainer message='Loading User' />;
+
+  if (user === null) return false;
 
   let userImage = userImagePlaceholder;
 
   return (
-    <Fragment>
+    <main>
       <Hero color='light'>
         <div className='hero-container with-image'>
           <div
@@ -57,7 +60,7 @@ const User = (props) => {
           noRecipesMessage="User doesn't seem to have any public recipes"
         />
       </div>
-    </Fragment>
+    </main>
   );
 };
 

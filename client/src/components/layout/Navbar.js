@@ -11,7 +11,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Closes modal when changing routes
+    // Closes navbar menu when changing routes
     history.listen(() => {
       setMenuOpen(false);
     });
@@ -20,6 +20,12 @@ const Navbar = () => {
 
   const authLinks = (
     <Fragment>
+      <Link
+        to='/search'
+        className='navbar-item has-text-white has-text-centered is-uppercase'
+      >
+        Search
+      </Link>
       <Link
         to={`/users/${user !== null && user._id}`}
         className='navbar-item has-text-white has-text-centered is-uppercase'

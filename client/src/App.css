@@ -10,6 +10,14 @@ body {
   max-width: 450px !important ;
 }
 
+.container.is-fullheight {
+  min-height: calc(100vh - 52px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .card .card-image {
   background-size: cover;
   background-position: center;
@@ -94,6 +102,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   border: 1px solid #dbdbdb;
+  border-radius: 5px;
 }
 
 .square-image.is-rounded {
@@ -103,6 +112,11 @@ body {
 .hero-body {
   padding-right: 0 !important;
   padding-left: 0 !important;
+}
+
+hr {
+  background-color: #dbdbdb;
+  height: 1px;
 }
 
 @media screen and (max-width: 767px) {
@@ -120,6 +134,7 @@ body {
   .hero-container.with-image {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   .hero-image {
@@ -142,4 +157,44 @@ body {
   100% {
     opacity: 1;
   }
+}
+
+.mt1 {
+  margin-top: 4px;
+}
+
+.mt2 {
+  margin-top: 8px;
+}
+
+.mt3 {
+  margin-top: 12px;
+}
+
+.mt4 {
+  margin-top: 16px;
+}
+
+.mt5 {
+  margin-top: 20px;
+}
+
+.pt1 {
+  padding-top: 4px;
+}
+
+.pt2 {
+  padding-top: 8px;
+}
+
+.pt3 {
+  padding-top: 12px;
+}
+
+.pt4 {
+  padding-top: 16px;
+}
+
+.pt5 {
+  padding-top: 20px;
 }

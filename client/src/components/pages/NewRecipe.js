@@ -20,7 +20,7 @@ const NewRecipe = (props) => {
     >
       <div className='box'>
         <RecipeForm
-          title='Create New Recipe'
+          formTitle='Create New Recipe'
           submitButtonText='Create'
           onFormSubmit={onRecipeCreation}
           loading={loading}

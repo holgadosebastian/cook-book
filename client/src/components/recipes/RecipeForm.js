@@ -12,7 +12,13 @@ import {
   parseInstructionsToHtml
 } from '../../utils/recipeUtils';
 
-const RecipeForm = ({ recipe, submitButtonText, onFormSubmit, loading }) => {
+const RecipeForm = ({
+  formTitle,
+  recipe,
+  submitButtonText,
+  onFormSubmit,
+  loading
+}) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
@@ -153,7 +159,7 @@ const RecipeForm = ({ recipe, submitButtonText, onFormSubmit, loading }) => {
         className='is-size-4 has-text-centered has-text-weight-light is-uppercase has-text-grey-light'
         style={{ marginBottom: '24px' }}
       >
-        Create New Recipe
+        {formTitle}
       </p>
 
       <div className='columns'>
@@ -272,6 +278,7 @@ const RecipeForm = ({ recipe, submitButtonText, onFormSubmit, loading }) => {
 };
 
 RecipeForm.propTypes = {
+  formTitle: PropTypes.string,
   recipe: PropTypes.object,
   submitButtonText: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func,

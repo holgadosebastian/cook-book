@@ -1,14 +1,16 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
+import Hero from '../common/Hero';
 import Button from '../elements/Button';
-import Spinner from '../common/Spinner';
-import RecipeContext from '../../context/recipe/recipeContext';
-import AuthContext from '../../context/auth/authContext';
+import LoadingContainer from '../common/LoadingContainer';
 import EditRecipeModal from '../recipes/EditRecipeModal';
 import DeleteRecipeModal from '../recipes/DeleteRecipeModal';
 import { parseCookingTime } from '../../utils/recipeUtils';
 import { getUserName } from '../../utils/userUtils';
+import RecipeContext from '../../context/recipe/recipeContext';
+import AuthContext from '../../context/auth/authContext';
+import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
 
 const Recipe = ({ match }) => {
   const [deleteModalActive, setDeleteModalActive] = useState(false);
@@ -35,38 +37,31 @@ const Recipe = ({ match }) => {
     removeRecipe(currentRecipe._id);
   };
 
-  if (loading)
-    return (
-      <div className='container has-text-centered'>
-        <Spinner />
-        <p>Loading recipe</p>
-      </div>
-    );
+  if (loading) return <LoadingContainer message='Loading recipe' />;
 
   if (currentRecipe === null) return <p>No recipe found</p>;
 
-  let heroStyles = {
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  };
-
-  if (currentRecipe.mainImage)
-    heroStyles.backgroundImage = `url(${currentRecipe.mainImage.imageUrl})`;
+  let recipeImage = currentRecipe.mainImage
+    ? currentRecipe.mainImage.imageUrl
+    : recipeCardPlaceholder;
 
   return (
-    <div>
-      <section className='hero is-medium is-primary is-bold' style={heroStyles}>
-        <div className='hero-body'>
-          <div className='container'>
-            <h1 className='title is-spaced has-text-weight-light is-uppercase has-text-centered'>
+    <main>
+      <Hero color='light'>
+        <div className='hero-container with-image'>
+          <div
+            className='hero-image square-image has-background-grey-lighter'
+            style={{ backgroundImage: `url(${recipeImage})` }}
+          ></div>
+          <div>
+            <h1 className='is-size-3 is-uppercase has-text-weight-light has-text-grey-darker'>
               {currentRecipe.title}
             </h1>
-            <p className='subtitle has-text-centered has-text-weight-light'>
+            <p>
               by{' '}
               <Link
                 to={`/users/${currentRecipe.author._id}`}
-                className='has-text-white'
+                className='has-text-primary'
                 style={{ textDecoration: 'underline' }}
               >
                 {getUserName(
@@ -78,9 +73,11 @@ const Recipe = ({ match }) => {
             </p>
           </div>
         </div>
-      </section>
+      </Hero>
 
-      <div style={{ paddingTop: '24px' }} className='container is-fluid'>
+      <div className='container is-fluid'>
+        <hr />
+
         <div className='columns'>
           <div className='column is-one-third'>
             {(!!currentRecipe.servingSize || !!currentRecipe.cookingTime) && (
@@ -215,7 +212,7 @@ const Recipe = ({ match }) => {
           </Fragment>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 
