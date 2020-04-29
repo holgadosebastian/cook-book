@@ -2,11 +2,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import FormField from '../form/FormField';
+import FormAddons from '../form/FormAddons';
 import FileUpload from '../form/FileUpload';
 import Radio from '../form/Radio';
 import Label from '../form/Label';
 import Button from '../elements/Button';
-import Message from '../common/Message';
 import {
   parseInstructionsFromHtml,
   parseInstructionsToHtml
@@ -30,7 +30,11 @@ const RecipeForm = ({
   const [cookingTime, setCookingTime] = useState('');
   const [servingSize, setServingSize] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState({
+    title: null,
+    ingredients: null,
+    instructions: null
+  });
 
   useEffect(() => {
     if (!!recipe) {
@@ -53,6 +57,7 @@ const RecipeForm = ({
     ]);
 
     setNewIngredient('');
+    setFormErrors({ ...formErrors, ingredients: null });
   };
 
   const removeIngredient = (id) => {
@@ -69,30 +74,64 @@ const RecipeForm = ({
     });
   };
 
+  const validate = (type, value) => {
+    let errors = {};
+
+    switch (type) {
+      case 'title':
+        if (value === '') {
+          errors[type] = 'Title is required';
+        } else {
+          errors[type] = null;
+        }
+        break;
+      case 'ingredients':
+        if (value.length === 0) {
+          errors[type] = 'At least 1 ingredient is required';
+        } else {
+          errors[type] = null;
+        }
+        break;
+      case 'instructions':
+        if (value === '') {
+          errors[type] = 'Basic instructions are required';
+        } else {
+          errors[type] = null;
+        }
+        break;
+      default:
+        return errors;
+    }
+
+    return errors;
+  };
+
+  const onValidateInput = (type, value) => {
+    let error = validate(type, value);
+
+    setFormErrors({
+      ...formErrors,
+      ...error
+    });
+  };
+
   const onSubmit = async () => {
-    setFormErrors([]);
-    let newFormErrors = [];
+    let hasErrors = false;
+    let errors = {
+      ...validate('title', title),
+      ...validate('ingredients', ingredients),
+      ...validate('instructions', instructions)
+    };
 
-    if (title === '') {
-      newFormErrors.push({
-        msg: 'Recipe title is required'
-      });
-    }
+    // eslint-disable-next-line
+    Object.values(errors).map((error) => {
+      if (error !== null) {
+        hasErrors = true;
+      }
+    });
 
-    if (!ingredients.length) {
-      newFormErrors.push({
-        msg: 'At least one ingredient is required'
-      });
-    }
-
-    if (instructions === '') {
-      newFormErrors.push({
-        msg: 'Basic instructions are required'
-      });
-    }
-
-    if (!!newFormErrors.length) {
-      setFormErrors(newFormErrors);
+    if (hasErrors) {
+      setFormErrors(errors);
       return false;
     }
 
@@ -145,6 +184,9 @@ const RecipeForm = ({
             placeholder='Something creative'
             value={title}
             onChange={setTitle}
+            onBlur={(e) => onValidateInput('title', e.target.value)}
+            error={formErrors.title !== null}
+            errorMessage={formErrors.title}
             required
           />
         </div>
@@ -174,26 +216,19 @@ const RecipeForm = ({
         ))}
       </div>
 
-      <div className='field has-addons'>
-        <div className='control is-expanded'>
-          <input
-            id='ingredients'
-            className='input'
-            type='text'
-            placeholder='Onions, garlic...'
-            value={newIngredient}
-            onChange={(e) => setNewIngredient(e.target.value)}
-            onKeyDown={(e) =>
-              (e.keyCode === 13 || e.keyCode === 188) && addIngredient()
-            }
-          />
-        </div>
-        <div className='control'>
-          <span className='button is-info is-uppercase' onClick={addIngredient}>
-            Add
-          </span>
-        </div>
-      </div>
+      <FormAddons
+        id='ingredients'
+        placeholder='Onions, garlic...'
+        value={newIngredient}
+        onChange={setNewIngredient}
+        onKeyDown={(e) => e.keyCode === 13 && addIngredient()}
+        onBlur={(e) => onValidateInput('ingredients', ingredients)}
+        error={formErrors.ingredients !== null}
+        errorMessage={formErrors.ingredients}
+        buttonText='Add'
+        buttonColor='info'
+        onClick={addIngredient}
+      />
 
       <FormField
         id='instructions'
@@ -201,6 +236,9 @@ const RecipeForm = ({
         placeholder='From start to finish'
         value={instructions}
         onChange={setInstructions}
+        onBlur={(e) => onValidateInput('instructions', e.target.value)}
+        error={formErrors.instructions !== null}
+        errorMessage={formErrors.instructions}
         type='textarea'
         required
       />
@@ -246,8 +284,6 @@ const RecipeForm = ({
         />
       </div>
 
-      <Message messageList={formErrors} />
-
       <Button
         style={{ marginTop: '24px' }}
         cssClasses='is-fullwidth'
@@ -260,11 +296,17 @@ const RecipeForm = ({
   );
 };
 
+RecipeForm.defaultProps = {
+  formTitle: 'Create New Recipe',
+  recipe: null,
+  loading: false
+};
+
 RecipeForm.propTypes = {
   formTitle: PropTypes.string,
   recipe: PropTypes.object,
   submitButtonText: PropTypes.string.isRequired,
-  onFormSubmit: PropTypes.func,
+  onFormSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool
 };
 

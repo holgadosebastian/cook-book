@@ -7,37 +7,75 @@ import AuthContext from '../../context/auth/authContext';
 
 const LoginForm = () => {
   const authContext = useContext(AuthContext);
-  const { loginUser, setUserErrors, errors, loading } = authContext;
+  const { loginUser, errors, loading } = authContext;
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [formErrors, setFormErrors] = useState({
+    username: null,
+    password: null,
+    password2: null,
+    secret: null
+  });
+
+  const validate = (type, value) => {
+    let errors = {};
+
+    switch (type) {
+      case 'username':
+        if (value === '') {
+          errors[type] = 'Username is required';
+        } else {
+          errors[type] = null;
+        }
+        break;
+      case 'password':
+        if (value === '') {
+          errors[type] = 'Password is required';
+        } else {
+          errors[type] = null;
+        }
+        break;
+      default:
+        return errors;
+    }
+
+    return errors;
+  };
+
+  const onValidateInput = (type, value) => {
+    let error = validate(type, value);
+
+    setFormErrors({
+      ...formErrors,
+      ...error
+    });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    let submitErrors = [];
+    let hasErrors = false;
+    let errors = {
+      ...validate('username', username),
+      ...validate('password', password)
+    };
 
-    if (username === '') {
-      submitErrors.push({
-        msg: 'Username is required'
-      });
-    }
-
-    if (password === '') {
-      submitErrors.push({
-        msg: 'Password is required'
-      });
-    }
-
-    if (!!submitErrors.length) {
-      setUserErrors(submitErrors);
-      return false;
-    }
-
-    loginUser({
-      username,
-      password
+    // eslint-disable-next-line
+    Object.values(errors).map((error) => {
+      if (error !== null) {
+        hasErrors = true;
+      }
     });
+
+    if (!hasErrors) {
+      loginUser({
+        username,
+        password
+      });
+    } else {
+      setFormErrors(errors);
+    }
   };
 
   return (
@@ -58,6 +96,9 @@ const LoginForm = () => {
             name='Username'
             value={username}
             onChange={setUsername}
+            onBlur={(e) => onValidateInput('username', e.target.value)}
+            error={formErrors.username !== null}
+            errorMessage={formErrors.username}
           />
 
           <FormField
@@ -66,6 +107,9 @@ const LoginForm = () => {
             value={password}
             type='password'
             onChange={setPassword}
+            onBlur={(e) => onValidateInput('password', e.target.value)}
+            error={formErrors.password !== null}
+            errorMessage={formErrors.password}
           />
 
           <Message messageList={errors} />
@@ -76,7 +120,7 @@ const LoginForm = () => {
             loading={loading}
             type='submit'
           >
-            Login
+            Log In
           </Button>
         </form>
       </div>

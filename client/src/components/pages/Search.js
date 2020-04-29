@@ -43,6 +43,7 @@ const Search = () => {
         <div className='columns is-centered'>
           <div className='column is-half'>
             <FormAddons
+              placeholder='Type your search'
               value={query}
               onChange={setQuery}
               onKeyDown={(e) => e.keyCode === 13 && onSearch()}
