@@ -19,10 +19,12 @@ const User = (props) => {
   const { user, getUser, updateUser } = userContext;
 
   const authContext = useContext(AuthContext);
+  const { loadUser } = authContext;
 
   const [activeTab, setActiveTab] = useState('my-recipes');
 
   useEffect(() => {
+    loadUser();
     getUserRecipes(props.match.params.id);
     getUser(props.match.params.id);
     // eslint-disable-next-line
@@ -54,7 +56,7 @@ const User = (props) => {
             <h1 className='is-size-3 is-uppercase has-text-weight-light has-text-grey-darker'>
               {getUserName(firstName, lastName, username)}
             </h1>
-            <p>Recipe count: 0</p>
+            {/* <p>Recipe count: 0</p> */}
           </div>
         </div>
       </Hero>

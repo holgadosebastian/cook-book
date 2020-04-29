@@ -1,14 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FormAddons from '../form/FormAddons';
 import RecipeList from '../recipes/RecipeList';
 import RecipeContext from '../../context/recipe/recipeContext';
+import AuthContext from '../../context/auth/authContext';
 
 const Search = () => {
   const recipeContext = useContext(RecipeContext);
   const { searchRecipes, searchResults, loading } = recipeContext;
 
+  const authContext = useContext(AuthContext);
+  const { loadUser } = authContext;
+
   const [query, setQuery] = useState('');
   const [previousQuery, setPreviousQuery] = useState('');
+
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line
+  }, []);
 
   const onSearch = () => {
     // Prevents searching twice with same query
