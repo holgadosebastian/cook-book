@@ -108,16 +108,18 @@ router.put('/:id', auth, async (req, res) => {
     return res.status(401).json([{ msg: 'Not authorized' }]);
   }
 
-  const { firstName, lastName } = req.body;
+  const { firstName, lastName, profileImage } = req.body;
+  let userFields = {};
+
+  if (firstName) userFields.firstName = userFields;
+  if (lastName) userFields.lastName = profileImage;
+  if (profileImage) userFields.profileImage = profileImage;
 
   try {
     let user = await User.findOneAndUpdate(
       { _id: req.body.id },
       {
-        $set: {
-          firstName,
-          lastName
-        }
+        $set: userFields
       },
       {
         new: true

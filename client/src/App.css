@@ -77,6 +77,17 @@ body {
   width: 4rem;
 }
 
+.loader.is-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.loader.is-centered.is-medium {
+  margin-top: -1.25rem;
+  margin-left: -1.25rem;
+}
+
 .file .file-cta {
   min-height: 72px;
   background-position: center;
@@ -109,6 +120,7 @@ body {
 }
 
 .square-image {
+  position: relative;
   display: inline-block;
   width: 120px;
   height: 120px;
@@ -134,6 +146,14 @@ body {
 hr {
   background-color: #dbdbdb;
   height: 1px;
+}
+
+.file-input-hidden {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0;
 }
 
 @media screen and (max-width: 767px) {

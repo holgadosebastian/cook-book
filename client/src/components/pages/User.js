@@ -5,7 +5,9 @@ import LoadingContainer from '../common/LoadingContainer';
 import Tabs from '../elements/Tabs';
 import Tab from '../elements/Tab';
 import UserForm from '../user/UserForm';
+import Spinner from '../common/Spinner';
 import { getUserName, isLoggedInUser } from '../../utils/userUtils';
+import { uploadImage } from '../../utils/firebaseUtils';
 import userImagePlaceholder from '../../assets/user_placeholder.png';
 import UserContext from '../../context/user/userContext';
 import RecipeContext from '../../context/recipe/recipeContext';
@@ -22,6 +24,7 @@ const User = (props) => {
   const { loadUser } = authContext;
 
   const [activeTab, setActiveTab] = useState('my-recipes');
+  const [profileImageLoading, setProfileImageLoading] = useState(false);
 
   useEffect(() => {
     loadUser();
@@ -34,12 +37,25 @@ const User = (props) => {
     updateUser(userData);
   };
 
+  const onProfileImageChange = (e) => {
+    setProfileImageLoading(true);
+
+    uploadImage(e.target.files[0], 'users', async (url, id) => {
+      await updateUser({
+        id: user._id,
+        profileImage: id
+      });
+
+      setProfileImageLoading(false);
+    });
+  };
+
   if (loading) return <LoadingContainer message='Loading User' />;
 
   if (user === null) return false;
-  const { firstName, lastName, username } = user;
+  const { firstName, lastName, username, profileImage } = user;
 
-  let userImage = userImagePlaceholder;
+  let userImage = profileImage ? profileImage.imageUrl : userImagePlaceholder;
 
   return (
     <main>
@@ -48,7 +64,18 @@ const User = (props) => {
           <div
             className='hero-image has-border square-image is-rounded has-background-grey-lighter'
             style={{ backgroundImage: `url(${userImage})` }}
-          ></div>
+          >
+            {isLoggedInUser(authContext.user, user._id) &&
+              (!profileImageLoading ? (
+                <input
+                  className='file-input-hidden'
+                  type='file'
+                  onChange={onProfileImageChange}
+                />
+              ) : (
+                <Spinner size='medium' centered />
+              ))}
+          </div>
           <div>
             {(firstName || lastName) && (
               <p className='is-size-5 is-uppercase'>{username}</p>
