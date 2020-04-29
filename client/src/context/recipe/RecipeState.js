@@ -198,8 +198,7 @@ const RecipeState = (props) => {
       await axios.delete(`/api/recipes/${id}`);
 
       dispatch({
-        type: DELETE_RECIPE,
-        payload: id
+        type: DELETE_RECIPE
       });
     } catch (error) {
       console.log(error.message);

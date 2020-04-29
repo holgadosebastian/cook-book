@@ -13,7 +13,7 @@ import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
 
-const Recipe = ({ match }) => {
+const Recipe = ({ match, history }) => {
   const [deleteModalActive, setDeleteModalActive] = useState(false);
   const [editModalActive, setEditModalActive] = useState(false);
 
@@ -34,8 +34,10 @@ const Recipe = ({ match }) => {
     // eslint-disable-next-line
   }, []);
 
-  const onDelete = () => {
-    removeRecipe(currentRecipe._id);
+  // Deletes recipe and redirects to user page
+  const onDelete = async () => {
+    await removeRecipe(currentRecipe._id);
+    history.push(`/users/${user._id}`);
   };
 
   if (loading) return <LoadingContainer message='Loading recipe' />;
