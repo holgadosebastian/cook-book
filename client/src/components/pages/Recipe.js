@@ -51,7 +51,7 @@ const Recipe = ({ match }) => {
       <Hero color='light'>
         <div className='hero-container with-image'>
           <div
-            className='hero-image square-image has-background-grey-lighter'
+            className='hero-image square-image has-border has-background-grey-lighter'
             style={{ backgroundImage: `url(${recipeImage})` }}
           ></div>
           <div>

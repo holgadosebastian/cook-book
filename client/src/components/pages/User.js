@@ -46,7 +46,7 @@ const User = (props) => {
       <Hero color='light'>
         <div className='hero-container with-image'>
           <div
-            className='hero-image square-image is-rounded has-background-grey-lighter'
+            className='hero-image has-border square-image is-rounded has-background-grey-lighter'
             style={{ backgroundImage: `url(${userImage})` }}
           ></div>
           <div>

@@ -109,17 +109,21 @@ body {
 }
 
 .square-image {
+  display: inline-block;
   width: 120px;
   height: 120px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border: 1px solid #dbdbdb;
   border-radius: 5px;
 }
 
 .square-image.is-rounded {
   border-radius: 50%;
+}
+
+.square-image.has-border {
+  border: 1px solid #dbdbdb;
 }
 
 .hero-body {

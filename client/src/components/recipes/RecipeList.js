@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
+import noRecipesImage from '../../assets/no_recipes.png';
 
-const RecipeList = ({
-  recipes,
-  loading,
-  noRecipesMessage = 'No recipes found'
-}) => {
+const RecipeList = ({ recipes, loading, noRecipesMessage }) => {
   return (
-    <div>
+    <Fragment>
       {loading ? (
-        <ul className='columns' style={{ flexWrap: 'wrap' }}>
+        <ul className='columns is-multiline'>
           <RecipeCard loader />
           <RecipeCard loader />
           <RecipeCard loader />
         </ul>
       ) : !!recipes.length ? (
-        <ul className='columns' style={{ flexWrap: 'wrap' }}>
+        <ul className='columns is-multiline'>
           {recipes.map((recipe) => (
             <RecipeCard key={recipe._id} recipe={recipe} />
           ))}
         </ul>
       ) : (
-        <div>
-          <p className='is-size-5'>{noRecipesMessage}</p>
+        <div style={{ marginTop: '24px' }} className='has-text-centered'>
+          <span className='square-image'>
+            <img src={noRecipesImage} alt='No Recipes' />
+          </span>
+
+          <p className='is-size-6 has-text-grey'>{noRecipesMessage}</p>
         </div>
       )}
-    </div>
+    </Fragment>
   );
+};
+
+RecipeList.defaultProps = {
+  loading: false,
+  noRecipesMessage: 'No recipes found'
 };
 
 RecipeList.propTypes = {

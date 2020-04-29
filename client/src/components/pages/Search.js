@@ -13,6 +13,7 @@ const Search = () => {
 
   const [query, setQuery] = useState('');
   const [previousQuery, setPreviousQuery] = useState('');
+  const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
     loadUser();
@@ -22,6 +23,8 @@ const Search = () => {
   const onSearch = () => {
     // Prevents searching twice with same query
     if (previousQuery === '' || previousQuery !== query) {
+      if (!hasSearched) setHasSearched(true);
+
       searchRecipes(query);
       setPreviousQuery(query);
     }
@@ -51,7 +54,9 @@ const Search = () => {
         </div>
       </div>
       <div>
-        <RecipeList recipes={searchResults} loading={loading} />
+        {hasSearched && (
+          <RecipeList recipes={searchResults} loading={loading} />
+        )}
       </div>
     </div>
   );
