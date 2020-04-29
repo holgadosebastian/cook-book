@@ -36,8 +36,7 @@ router.get('/latest', async (req, res) => {
 // @route     GET api/recipes/search
 // @desc      Search recipes
 // @access    Private
-// TODO: Add auth middleware
-router.get('/search', async (req, res) => {
+router.get('/search', auth, async (req, res) => {
   try {
     let recipes = await Recipe.find({
       $text: {

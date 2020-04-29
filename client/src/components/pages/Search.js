@@ -8,26 +8,38 @@ const Search = () => {
   const { searchRecipes, searchResults, loading } = recipeContext;
 
   const [query, setQuery] = useState('');
+  const [previousQuery, setPreviousQuery] = useState('');
 
   const onSearch = () => {
-    searchRecipes(query);
+    // Prevents searching twice with same query
+    if (previousQuery === '' || previousQuery !== query) {
+      searchRecipes(query);
+      setPreviousQuery(query);
+    }
   };
 
   return (
-    <div className='container is-fluid'>
+    <div className='container is-fluid is-main'>
       <div>
-        <h1 className='is-size-4 is-uppercase has-text-weight-light has-text-grey-darker'>
+        <h1
+          style={{ marginBottom: '16px' }}
+          className='is-size-3 has-text-centered is-uppercase has-text-weight-light has-text-grey-darker'
+        >
           Search Recipes
         </h1>
 
-        <FormAddons
-          value={query}
-          onChange={setQuery}
-          onKeyDown={(e) => e.keyCode === 13 && onSearch()}
-          buttonText='Search'
-          buttonColor='info'
-          onClick={onSearch}
-        />
+        <div className='columns is-centered'>
+          <div className='column is-half'>
+            <FormAddons
+              value={query}
+              onChange={setQuery}
+              onKeyDown={(e) => e.keyCode === 13 && onSearch()}
+              buttonText='Search'
+              buttonColor='info'
+              onClick={onSearch}
+            />
+          </div>
+        </div>
       </div>
       <div>
         <RecipeList recipes={searchResults} loading={loading} />

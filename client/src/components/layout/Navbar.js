@@ -50,12 +50,6 @@ const Navbar = () => {
   const guestLinks = (
     <Fragment>
       <Link
-        to='/search'
-        className='navbar-item has-text-white has-text-centered is-uppercase'
-      >
-        Search
-      </Link>
-      <Link
         to='/login'
         className='navbar-item has-text-white has-text-centered is-uppercase'
       >

@@ -10,6 +10,11 @@ body {
   max-width: 450px !important ;
 }
 
+.container.is-main {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
 .container.is-fullheight {
   min-height: calc(100vh - 52px);
   display: flex;
