@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { v4 as uuid } from 'uuid';
-import { storage } from '../../config/firebase-config';
 import FormField from '../form/FormField';
 import FileUpload from '../form/FileUpload';
 import Radio from '../form/Radio';
@@ -13,6 +11,7 @@ import {
   parseInstructionsFromHtml,
   parseInstructionsToHtml
 } from '../../utils/recipeUtils';
+import { uploadImage } from '../../utils/firebaseUtils';
 
 const RecipeForm = ({
   formTitle,
@@ -60,51 +59,14 @@ const RecipeForm = ({
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
   };
 
-  const onFileUpload = async (e) => {
+  const onFileUpload = (e) => {
     setImageUploading(true);
 
-    let currentImageName = 'firebase-image-' + Date.now();
-
-    const config = {
-      headers: {
-        'Context-Type': 'application/json'
-      }
-    };
-
-    try {
-      let uploadImage = storage
-        .ref(`images/${currentImageName}`)
-        .put(e.target.files[0]);
-
-      uploadImage.on(
-        'state_changed',
-        (snapshot) => {},
-        (error) => {
-          throw error;
-        },
-        () => {
-          storage
-            .ref('images')
-            .child(currentImageName)
-            .getDownloadURL()
-            .then(async (url) => {
-              setImageUrl(url);
-
-              // store image object in the database
-              let imageObj = {
-                imageName: currentImageName,
-                imageUrl: url
-              };
-
-              let res = await axios.post('/api/image', imageObj, config);
-              setImage(res.data.image._id);
-              setImageUploading(false);
-            });
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    uploadImage(e.target.files[0], 'recipes', (url, id) => {
+      setImageUrl(url);
+      setImage(id);
+      setImageUploading(false);
+    });
   };
 
   const onSubmit = async () => {
