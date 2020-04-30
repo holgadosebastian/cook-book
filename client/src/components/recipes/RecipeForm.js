@@ -135,21 +135,16 @@ const RecipeForm = ({
       return false;
     }
 
-    const newRecipe = {
+    let newRecipe = {
       mainImage: image,
       title,
       ingredients,
       instructions: parseInstructionsToHtml(instructions),
+      // Serving size and cooking time should be null
+      servingSize: servingSize === '' ? null : servingSize,
+      cookingTime: cookingTime === '' ? null : cookingTime,
       isPrivate
     };
-
-    if (!!servingSize) {
-      newRecipe.servingSize = parseInt(servingSize);
-    }
-
-    if (!!servingSize) {
-      newRecipe.cookingTime = parseInt(cookingTime);
-    }
 
     // If the recipe already exists add the id
     if (recipe) {

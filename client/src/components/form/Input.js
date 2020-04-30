@@ -1,12 +1,24 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ onChange, error, errorMessage, ...props }) => {
+const Input = ({ onChange, error, errorMessage, type, ...props }) => {
+  const handleChange = (e) => {
+    let value = e.target.value;
+
+    // Converts value to an int
+    if (type === 'number') {
+      value = parseInt(value);
+    }
+
+    onChange(value);
+  };
+
   return (
     <Fragment>
       <input
         className={`input ${error ? 'is-danger' : ''}`}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
+        type={type}
         {...props}
       />
       {error && errorMessage !== '' && (
