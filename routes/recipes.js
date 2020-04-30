@@ -2,17 +2,37 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
+const loggedUser = require('../middleware/loggedUser');
 
 const Recipe = require('../models/Recipe');
+
+const filterPrivateRecipes = (recipes, user) => {
+  let availableRecipes = [];
+
+  recipes.forEach((recipe) => {
+    if (!recipe.isPrivate) {
+      availableRecipes.push(recipe);
+    } else {
+      // If the recipes is private but belongs to the user then add it to the list
+      if (user && user.id == recipe.author._id) {
+        availableRecipes.push(recipe);
+      }
+    }
+  });
+
+  return availableRecipes;
+};
 
 // @route     GET api/recipes
 // @desc      Get all recipes
 // @access    Public
-router.get('/', async (req, res) => {
+router.get('/', loggedUser, async (req, res) => {
   try {
-    let recipes = await Recipe.find();
-
-    res.json({ recipes });
+    await Recipe.find()
+      .lean()
+      .exec((error, recipes) => {
+        res.json({ recipes: filterPrivateRecipes(recipes, req.user) });
+      });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -22,11 +42,16 @@ router.get('/', async (req, res) => {
 // @route     GET api/recipes/latest
 // @desc      Get latest recipes feed
 // @access    Public
-router.get('/latest', async (req, res) => {
+router.get('/latest', loggedUser, async (req, res) => {
   try {
-    let recipes = await Recipe.find().sort({ date: -1 }).limit(5);
+    await Recipe.find()
+      .sort({ date: -1 })
+      .lean()
+      .exec((error, recipes) => {
+        let result = filterPrivateRecipes(recipes, req.user).slice(0, 5);
 
-    res.json({ recipes });
+        res.json({ recipes: result });
+      });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -44,7 +69,7 @@ router.get('/search', auth, async (req, res) => {
       }
     });
 
-    res.json({ recipes });
+    res.json({ recipes: filterPrivateRecipes(recipes, req.user) });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -203,11 +228,11 @@ router.delete('/:id', auth, async (req, res) => {
 // @route     GET api/recipes/user/:id
 // @desc      Get all recipes from a user
 // @access    Public
-router.get('/user/:id', async (req, res) => {
+router.get('/user/:id', loggedUser, async (req, res) => {
   try {
     let recipes = await Recipe.find({ author: req.params.id });
 
-    res.json({ recipes });
+    res.json({ recipes: filterPrivateRecipes(recipes, req.user) });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
