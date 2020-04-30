@@ -53,7 +53,7 @@ const UserState = (props) => {
 
       dispatch({
         type: UPDATE_USER,
-        payload: res.data.user
+        payload: res.data
       });
     } catch (error) {
       console.error(error.response);

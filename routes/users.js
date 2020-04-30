@@ -7,14 +7,27 @@ const auth = require('../middleware/auth');
 require('dotenv').config();
 
 const User = require('../models/User');
+const Recipe = require('../models/Recipe');
 
 // @route     GET api/users
 // @desc      Get a user
 // @access    Private
 router.get('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select('-password');
-    res.json(user);
+    let user = await User.findOne({ _id: req.params.id });
+
+    let userRecipes = await Recipe.find({ author: req.params.id });
+
+    const { _id, firstName, lastName, username, profileImage } = user;
+
+    res.json({
+      _id,
+      firstName,
+      lastName,
+      username,
+      profileImage,
+      recipesAmount: userRecipes.length
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -111,22 +124,33 @@ router.put('/:id', auth, async (req, res) => {
   const { firstName, lastName, profileImage } = req.body;
   let userFields = {};
 
-  if (firstName) userFields.firstName = userFields;
-  if (lastName) userFields.lastName = profileImage;
+  if (firstName) userFields.firstName = firstName;
+  if (lastName) userFields.lastName = lastName;
   if (profileImage) userFields.profileImage = profileImage;
 
   try {
     let user = await User.findOneAndUpdate(
-      { _id: req.body.id },
+      { _id: req.params.id },
       {
         $set: userFields
       },
       {
         new: true
       }
-    ).select('-password');
+    );
 
-    res.json({ user });
+    let userRecipes = await Recipe.find({ author: req.params.id });
+
+    const { _id, firstName, lastName, username, profileImage } = user;
+
+    res.json({
+      _id,
+      firstName,
+      lastName,
+      username,
+      profileImage,
+      recipesAmount: userRecipes.length
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');

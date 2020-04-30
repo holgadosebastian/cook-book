@@ -13,7 +13,7 @@ import UserContext from '../../context/user/userContext';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 
-const User = (props) => {
+const User = ({ match }) => {
   const recipeContext = useContext(RecipeContext);
   const { recipes, getUserRecipes, loading } = recipeContext;
 
@@ -28,8 +28,8 @@ const User = (props) => {
 
   useEffect(() => {
     loadUser();
-    getUserRecipes(props.match.params.id);
-    getUser(props.match.params.id);
+    getUserRecipes(match.params.id);
+    getUser(match.params.id);
     // eslint-disable-next-line
   }, []);
 
@@ -53,9 +53,17 @@ const User = (props) => {
   if (loading) return <LoadingContainer message='Loading User' />;
 
   if (user === null) return false;
-  const { firstName, lastName, username, profileImage } = user;
 
+  const {
+    _id,
+    firstName,
+    lastName,
+    username,
+    profileImage,
+    recipesAmount
+  } = user;
   let userImage = profileImage ? profileImage.imageUrl : userImagePlaceholder;
+  let isAuthUser = isLoggedInUser(authContext.user, _id);
 
   return (
     <main>
@@ -65,7 +73,7 @@ const User = (props) => {
             className='hero-image has-border square-image is-rounded has-background-grey-lighter'
             style={{ backgroundImage: `url(${userImage})` }}
           >
-            {isLoggedInUser(authContext.user, user._id) &&
+            {isAuthUser &&
               (!profileImageLoading ? (
                 <input
                   className='file-input-hidden'
@@ -83,7 +91,9 @@ const User = (props) => {
             <h1 className='is-size-3 is-uppercase has-text-weight-light has-text-grey-darker'>
               {getUserName(firstName, lastName, username)}
             </h1>
-            {/* <p>Recipe count: 0</p> */}
+            <p className='is-size-6 has-text-grey-light'>
+              {recipesAmount} Recipes
+            </p>
           </div>
         </div>
       </Hero>
@@ -96,7 +106,7 @@ const User = (props) => {
             active={activeTab === 'my-recipes'}
             onClick={setActiveTab}
           />
-          {isLoggedInUser(authContext.user, user._id) && (
+          {isAuthUser && (
             <Tab
               label='My Info'
               name='my-info'
