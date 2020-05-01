@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/footer';
-import Home from './components/pages/Home';
+import Home from './pages/home';
 import Recipe from './components/pages/Recipe';
 import User from './components/pages/User';
 import NewRecipe from './components/pages/NewRecipe';
@@ -27,17 +27,23 @@ function App() {
       <UserState>
         <RecipeState>
           <Router>
-            <div className='App'>
+            <div className='app'>
               <Navbar />
-              <Switch>
-                <Route exact path='/' component={Home} />
-                <PrivateRoute exact path='/new-recipe' component={NewRecipe} />
-                <PrivateRoute exact path='/search' component={Search} />
-                <Route exact path='/recipe/:id' component={Recipe} />
-                <Route exact path='/users/:id' component={User} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/login' component={Login} />
-              </Switch>
+              <main>
+                <Switch>
+                  <Route exact path='/' component={Home} />
+                  <PrivateRoute
+                    exact
+                    path='/new-recipe'
+                    component={NewRecipe}
+                  />
+                  <PrivateRoute exact path='/search' component={Search} />
+                  <Route exact path='/recipe/:id' component={Recipe} />
+                  <Route exact path='/users/:id' component={User} />
+                  <Route exact path='/register' component={Register} />
+                  <Route exact path='/login' component={Login} />
+                </Switch>
+              </main>
               <Footer />
             </div>
           </Router>

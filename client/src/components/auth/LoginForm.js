@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../elements/Button';
+import Button from '../elements/button';
 import FormField from '../form/FormField';
 import Message from '../common/Message';
 import AuthContext from '../../context/auth/authContext';
@@ -116,8 +116,8 @@ const LoginForm = () => {
 
           <Button
             style={{ marginTop: '24px' }}
-            cssClasses='is-fullwidth'
             loading={loading}
+            fullwidth
             type='submit'
           >
             Log In

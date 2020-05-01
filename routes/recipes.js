@@ -48,7 +48,7 @@ router.get('/latest', loggedUser, async (req, res) => {
       .sort({ date: -1 })
       .lean()
       .exec((error, recipes) => {
-        let result = filterPrivateRecipes(recipes, req.user).slice(0, 5);
+        let result = filterPrivateRecipes(recipes, req.user).slice(0, 3);
 
         res.json({ recipes: result });
       });

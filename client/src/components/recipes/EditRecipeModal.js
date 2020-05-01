@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../common/Modal';
-import Button from '../elements/Button';
+import Button from '../elements/button';
 import RecipeForm from './RecipeForm';
 import RecipeContext from '../../context/recipe/recipeContext';
 
@@ -29,7 +29,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
         style={{ marginTop: '16px' }}
         color='text'
         outlined
-        cssClasses='is-fullwidth'
+        fullwidth
         onClick={() => setModalActive(false)}
       >
         Cancel

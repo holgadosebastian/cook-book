@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
 import Hero from '../common/Hero';
-import Button from '../elements/Button';
+import Button from '../elements/button';
 import Tag from '../elements/Tag';
 import LoadingContainer from '../common/LoadingContainer';
 import EditRecipeModal from '../recipes/EditRecipeModal';
@@ -49,7 +49,7 @@ const Recipe = ({ match, history }) => {
     : recipeCardPlaceholder;
 
   return (
-    <main>
+    <Fragment>
       <Hero color='light'>
         <div className='hero-container with-image'>
           <div
@@ -83,7 +83,7 @@ const Recipe = ({ match, history }) => {
         </div>
       </Hero>
 
-      <div className='container is-fluid'>
+      <div style={{ paddingBottom: '48px' }} className='container is-fluid'>
         <hr />
 
         <div className='columns'>
@@ -220,7 +220,7 @@ const Recipe = ({ match, history }) => {
           </Fragment>
         )}
       </div>
-    </main>
+    </Fragment>
   );
 };
 

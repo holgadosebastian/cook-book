@@ -2,6 +2,16 @@ body {
   min-height: 100vh;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app > main {
+  flex-grow: 10;
+}
+
 .container {
   max-width: 960px !important;
 }
@@ -160,6 +170,12 @@ hr {
   text-decoration: underline;
 }
 
+.background-image-centered {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 @media screen and (max-width: 767px) {
   .hero-container.with-image {
     text-align: center;
@@ -218,6 +234,26 @@ hr {
 
 .mt5 {
   margin-top: 20px;
+}
+
+.mb1 {
+  margin-bottom: 4px;
+}
+
+.mb2 {
+  margin-bottom: 8px;
+}
+
+.mb3 {
+  margin-bottom: 12px;
+}
+
+.mb4 {
+  margin-bottom: 16px;
+}
+
+.mb5 {
+  margin-bottom: 20px;
 }
 
 .pt1 {

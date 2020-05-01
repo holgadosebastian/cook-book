@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { Fragment, useEffect, useContext, useState } from 'react';
 import RecipeList from '../recipes/RecipeList';
 import Hero from '../common/Hero';
 import LoadingContainer from '../common/LoadingContainer';
@@ -66,7 +66,7 @@ const User = ({ match }) => {
   let isAuthUser = isLoggedInUser(authContext.user, _id);
 
   return (
-    <main>
+    <Fragment>
       <Hero color='light'>
         <div className='hero-container with-image'>
           <div
@@ -98,7 +98,7 @@ const User = ({ match }) => {
         </div>
       </Hero>
 
-      <div className='container is-fluid'>
+      <div style={{ paddingBottom: '48px' }} className='container is-fluid'>
         <Tabs>
           <Tab
             label='My Recipes'
@@ -128,7 +128,7 @@ const User = ({ match }) => {
           <UserForm user={user} onFormSubmit={onUserUpdate} />
         )}
       </div>
-    </main>
+    </Fragment>
   );
 };
 

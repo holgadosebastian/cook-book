@@ -6,7 +6,7 @@ import FormAddons from '../form/FormAddons';
 import FileUpload from '../form/FileUpload';
 import Radio from '../form/Radio';
 import Label from '../form/Label';
-import Button from '../elements/Button';
+import Button from '../elements/button';
 import {
   parseInstructionsFromHtml,
   parseInstructionsToHtml
@@ -281,9 +281,9 @@ const RecipeForm = ({
 
       <Button
         style={{ marginTop: '24px' }}
-        cssClasses='is-fullwidth'
         loading={loading}
         onClick={onSubmit}
+        fullwidth
       >
         {submitButtonText}
       </Button>

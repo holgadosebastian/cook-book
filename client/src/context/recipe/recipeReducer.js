@@ -1,6 +1,5 @@
 import {
   GET_RECIPES,
-  GET_LATEST_RECIPES,
   GET_USER_RECIPES,
   SEARCH_RECIPES,
   CREATE_RECIPE,
@@ -14,7 +13,6 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case GET_RECIPES:
-    case GET_LATEST_RECIPES:
     case GET_USER_RECIPES:
       return {
         ...state,

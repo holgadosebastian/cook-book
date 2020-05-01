@@ -4,7 +4,6 @@ import RecipeContext from './recipeContext';
 import recipeReducer from './recipeReducer';
 import {
   GET_RECIPES,
-  GET_LATEST_RECIPES,
   GET_USER_RECIPES,
   SEARCH_RECIPES,
   CREATE_RECIPE,
@@ -35,26 +34,6 @@ const RecipeState = (props) => {
 
       dispatch({
         type: GET_RECIPES,
-        payload: res.data.recipes
-      });
-    } catch (error) {
-      console.log(error);
-      dispatch({
-        type: RECIPE_ERROR,
-        payload: error.response.msg
-      });
-    }
-  };
-
-  // Get latest recipes
-  const getLatestRecipes = async () => {
-    setRecipesLoading();
-
-    try {
-      const res = await axios.get('/api/recipes/latest');
-
-      dispatch({
-        type: GET_LATEST_RECIPES,
         payload: res.data.recipes
       });
     } catch (error) {
@@ -224,7 +203,6 @@ const RecipeState = (props) => {
         errors: state.errors,
         loading: state.loading,
         getRecipes,
-        getLatestRecipes,
         getUserRecipes,
         searchRecipes,
         setCurrentRecipe,
