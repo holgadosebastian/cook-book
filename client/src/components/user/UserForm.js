@@ -18,8 +18,6 @@ const UserForm = ({ user, onFormSubmit }) => {
       lastName: updatedLastName
     };
 
-    console.log(userData);
-
     onFormSubmit(userData);
   };
 

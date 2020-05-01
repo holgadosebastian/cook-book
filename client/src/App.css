@@ -156,6 +156,10 @@ hr {
   opacity: 0;
 }
 
+.link {
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 767px) {
   .hero-container.with-image {
     text-align: center;
