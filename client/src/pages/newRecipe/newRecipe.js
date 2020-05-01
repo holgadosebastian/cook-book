@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import RecipeForm from '../recipes/RecipeForm';
+import RecipeForm from '../../components/recipes/RecipeForm';
 import RecipeContext from '../../context/recipe/recipeContext';
 
 const NewRecipe = (props) => {

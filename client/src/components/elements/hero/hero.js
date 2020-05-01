@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const Hero = ({ color, size, className, children, ...props }) => {
-  let heroClassName = classnames(
-    'hero',
-    className,
-    'background-image-centered',
-    {
-      [`is-${color}`]: color,
-      [`is-${size}`]: size
-    }
-  );
-
   return (
-    <section {...props} className={heroClassName}>
+    <section
+      {...props}
+      className={classnames('hero', 'background-image-centered', className, {
+        [`is-${color}`]: color,
+        [`is-${size}`]: size
+      })}
+    >
       <div className='hero-body'>
         <div className='container is-fluid'>{children}</div>
       </div>

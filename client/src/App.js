@@ -3,13 +3,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/footer';
+
+// Pages
 import Home from './pages/home';
-import Recipe from './components/pages/Recipe';
-import User from './components/pages/User';
-import NewRecipe from './components/pages/NewRecipe';
-import Register from './components/pages/Register';
-import Login from './components/pages/Login';
-import Search from './components/pages/Search';
+import Recipe from './pages/recipe';
+import User from './pages/user';
+import NewRecipe from './pages/newRecipe';
+import Register from './pages/register';
+import Login from './pages/login';
+import Search from './pages/search';
+
 import PrivateRoute from './components/routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 

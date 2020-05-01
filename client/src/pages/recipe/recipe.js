@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
-import Hero from '../common/Hero';
-import Button from '../elements/button';
-import Tag from '../elements/Tag';
-import LoadingContainer from '../common/LoadingContainer';
-import EditRecipeModal from '../recipes/EditRecipeModal';
-import DeleteRecipeModal from '../recipes/DeleteRecipeModal';
+import Hero from '../../components/elements/hero/hero';
+import Button from '../../components/elements/button';
+import Tag from '../../components/elements/tag';
+import Spinner from '../../components/elements/spinner';
+import EditRecipeModal from '../../components/recipes/EditRecipeModal';
+import DeleteRecipeModal from '../../components/recipes/DeleteRecipeModal';
 import { parseCookingTime } from '../../utils/recipeUtils';
 import { getUserName, isLoggedInUser } from '../../utils/userUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
@@ -40,7 +40,12 @@ const Recipe = ({ match, history }) => {
     history.push(`/users/${user._id}`);
   };
 
-  if (loading) return <LoadingContainer message='Loading recipe' />;
+  if (loading)
+    return (
+      <Spinner.Container message='Loading recipe'>
+        <Spinner size='medium' />
+      </Spinner.Container>
+    );
 
   if (currentRecipe === null) return <p>No recipe found</p>;
 

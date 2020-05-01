@@ -1,9 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-const Modal = ({ modalActive, setModalActive, children }) => {
+const Modal = ({
+  className,
+  children,
+  modalActive,
+  setModalActive,
+  ...props
+}) => {
   return (
-    <div className={`modal ${modalActive && 'is-active'}`}>
+    <div
+      {...props}
+      className={classnames('modal', {
+        'is-active': modalActive
+      })}
+    >
       <div
         className='modal-background'
         onClick={() => setModalActive(false)}
@@ -20,7 +32,16 @@ const Modal = ({ modalActive, setModalActive, children }) => {
   );
 };
 
+Modal.defaultProps = {
+  style: undefined,
+  className: undefined,
+  modalActive: false,
+  setModalActive: () => null
+};
+
 Modal.propTypes = {
+  style: PropTypes.shape({}),
+  className: PropTypes.string,
   modalActive: PropTypes.bool.isRequired,
   setModalActive: PropTypes.func.isRequired
 };

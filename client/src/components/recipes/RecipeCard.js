@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Tag from '../elements/Tag';
+import Tag from '../elements/tag';
 import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
 import { parseCookingTime } from '../../utils/recipeUtils';
 
@@ -28,7 +28,7 @@ const RecipeCard = ({ loader, recipe = {} }) => {
             {!mainImage && <img src={recipeCardPlaceholder} alt={title} />}
 
             {isPrivate && (
-              <Tag cssClasses='card-badge' color='danger' label='Private' />
+              <Tag className='card-badge' color='danger' label='Private' />
             )}
           </figure>
         </div>

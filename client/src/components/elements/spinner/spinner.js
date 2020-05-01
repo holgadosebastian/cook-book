@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SpinnerContainer from './components/container';
 
 const Spinner = ({ size, centered }) => {
   return (
@@ -10,6 +11,8 @@ const Spinner = ({ size, centered }) => {
     ></span>
   );
 };
+
+Spinner.Container = SpinnerContainer;
 
 Spinner.defaultProps = {
   size: undefined,

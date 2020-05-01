@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../common/Modal';
+import Modal from '../elements/modal';
 import Button from '../elements/button';
 import RecipeForm from './RecipeForm';
 import RecipeContext from '../../context/recipe/recipeContext';

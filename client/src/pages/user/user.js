@@ -1,11 +1,9 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
-import RecipeList from '../recipes/RecipeList';
-import Hero from '../common/Hero';
-import LoadingContainer from '../common/LoadingContainer';
-import Tabs from '../elements/Tabs';
-import Tab from '../elements/Tab';
-import UserForm from '../user/UserForm';
-import Spinner from '../common/Spinner';
+import RecipeList from '../../components/recipes/RecipeList';
+import Hero from '../../components/elements/hero';
+import Spinner from '../../components/elements/spinner';
+import Tabs from '../../components/elements/tabs';
+import UserForm from '../../components/user/UserForm';
 import { getUserName, isLoggedInUser } from '../../utils/userUtils';
 import { uploadImage } from '../../utils/firebaseUtils';
 import userImagePlaceholder from '../../assets/user_placeholder.png';
@@ -50,7 +48,12 @@ const User = ({ match }) => {
     });
   };
 
-  if (loading) return <LoadingContainer message='Loading User' />;
+  if (loading)
+    return (
+      <Spinner.Container message='Loading User'>
+        <Spinner size='medium' />
+      </Spinner.Container>
+    );
 
   if (user === null) return false;
 
@@ -100,19 +103,21 @@ const User = ({ match }) => {
 
       <div style={{ paddingBottom: '48px' }} className='container is-fluid'>
         <Tabs>
-          <Tab
-            label='My Recipes'
+          <Tabs.Tab
             name='my-recipes'
             active={activeTab === 'my-recipes'}
             onClick={setActiveTab}
-          />
+          >
+            My Recipes
+          </Tabs.Tab>
           {isAuthUser && (
-            <Tab
-              label='My Info'
+            <Tabs.Tab
               name='my-info'
               active={activeTab === 'my-info'}
               onClick={setActiveTab}
-            />
+            >
+              My Info
+            </Tabs.Tab>
           )}
         </Tabs>
 

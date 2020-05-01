@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import LoginForm from '../auth/LoginForm';
+import LoginForm from '../../components/auth/LoginForm';
 import AuthContext from '../../context/auth/authContext';
 
 const Login = (props) => {

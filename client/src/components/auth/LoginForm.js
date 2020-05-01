@@ -2,7 +2,7 @@ import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../elements/button';
 import FormField from '../form/FormField';
-import Message from '../common/Message';
+import Message from '../elements/message';
 import AuthContext from '../../context/auth/authContext';
 
 const LoginForm = () => {
@@ -112,7 +112,11 @@ const LoginForm = () => {
             errorMessage={formErrors.password}
           />
 
-          <Message messageList={errors} />
+          {errors && !!errors.length && (
+            <Message>
+              <Message.List messageList={errors} />
+            </Message>
+          )}
 
           <Button
             style={{ marginTop: '24px' }}
