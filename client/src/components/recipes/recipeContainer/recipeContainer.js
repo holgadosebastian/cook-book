@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import RecipeList from '../RecipeList';
+import RecipeList from '../recipeList';
 
 const RecipeContainer = () => {
   const [loadingRecipes, setLoadingRecipes] = useState(true);

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import FormField from '../form/FormField';
-import Button from '../elements/button';
+import FormField from '../../form/formField';
+import Button from '../../elements/button';
 
 const UserForm = ({ user, onFormSubmit }) => {
   const [updatedFirstName, setUpdatedFirstName] = useState('');

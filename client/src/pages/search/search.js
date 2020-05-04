@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import FormAddons from '../../components/form/FormAddons';
-import RecipeList from '../../components/recipes/RecipeList';
+import FormAddons from '../../components/form/formAddons';
+import RecipeList from '../../components/recipes/recipeList/recipeList';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
 

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../elements/modal';
-import Button from '../elements/button';
-import RecipeForm from './RecipeForm';
-import RecipeContext from '../../context/recipe/recipeContext';
+import Modal from '../../elements/modal';
+import Button from '../../elements/button';
+import RecipeForm from '../recipeForm';
+import RecipeContext from '../../../context/recipe/recipeContext';
 
 const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   const recipeContext = useContext(RecipeContext);

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import RecipeCard from './RecipeCard';
-import noRecipesImage from '../../assets/no_recipes.png';
+import RecipeCard from '../recipeCard';
+import noRecipesImage from '../../../assets/no_recipes.png';
 
 const RecipeList = ({ recipes, loading, noRecipesMessage }) => {
   return (

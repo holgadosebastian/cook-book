@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Tag from '../elements/tag';
-import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
-import { parseCookingTime } from '../../utils/recipeUtils';
+import Tag from '../../elements/tag';
+import recipeCardPlaceholder from '../../../assets/recipe_card_placeholder.png';
+import { parseCookingTime } from '../../../utils/recipeUtils';
+import recipeShape from '../../../utils/recipeShape';
 
-const RecipeCard = ({ loader, recipe = {} }) => {
+const RecipeCard = ({ loader, recipe }) => {
   const LinkElem = loader ? 'div' : Link;
 
   const { _id, title, mainImage, cookingTime, servingSize, isPrivate } = recipe;
@@ -88,9 +89,14 @@ const RecipeCard = ({ loader, recipe = {} }) => {
   );
 };
 
+RecipeCard.defaultProps = {
+  loader: false,
+  recipe: {}
+};
+
 RecipeCard.propType = {
   loader: PropTypes.bool,
-  recipe: PropTypes.object
+  recipe: recipeShape
 };
 
 export default RecipeCard;

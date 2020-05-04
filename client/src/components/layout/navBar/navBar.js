@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import AuthContext from '../../context/auth/authContext';
+import AuthContext from '../../../context/auth/authContext';
 
 const Navbar = () => {
   let history = useHistory();

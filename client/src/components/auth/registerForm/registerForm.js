@@ -1,9 +1,10 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../elements/button';
-import FormField from '../form/FormField';
-import Message from '../elements/message';
-import AuthContext from '../../context/auth/authContext';
+import Button from '../../elements/button';
+import FormField from '../../form/formField';
+import Message from '../../elements/message';
+import validate from '../../../utils/validate';
+import AuthContext from '../../../context/auth/authContext';
 
 const RegisterForm = () => {
   const authContext = useContext(AuthContext);
@@ -27,10 +28,10 @@ const RegisterForm = () => {
 
     let hasErrors = false;
     let errors = {
-      ...validate('username', username),
-      ...validate('password', password),
-      ...validate('password2', password2),
-      ...validate('secret', secret)
+      username: validate('username', username),
+      password: validate('password', password),
+      password2: validate('password2', password2, { password }),
+      secret: validate('secret', secret)
     };
 
     // eslint-disable-next-line
@@ -53,51 +54,13 @@ const RegisterForm = () => {
     }
   };
 
-  const validate = (type, value) => {
-    let errors = {};
-
-    switch (type) {
-      case 'username':
-        if (value === '') {
-          errors[type] = 'Username is required';
-        } else if (value.length < 6) {
-          errors[type] = 'Username is too short, minimum 6 characters';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      case 'password':
-        if (value === '') {
-          errors[type] = 'Password is required';
-        } else if (value.length < 6) {
-          errors[type] = 'Password is too short, minimum 6 characters';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      case 'password2':
-        if (value !== password) {
-          errors[type] = 'Passwords do not match';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      case 'secret':
-        if (value === '') {
-          errors[type] = 'Secret is required to make an account';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      default:
-        return errors;
-    }
-
-    return errors;
-  };
-
   const onValidateInput = (type, value) => {
-    let error = validate(type, value);
+    let error = {};
+    let options = {};
+
+    if (type === 'password2') options.password = password;
+
+    error[type] = validate(type, value, options);
 
     setFormErrors({
       ...formErrors,
@@ -190,7 +153,7 @@ const RegisterForm = () => {
             required
           />
 
-          {errors && errors.length && (
+          {errors && !!errors.length && (
             <Message>
               <Message.List messageList={errors} />
             </Message>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/layout/navBar';
 import Footer from './components/layout/footer';
 
 // Pages
@@ -13,7 +13,7 @@ import Register from './pages/register';
 import Login from './pages/login';
 import Search from './pages/search';
 
-import PrivateRoute from './components/routing/PrivateRoute';
+import PrivateRoute from './routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 
 import AuthState from './context/auth/AuthState';

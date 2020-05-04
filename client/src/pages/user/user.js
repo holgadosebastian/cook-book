@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
-import RecipeList from '../../components/recipes/RecipeList';
+import RecipeList from '../../components/recipes/recipeList';
 import Hero from '../../components/elements/hero';
 import Spinner from '../../components/elements/spinner';
 import Tabs from '../../components/elements/tabs';
-import UserForm from '../../components/user/UserForm';
+import UserForm from '../../components/user/userForm';
 import { getUserName, isLoggedInUser } from '../../utils/userUtils';
 import { uploadImage } from '../../utils/firebaseUtils';
 import userImagePlaceholder from '../../assets/user_placeholder.png';

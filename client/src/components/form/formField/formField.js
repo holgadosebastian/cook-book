@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Label from './Label';
-import Input from './Input';
-import Textarea from './Textarea';
+import Label from '../label';
+import Input from '../input';
+import Textarea from '../textarea';
 
 const FormField = ({ id, name, type, required, ...props }) => {
   return (

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({
+const Textarea = ({
   id,
   value,
   placeholder,
@@ -27,11 +27,11 @@ const Input = ({
   );
 };
 
-Input.propTypes = {
+Textarea.propTypes = {
   id: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func
 };
 
-export default Input;
+export default Textarea;

@@ -1,9 +1,10 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../elements/button';
-import FormField from '../form/FormField';
-import Message from '../elements/message';
-import AuthContext from '../../context/auth/authContext';
+import Button from '../../elements/button';
+import FormField from '../../form/formField';
+import Message from '../../elements/message';
+import validate from '../../../utils/validate';
+import AuthContext from '../../../context/auth/authContext';
 
 const LoginForm = () => {
   const authContext = useContext(AuthContext);
@@ -13,38 +14,12 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [formErrors, setFormErrors] = useState({
     username: null,
-    password: null,
-    password2: null,
-    secret: null
+    password: null
   });
 
-  const validate = (type, value) => {
-    let errors = {};
-
-    switch (type) {
-      case 'username':
-        if (value === '') {
-          errors[type] = 'Username is required';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      case 'password':
-        if (value === '') {
-          errors[type] = 'Password is required';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      default:
-        return errors;
-    }
-
-    return errors;
-  };
-
   const onValidateInput = (type, value) => {
-    let error = validate(type, value);
+    let error = {};
+    error[type] = validate(type, value);
 
     setFormErrors({
       ...formErrors,
@@ -57,8 +32,8 @@ const LoginForm = () => {
 
     let hasErrors = false;
     let errors = {
-      ...validate('username', username),
-      ...validate('password', password)
+      username: validate('username', username),
+      password: validate('password', password)
     };
 
     // eslint-disable-next-line

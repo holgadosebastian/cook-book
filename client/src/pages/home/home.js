@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import Hero from '../../components/elements/hero';
 import Button from '../../components/elements/button';
 import RecipeContainer from '../../components/recipes/recipeContainer';
-import LoginForm from '../../components/auth/LoginForm';
+import LoginForm from '../../components/auth/loginForm';
 import AuthContext from '../../context/auth/authContext';
 
 const Home = () => {

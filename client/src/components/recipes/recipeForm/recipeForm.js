@@ -1,17 +1,19 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
-import FormField from '../form/FormField';
-import FormAddons from '../form/FormAddons';
-import FileUpload from '../form/FileUpload';
-import Radio from '../form/Radio';
-import Label from '../form/Label';
-import Button from '../elements/button';
+import FormField from '../../form/formField';
+import FormAddons from '../../form/formAddons';
+import FileUpload from '../../form/fileUpload';
+import Radio from '../../form/radio';
+import Label from '../../form/label';
+import Button from '../../elements/button';
+import validate from '../../../utils/validate';
+import recipeShape from '../../../utils/recipeShape';
 import {
   parseInstructionsFromHtml,
   parseInstructionsToHtml
-} from '../../utils/recipeUtils';
-import { uploadImage } from '../../utils/firebaseUtils';
+} from '../../../utils/recipeUtils';
+import { uploadImage } from '../../../utils/firebaseUtils';
 
 const RecipeForm = ({
   formTitle,
@@ -74,40 +76,10 @@ const RecipeForm = ({
     });
   };
 
-  const validate = (type, value) => {
-    let errors = {};
-
-    switch (type) {
-      case 'title':
-        if (value === '') {
-          errors[type] = 'Title is required';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      case 'ingredients':
-        if (value.length === 0) {
-          errors[type] = 'At least 1 ingredient is required';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      case 'instructions':
-        if (value === '') {
-          errors[type] = 'Basic instructions are required';
-        } else {
-          errors[type] = null;
-        }
-        break;
-      default:
-        return errors;
-    }
-
-    return errors;
-  };
-
   const onValidateInput = (type, value) => {
-    let error = validate(type, value);
+    let error = {};
+
+    error[type] = validate(type, value);
 
     setFormErrors({
       ...formErrors,
@@ -118,9 +90,9 @@ const RecipeForm = ({
   const onSubmit = async () => {
     let hasErrors = false;
     let errors = {
-      ...validate('title', title),
-      ...validate('ingredients', ingredients),
-      ...validate('instructions', instructions)
+      title: validate('title', title),
+      ingredients: validate('ingredients', ingredients),
+      instructions: validate('instructions', instructions)
     };
 
     // eslint-disable-next-line
@@ -299,7 +271,7 @@ RecipeForm.defaultProps = {
 
 RecipeForm.propTypes = {
   formTitle: PropTypes.string,
-  recipe: PropTypes.object,
+  recipe: recipeShape,
   submitButtonText: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool
