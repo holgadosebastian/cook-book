@@ -23,7 +23,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   };
 
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive}>
+    <Modal show={modalActive} onClose={setModalActive}>
       <RecipeForm
         recipe={recipe}
         title='Edit Recipe'

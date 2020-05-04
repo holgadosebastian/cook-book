@@ -5,7 +5,7 @@ import Button from '../../elements/button';
 
 const DeleteRecipeModal = ({ onDelete, modalActive, setModalActive }) => {
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive}>
+    <Modal show={modalActive} onClose={setModalActive}>
       <p className='is-size-5 has-text-weight-light has-text-grey-darker has-text-centered'>
         Are you sure you want to delete this recipe?
       </p>
