@@ -6,7 +6,7 @@ import RecipeForm from '../recipeForm';
 import RecipeContext from '../../../context/recipe/recipeContext';
 import UiContext from '../../../context/ui/uiContext';
 
-const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
+const EditRecipeModal = ({ recipe, modalActive, onClose }) => {
   const recipeContext = useContext(RecipeContext);
   const { updateRecipe, loading } = recipeContext;
 
@@ -19,11 +19,11 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
     let message = <p>Recipe updated!</p>;
     showNotification(message, 3000);
 
-    setModalActive(false);
+    onClose();
   };
 
   return (
-    <Modal show={modalActive} onClose={setModalActive}>
+    <Modal show={modalActive} onClose={onClose}>
       <RecipeForm
         recipe={recipe}
         title='Edit Recipe'
@@ -37,7 +37,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
         color='text'
         outlined
         fullwidth
-        onClick={() => setModalActive(false)}
+        onClick={onClose}
       >
         Cancel
       </Button>
@@ -48,7 +48,7 @@ const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
 EditRecipeModal.propTypes = {
   recipe: PropTypes.object.isRequired,
   modalActive: PropTypes.bool.isRequired,
-  setModalActive: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired
 };
 
 export default EditRecipeModal;

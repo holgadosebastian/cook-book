@@ -217,21 +217,21 @@ const Recipe = ({ match, history }) => {
                 </Button>
               </div>
             </div>
-
-            <DeleteRecipeModal
-              modalActive={deleteModalActive}
-              setModalActive={setDeleteModalActive}
-              onDelete={onDelete}
-            />
-
-            <EditRecipeModal
-              modalActive={editModalActive}
-              recipe={currentRecipe}
-              setModalActive={setEditModalActive}
-            />
           </Fragment>
         )}
       </div>
+
+      <DeleteRecipeModal
+        modalActive={deleteModalActive}
+        onClose={() => setDeleteModalActive(false)}
+        onDelete={onDelete}
+      />
+
+      <EditRecipeModal
+        recipe={currentRecipe}
+        modalActive={editModalActive}
+        onClose={() => setEditModalActive(false)}
+      />
     </Fragment>
   );
 };

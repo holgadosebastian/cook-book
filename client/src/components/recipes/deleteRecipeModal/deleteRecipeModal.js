@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Modal from '../../elements/modal';
 import Button from '../../elements/button';
 
-const DeleteRecipeModal = ({ onDelete, modalActive, setModalActive }) => {
+const DeleteRecipeModal = ({ onDelete, modalActive, onClose }) => {
   return (
-    <Modal show={modalActive} onClose={setModalActive}>
+    <Modal show={modalActive} onClose={onClose}>
       <p className='is-size-5 has-text-weight-light has-text-grey-darker has-text-centered'>
         Are you sure you want to delete this recipe?
       </p>
@@ -24,7 +24,7 @@ const DeleteRecipeModal = ({ onDelete, modalActive, setModalActive }) => {
         color='text'
         outlined
         fullwidth
-        onClick={() => setModalActive(false)}
+        onClick={onClose}
       >
         Cancel
       </Button>
@@ -35,7 +35,7 @@ const DeleteRecipeModal = ({ onDelete, modalActive, setModalActive }) => {
 DeleteRecipeModal.propTypes = {
   onDelete: PropTypes.func.isRequired,
   modalActive: PropTypes.bool.isRequired,
-  setModalActive: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired
 };
 
 export default DeleteRecipeModal;

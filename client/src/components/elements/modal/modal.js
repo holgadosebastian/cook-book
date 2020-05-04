@@ -1,20 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+const ESC_KEYCODE = 27;
 const modalsRoot = document.getElementById('modals-root');
 
 const Modal = ({ className, children, show, onClose, ...props }) => {
-  let el = document.createElement('div');
+  const elRef = useRef(null);
 
   useEffect(() => {
+    const el = document.createElement('div');
     modalsRoot.appendChild(el);
+    elRef.current = el;
 
     return () => {
       modalsRoot.removeChild(el);
     };
-  });
+    // eslint-disable-next-line
+  }, []);
+
+  // Needs to update event listeners when updating show prop
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+    // eslint-disable-next-line
+  }, [show]);
+
+  // Close modal when pressing ESC key
+  const onKeyDown = (e) => {
+    if (e.keyCode === ESC_KEYCODE && show) {
+      onClose();
+    }
+  };
+
+  if (!elRef.current) return null;
 
   return createPortal(
     <div
@@ -33,7 +56,7 @@ const Modal = ({ className, children, show, onClose, ...props }) => {
         ></button>
       </div>
     </div>,
-    el
+    elRef.current
   );
 };
 
