@@ -1,0 +1,50 @@
+$spacing: 20px;
+
+.notification {
+  &[class*='float-'] {
+    position: fixed;
+    max-width: 400px;
+    animation-name: show-notification;
+    animation-duration: 0.2s;
+    animation-timing-function: ease;
+  }
+
+  &.float- {
+    &top {
+      top: $spacing;
+
+      &-left {
+        top: $spacing;
+        left: $spacing;
+      }
+
+      &-right {
+        top: $spacing;
+        right: $spacing;
+      }
+    }
+
+    &bottom {
+      bottom: $spacing;
+
+      &-left {
+        bottom: $spacing;
+        left: $spacing;
+      }
+
+      &-right {
+        bottom: $spacing;
+        right: $spacing;
+      }
+    }
+  }
+}
+
+@keyframes show-notification {
+  from {
+    transform: translateY(100px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

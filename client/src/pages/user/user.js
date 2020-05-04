@@ -10,6 +10,7 @@ import userImagePlaceholder from '../../assets/user_placeholder.png';
 import UserContext from '../../context/user/userContext';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
+import UiContext from '../../context/ui/uiContext';
 
 const User = ({ match }) => {
   const recipeContext = useContext(RecipeContext);
@@ -21,6 +22,9 @@ const User = ({ match }) => {
   const authContext = useContext(AuthContext);
   const { loadUser } = authContext;
 
+  const uiContext = useContext(UiContext);
+  const { showNotification } = uiContext;
+
   const [activeTab, setActiveTab] = useState('my-recipes');
   const [profileImageLoading, setProfileImageLoading] = useState(false);
 
@@ -31,8 +35,11 @@ const User = ({ match }) => {
     // eslint-disable-next-line
   }, []);
 
-  const onUserUpdate = (userData) => {
-    updateUser(userData);
+  const onUserUpdate = async (userData) => {
+    await updateUser(userData);
+
+    let message = <p>User Info Updated!</p>;
+    showNotification(message, 3000);
   };
 
   const onProfileImageChange = (e) => {
@@ -43,6 +50,9 @@ const User = ({ match }) => {
         id: user._id,
         profileImage: id
       });
+
+      let message = <p>Profile Image Updated!</p>;
+      showNotification(message, 3000);
 
       setProfileImageLoading(false);
     });

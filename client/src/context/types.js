@@ -21,3 +21,7 @@ export const USER_SET_ERRORS = 'USER_SET_ERRORS';
 
 export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+
+// UI Types
+export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
+export const REMOVE_NOTIFICATIONS = 'REMOVE_NOTIFICATIONS';

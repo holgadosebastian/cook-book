@@ -1,16 +1,26 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeForm from '../../components/recipes/recipeForm';
 import RecipeContext from '../../context/recipe/recipeContext';
+import UiContext from '../../context/ui/uiContext';
 
 const NewRecipe = (props) => {
   const recipeContext = useContext(RecipeContext);
   const { createRecipe, loading } = recipeContext;
 
-  // Creates recipe and redirects to it
+  const uiContext = useContext(UiContext);
+  const { showNotification } = uiContext;
+
+  // Creates recipe and shows link to it
   const onRecipeCreation = async (recipe) => {
     let newRecipe = await createRecipe(recipe);
 
-    props.history.push(`/recipe/${newRecipe._id}`);
+    let message = (
+      <p>
+        Recipe Created! <Link to={`/recipe/${newRecipe._id}`}>View</Link>
+      </p>
+    );
+    showNotification(message, 3000);
   };
 
   return (

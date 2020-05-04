@@ -4,13 +4,20 @@ import Modal from '../../elements/modal';
 import Button from '../../elements/button';
 import RecipeForm from '../recipeForm';
 import RecipeContext from '../../../context/recipe/recipeContext';
+import UiContext from '../../../context/ui/uiContext';
 
 const EditRecipeModal = ({ recipe, modalActive, setModalActive }) => {
   const recipeContext = useContext(RecipeContext);
   const { updateRecipe, loading } = recipeContext;
 
+  const uiContext = useContext(UiContext);
+  const { showNotification } = uiContext;
+
   const onRecipeUpdate = async (newRecipe) => {
     await updateRecipe(newRecipe);
+
+    let message = <p>Recipe updated!</p>;
+    showNotification(message, 3000);
 
     setModalActive(false);
   };

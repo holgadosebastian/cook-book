@@ -6,6 +6,7 @@ const loggedUser = require('../middleware/loggedUser');
 
 const Recipe = require('../models/Recipe');
 
+// Filter recipes depending on user making the request
 const filterPrivateRecipes = (recipes, user) => {
   let availableRecipes = [];
 

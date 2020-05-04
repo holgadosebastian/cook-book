@@ -11,6 +11,7 @@ import { parseCookingTime } from '../../utils/recipeUtils';
 import { getUserName, isLoggedInUser } from '../../utils/userUtils';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';
+import UiContext from '../../context/ui/uiContext';
 import recipeCardPlaceholder from '../../assets/recipe_card_placeholder.png';
 
 const Recipe = ({ match, history }) => {
@@ -28,6 +29,9 @@ const Recipe = ({ match, history }) => {
   const authContext = useContext(AuthContext);
   const { user, loadUser } = authContext;
 
+  const uiContext = useContext(UiContext);
+  const { showNotification } = uiContext;
+
   useEffect(() => {
     setCurrentRecipe(match.params.id);
     loadUser();
@@ -38,6 +42,9 @@ const Recipe = ({ match, history }) => {
   const onDelete = async () => {
     await removeRecipe(currentRecipe._id);
     history.push(`/users/${user._id}`);
+
+    let message = <p>Recipe deleted!</p>;
+    showNotification(message, 3000, 'danger');
   };
 
   if (loading)
