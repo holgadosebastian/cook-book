@@ -3,19 +3,31 @@ import PropTypes from 'prop-types';
 import RecipeCard from '../recipeCard';
 import noRecipesImage from '../../../assets/no_recipes.png';
 
-const RecipeList = ({ recipes, loading, noRecipesMessage }) => {
+const RecipeList = ({ loading, recipes, noRecipesMessage }) => {
   return (
     <Fragment>
       {loading ? (
         <ul className='columns is-multiline'>
-          <RecipeCard loader />
-          <RecipeCard loader />
-          <RecipeCard loader />
+          <li style={{ marginTop: '24px' }} className='column is-one-third'>
+            <RecipeCard loader />
+          </li>
+          <li style={{ marginTop: '24px' }} className='column is-one-third'>
+            <RecipeCard loader />
+          </li>
+          <li style={{ marginTop: '24px' }} className='column is-one-third'>
+            <RecipeCard loader />
+          </li>
         </ul>
       ) : !!recipes.length ? (
         <ul className='columns is-multiline'>
           {recipes.map((recipe) => (
-            <RecipeCard key={recipe._id} recipe={recipe} />
+            <li
+              style={{ marginTop: '24px' }}
+              key={recipe._id}
+              className='column is-one-third'
+            >
+              <RecipeCard recipe={recipe} />
+            </li>
           ))}
         </ul>
       ) : (
