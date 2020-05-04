@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import FormField from '../../form/formField';
+import { FormField } from '../../form';
 import Button from '../../elements/button';
 
 const UserForm = ({ user, onFormSubmit }) => {

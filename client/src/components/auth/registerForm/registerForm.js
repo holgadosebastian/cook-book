@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../elements/button';
-import FormField from '../../form/formField';
+import { FormField } from '../../form';
 import Message from '../../elements/message';
 import validate from '../../../utils/validate';
 import AuthContext from '../../../context/auth/authContext';

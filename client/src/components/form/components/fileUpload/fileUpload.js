@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Spinner from '../../elements/spinner';
+import Spinner from '../../../elements/spinner';
 
 const FileUpload = ({ name, onChange, loading, uploadedImage }) => {
   let ctaStyles = {};

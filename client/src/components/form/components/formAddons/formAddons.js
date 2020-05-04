@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input';
-import Button from '../../elements/button';
+import Button from '../../../elements/button';
 
 const FormAddons = ({ buttonColor, buttonText, onClick, ...props }) => {
   return (

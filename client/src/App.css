@@ -33,20 +33,6 @@ body {
   flex-direction: column;
 }
 
-.card .card-image {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.card .card-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
-}
-
 .modal-content {
   max-width: 80%;
 }
@@ -63,39 +49,6 @@ body {
   left: 0;
   top: 50%;
   margin-top: -1rem;
-}
-
-.card.is-loading {
-  animation-name: card-is-loading;
-  animation-duration: 3.5s;
-  opacity: 1;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.loader.is-ib {
-  display: inline-block;
-}
-
-.loader.is-medium {
-  height: 2.5rem;
-  width: 2.5rem;
-}
-
-.loader.is-large {
-  height: 4rem;
-  width: 4rem;
-}
-
-.loader.is-centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
-.loader.is-centered.is-medium {
-  margin-top: -1.25rem;
-  margin-left: -1.25rem;
 }
 
 .file .file-cta {
@@ -202,18 +155,6 @@ hr {
 /* Utility Classes */
 .va-b {
   vertical-align: bottom;
-}
-
-@keyframes card-is-loading {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .mt1 {

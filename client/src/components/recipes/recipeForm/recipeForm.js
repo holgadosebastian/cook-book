@@ -1,11 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
-import FormField from '../../form/formField';
-import FormAddons from '../../form/formAddons';
-import FileUpload from '../../form/fileUpload';
-import Radio from '../../form/radio';
-import Label from '../../form/label';
+import { FormField, FormAddons, FileUpload, Radio, Label } from '../../form';
 import Button from '../../elements/button';
 import validate from '../../../utils/validate';
 import recipeShape from '../../../utils/recipeShape';

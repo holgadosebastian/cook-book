@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import FormAddons from '../../components/form/formAddons';
+import { FormAddons } from '../../components/form';
 import RecipeList from '../../components/recipes/recipeList/recipeList';
 import RecipeContext from '../../context/recipe/recipeContext';
 import AuthContext from '../../context/auth/authContext';

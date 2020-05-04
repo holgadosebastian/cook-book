@@ -1,0 +1,30 @@
+@import '../../../styles/utils.scss';
+
+.loader {
+  @include loader;
+
+  &.is-ib {
+    display: inline-block;
+  }
+
+  &.is-medium {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  &.is-large {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  &.is-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  &.is-centered.is-medium {
+    margin-top: -1.25rem;
+    margin-left: -1.25rem;
+  }
+}

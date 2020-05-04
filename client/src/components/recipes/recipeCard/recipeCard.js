@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Card from '../../elements/card';
 import Tag from '../../elements/tag';
 import recipeCardPlaceholder from '../../../assets/recipe_card_placeholder.png';
 import { parseCookingTime } from '../../../utils/recipeUtils';
