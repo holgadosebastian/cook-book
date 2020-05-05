@@ -6,19 +6,24 @@ const loggedUser = require('../middleware/loggedUser');
 
 const Recipe = require('../models/Recipe');
 
+const isRecipePrivate = (isPrivate, user, recipeAuthor) => {
+  if (!isPrivate) {
+    return false;
+  } else if (user && user.id == recipeAuthor._id) {
+    // If the recipes is private but belongs to the user then its not private
+    return false;
+  }
+
+  return true;
+};
+
 // Filter recipes depending on user making the request
 const filterPrivateRecipes = (recipes, user) => {
   let availableRecipes = [];
 
   recipes.forEach((recipe) => {
-    if (!recipe.isPrivate) {
+    if (!isRecipePrivate(recipe.isPrivate, user, recipe.author))
       availableRecipes.push(recipe);
-    } else {
-      // If the recipes is private but belongs to the user then add it to the list
-      if (user && user.id == recipe.author._id) {
-        availableRecipes.push(recipe);
-      }
-    }
   });
 
   return availableRecipes;
@@ -80,11 +85,15 @@ router.get('/search', auth, async (req, res) => {
 // @route     GET api/recipes/:id
 // @desc      Get a recipe
 // @access    Public
-router.get('/:id', async (req, res) => {
+router.get('/:id', loggedUser, async (req, res) => {
   try {
     let recipe = await Recipe.findOne({ _id: req.params.id });
-
-    res.json({ recipe });
+    if (!isRecipePrivate(recipe.isPrivate, req.user, recipe.author)) {
+      res.json({ recipe });
+    } else {
+      // Recipe is private 404
+      res.status(404).send('Not Found');
+    }
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
