@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
+import NotFound from '../notFound';
 import Hero from '../../components/elements/hero/hero';
 import Button from '../../components/elements/button';
 import Tag from '../../components/elements/tag';
@@ -54,7 +55,7 @@ const Recipe = ({ match, history }) => {
       </Spinner.Container>
     );
 
-  if (currentRecipe === null) return <p>No recipe found</p>;
+  if (currentRecipe === null) return <NotFound />;
 
   let recipeImage = currentRecipe.mainImage
     ? currentRecipe.mainImage.imageUrl

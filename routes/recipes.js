@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 const auth = require('../middleware/auth');
 const loggedUser = require('../middleware/loggedUser');
 
@@ -87,12 +88,20 @@ router.get('/search', auth, async (req, res) => {
 // @access    Public
 router.get('/:id', loggedUser, async (req, res) => {
   try {
-    let recipe = await Recipe.findOne({ _id: req.params.id });
-    if (!isRecipePrivate(recipe.isPrivate, req.user, recipe.author)) {
-      res.json({ recipe });
-    } else {
-      // Recipe is private 404
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       res.status(404).send('Not Found');
+    } else {
+      let recipe = await Recipe.findOne({ _id: req.params.id });
+
+      if (
+        recipe !== null &&
+        !isRecipePrivate(recipe.isPrivate, req.user, recipe.author)
+      ) {
+        res.json({ recipe });
+      } else {
+        // Recipe is private 404
+        res.status(404).send('Not Found');
+      }
     }
   } catch (error) {
     console.error(error.message);

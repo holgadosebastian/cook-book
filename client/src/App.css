@@ -10,31 +10,8 @@ body {
 
 .app > main {
   flex-grow: 10;
-}
-
-.container {
-  max-width: 960px !important;
-}
-
-.container.is-form {
-  max-width: 450px !important ;
-}
-
-.container.is-main {
-  padding-top: 24px;
-  padding-bottom: 48px;
-}
-
-.container.is-fullheight {
-  min-height: calc(100vh - 52px);
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-}
-
-.modal-content {
-  max-width: 80%;
 }
 
 .recipe-info-item {

@@ -1,0 +1,26 @@
+.container-wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 10;
+}
+
+.container {
+  max-width: 960px !important;
+
+  &.is-form {
+    max-width: 450px !important ;
+  }
+
+  &.is-main {
+    padding-top: 24px;
+    padding-bottom: 48px;
+  }
+
+  &.is-fullheight {
+    min-height: calc(100vh - 52px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

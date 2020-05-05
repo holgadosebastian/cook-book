@@ -105,7 +105,7 @@ const RecipeState = (props) => {
         payload: res.data.recipe
       });
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
       dispatch({
         type: RECIPE_ERROR,
         payload: error.response.msg

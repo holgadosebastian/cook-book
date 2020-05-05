@@ -1,18 +1,26 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import './styles/index.scss';
 import './App.css';
 import Navbar from './components/layout/navBar';
 import Footer from './components/layout/footer';
 
 // Pages
-import Home from './pages/home';
-import Recipe from './pages/recipe';
-import User from './pages/user';
-import NewRecipe from './pages/newRecipe';
-import Register from './pages/register';
-import Login from './pages/login';
-import Search from './pages/search';
+import {
+  Home,
+  Login,
+  NewRecipe,
+  NotFound,
+  Recipe,
+  Register,
+  Search,
+  User
+} from './pages';
 
 import Notifications from './components/notifications';
 
@@ -40,16 +48,14 @@ function App() {
                 <main>
                   <Switch>
                     <Route exact path='/' component={Home} />
-                    <PrivateRoute
-                      exact
-                      path='/new-recipe'
-                      component={NewRecipe}
-                    />
-                    <PrivateRoute exact path='/search' component={Search} />
-                    <Route exact path='/recipe/:id' component={Recipe} />
-                    <Route exact path='/users/:username' component={User} />
-                    <Route exact path='/register' component={Register} />
-                    <Route exact path='/login' component={Login} />
+                    <PrivateRoute path='/new-recipe' component={NewRecipe} />
+                    <PrivateRoute path='/search' component={Search} />
+                    <Route path='/recipe/:id' component={Recipe} />
+                    <Route path='/users/:username' component={User} />
+                    <Route path='/register' component={Register} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/404' component={NotFound} />
+                    <Redirect to='/404' />
                   </Switch>
                 </main>
                 <Footer />

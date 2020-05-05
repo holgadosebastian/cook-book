@@ -1,2 +1,6 @@
 @import '../../../styles/utils.scss';
 @import 'bulma/sass/components/modal.sass';
+
+.modal-content {
+  max-width: 80%;
+}
