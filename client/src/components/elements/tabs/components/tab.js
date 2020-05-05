@@ -10,9 +10,7 @@ const Tab = ({ className, children, name, active, onClick, ...props }) => {
         'is-active': active
       })}
     >
-      <a href='#' onClick={() => onClick(name)}>
-        {children}
-      </a>
+      <span onClick={() => onClick(name)}>{children}</span>
     </li>
   );
 };
