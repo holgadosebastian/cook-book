@@ -226,14 +226,20 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
-// @route     GET api/recipes/user/:id
+// @route     GET api/recipes/user/:username
 // @desc      Get all recipes from a user
 // @access    Public
-router.get('/user/:id', loggedUser, async (req, res) => {
+router.get('/user/:username', loggedUser, (req, res) => {
   try {
-    let recipes = await Recipe.find({ author: req.params.id });
+    Recipe.find().exec((err, recipes) => {
+      recipes = recipes.filter((recipe) => {
+        return recipe.author
+          ? recipe.author.username === req.params.username
+          : false;
+      });
 
-    res.json({ recipes: filterPrivateRecipes(recipes, req.user) });
+      res.json({ recipes: filterPrivateRecipes(recipes, req.user) });
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');

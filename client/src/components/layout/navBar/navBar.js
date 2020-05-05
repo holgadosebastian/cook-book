@@ -27,7 +27,7 @@ const Navbar = () => {
         Search
       </Link>
       <Link
-        to={`/users/${user !== null && user._id}`}
+        to={`/users/${user !== null && user.username}`}
         className='navbar-item has-text-white has-text-centered is-uppercase'
       >
         My Account

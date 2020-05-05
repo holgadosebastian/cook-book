@@ -30,8 +30,8 @@ const User = ({ match }) => {
 
   useEffect(() => {
     loadUser();
-    getUserRecipes(match.params.id);
-    getUser(match.params.id);
+    getUserRecipes(match.params.username);
+    getUser(match.params.username);
     // eslint-disable-next-line
   }, []);
 

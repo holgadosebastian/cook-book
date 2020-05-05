@@ -80,7 +80,7 @@ const Recipe = ({ match, history }) => {
             <p>
               by{' '}
               <Link
-                to={`/users/${currentRecipe.author._id}`}
+                to={`/users/${currentRecipe.author.username}`}
                 className='has-text-primary'
                 style={{ textDecoration: 'underline' }}
               >

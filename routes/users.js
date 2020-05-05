@@ -9,14 +9,13 @@ require('dotenv').config();
 const User = require('../models/User');
 const Recipe = require('../models/Recipe');
 
-// @route     GET api/users
+// @route     GET api/users/:username
 // @desc      Get a user
 // @access    Private
-router.get('/:id', async (req, res) => {
+router.get('/:username', async (req, res) => {
   try {
-    let user = await User.findOne({ _id: req.params.id });
-
-    let userRecipes = await Recipe.find({ author: req.params.id });
+    let user = await User.findOne({ username: req.params.username });
+    let userRecipes = await Recipe.find({ author: user._id });
 
     const { _id, firstName, lastName, username, profileImage } = user;
 

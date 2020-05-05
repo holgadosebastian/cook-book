@@ -47,7 +47,7 @@ function App() {
                     />
                     <PrivateRoute exact path='/search' component={Search} />
                     <Route exact path='/recipe/:id' component={Recipe} />
-                    <Route exact path='/users/:id' component={User} />
+                    <Route exact path='/users/:username' component={User} />
                     <Route exact path='/register' component={Register} />
                     <Route exact path='/login' component={Login} />
                   </Switch>
