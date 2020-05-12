@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { FormField } from '../../form';
+import Columns from '../../elements/columns';
 import Button from '../../elements/button';
 
 const UserForm = ({ user, onFormSubmit }) => {
@@ -23,24 +24,24 @@ const UserForm = ({ user, onFormSubmit }) => {
 
   return (
     <Fragment>
-      <div className='columns'>
-        <div className='column'>
+      <Columns>
+        <Columns.Column>
           <FormField
             id='firstname'
             name='First Name'
             value={updatedFirstName}
             onChange={setUpdatedFirstName}
           />
-        </div>
-        <div className='column'>
+        </Columns.Column>
+        <Columns.Column>
           <FormField
             id='lastname'
             name='Last Name'
             value={updatedLastName}
             onChange={setUpdatedLastName}
           />
-        </div>
-      </div>
+        </Columns.Column>
+      </Columns>
 
       {/* <FormField id='username' name='Username' value={user.username} disabled /> */}
 

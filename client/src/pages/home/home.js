@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import Hero from '../../components/elements/hero';
+import Columns from '../../components/elements/columns';
 import Button from '../../components/elements/button';
 import RecipeContainer from '../../components/recipes/recipeContainer';
 import LoginForm from '../../components/auth/loginForm';
@@ -23,12 +24,12 @@ const Home = () => {
             'url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80)'
         }}
       >
-        <div className='columns is-centered has-text-grey-dark'>
-          <div className='column is-half has-text-centered'>
+        <Columns className='has-text-grey-dark' centered>
+          <Columns.Column className='has-text-centered' size={6}>
             <h1 className='is-size-3 is-uppercase'>Welcome to RecipGeek</h1>
             <p className='is-size-5'>Create, share and discover new recipes</p>
-          </div>
-        </div>
+          </Columns.Column>
+        </Columns>
       </Hero>
 
       <RecipeContainer />
@@ -40,8 +41,8 @@ const Home = () => {
             'url(https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1055&q=80)'
         }}
       >
-        <div className='columns is-centered'>
-          <div className='column is-half'>
+        <Columns centered>
+          <Columns.Column className='has-text-centered' size={6}>
             {isAuthenticated ? (
               <div className='has-text-centered'>
                 <h3 className='is-size-4 mb3'>Want to try something new?</h3>
@@ -49,9 +50,9 @@ const Home = () => {
               </div>
             ) : (
               <LoginForm />
-            )}
-          </div>
-        </div>
+            )}{' '}
+          </Columns.Column>
+        </Columns>
       </Hero>
     </Fragment>
   );

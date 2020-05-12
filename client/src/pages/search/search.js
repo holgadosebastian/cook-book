@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Columns from '../../components/elements/columns';
 import { FormAddons } from '../../components/form';
 import RecipeList from '../../components/recipes/recipeList/recipeList';
 import RecipeContext from '../../context/recipe/recipeContext';
@@ -40,8 +41,8 @@ const Search = () => {
           Search Recipes
         </h1>
 
-        <div className='columns is-centered'>
-          <div className='column is-half'>
+        <Columns centered>
+          <Columns.Column size={6}>
             <FormAddons
               placeholder='Type your search'
               value={query}
@@ -51,8 +52,8 @@ const Search = () => {
               buttonColor='info'
               onClick={onSearch}
             />
-          </div>
-        </div>
+          </Columns.Column>
+        </Columns>
       </div>
       <div>
         {hasSearched && (

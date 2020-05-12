@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Columns from '../../elements/columns';
 import Button from '../../elements/button';
 import { FormField } from '../../form';
 import Message from '../../elements/message';
@@ -78,12 +79,11 @@ const RegisterForm = () => {
           Register an Account
         </p>
         <form onSubmit={onSubmit}>
-          <div className='columns is-mobile'>
-            <div
+          <Columns breakpoint='mobile'>
+            <Columns.Column
               style={{
                 paddingBottom: '0px'
               }}
-              className='column'
             >
               <FormField
                 id='firstname'
@@ -91,12 +91,11 @@ const RegisterForm = () => {
                 value={firstName}
                 onChange={setFirstName}
               />
-            </div>
-            <div
+            </Columns.Column>
+            <Columns.Column
               style={{
                 paddingBottom: '0px'
               }}
-              className='column'
             >
               <FormField
                 id='lastname'
@@ -104,8 +103,8 @@ const RegisterForm = () => {
                 value={lastName}
                 onChange={setLastName}
               />
-            </div>
-          </div>
+            </Columns.Column>
+          </Columns>
 
           <FormField
             id='username'

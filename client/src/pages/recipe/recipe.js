@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Interweave from 'interweave';
 import NotFound from '../notFound';
 import Hero from '../../components/elements/hero/hero';
+import Columns from '../../components/elements/columns';
 import Button from '../../components/elements/button';
 import Tag from '../../components/elements/tag';
 import Spinner from '../../components/elements/spinner';
@@ -98,9 +99,8 @@ const Recipe = ({ match, history }) => {
 
       <div style={{ paddingBottom: '48px' }} className='container is-fluid'>
         <hr />
-
-        <div className='columns'>
-          <div className='column is-one-third'>
+        <Columns>
+          <Columns.Column size={4}>
             {(!!currentRecipe.servingSize || !!currentRecipe.cookingTime) && (
               <div>
                 <p
@@ -178,9 +178,9 @@ const Recipe = ({ match, history }) => {
                 </div>
               </div>
             )}
-          </div>
+          </Columns.Column>
 
-          <div className='column'>
+          <Columns.Column>
             <p
               style={{ marginBottom: '20px' }}
               className='is-size-5 has-text-weight-light is-uppercase has-text-grey-darker'
@@ -190,8 +190,8 @@ const Recipe = ({ match, history }) => {
             <p className='is-size-6 has-text-weight-light has-text-grey-darker'>
               <Interweave content={currentRecipe.instructions} />
             </p>
-          </div>
-        </div>
+          </Columns.Column>
+        </Columns>
 
         {isLoggedInUser(user, currentRecipe.author._id) && (
           <Fragment>

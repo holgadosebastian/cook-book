@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Columns from '../../elements/columns';
 import RecipeCard from '../recipeCard';
 import noRecipesImage from '../../../assets/no_recipes.png';
 
@@ -7,29 +8,29 @@ const RecipeList = ({ loading, recipes, noRecipesMessage }) => {
   return (
     <Fragment>
       {loading ? (
-        <ul className='columns is-multiline'>
-          <li style={{ marginTop: '24px' }} className='column is-one-third'>
+        <Columns multiline>
+          <Columns.Column style={{ marginTop: '24px' }} size={4}>
             <RecipeCard loader />
-          </li>
-          <li style={{ marginTop: '24px' }} className='column is-one-third'>
+          </Columns.Column>
+          <Columns.Column style={{ marginTop: '24px' }} size={4}>
             <RecipeCard loader />
-          </li>
-          <li style={{ marginTop: '24px' }} className='column is-one-third'>
+          </Columns.Column>
+          <Columns.Column style={{ marginTop: '24px' }} size={4}>
             <RecipeCard loader />
-          </li>
-        </ul>
+          </Columns.Column>
+        </Columns>
       ) : !!recipes.length ? (
-        <ul className='columns is-multiline'>
+        <Columns multiline>
           {recipes.map((recipe) => (
-            <li
+            <Columns.Column
               style={{ marginTop: '24px' }}
               key={recipe._id}
-              className='column is-one-third'
+              size={4}
             >
               <RecipeCard recipe={recipe} />
-            </li>
+            </Columns.Column>
           ))}
-        </ul>
+        </Columns>
       ) : (
         <div style={{ marginTop: '24px' }} className='has-text-centered'>
           <span className='square-image'>

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import { FormField, FormAddons, FileUpload, Radio, Label } from '../../form';
+import Columns from '../../elements/columns';
 import Button from '../../elements/button';
 import validate from '../../../utils/validate';
 import recipeShape from '../../../utils/recipeShape';
@@ -131,16 +132,16 @@ const RecipeForm = ({
         {formTitle}
       </p>
 
-      <div className='columns'>
-        <div className='column is-one-quarter'>
+      <Columns>
+        <Columns.Column size={3}>
           <FileUpload
             name='Image'
             onChange={onFileUpload}
             uploadedImage={imageUrl}
             loading={imageUploading}
           />
-        </div>
-        <div className='column is-three-quarters'>
+        </Columns.Column>
+        <Columns.Column size={9}>
           <FormField
             id='title'
             name='Title'
@@ -152,8 +153,8 @@ const RecipeForm = ({
             errorMessage={formErrors.title}
             required
           />
-        </div>
-      </div>
+        </Columns.Column>
+      </Columns>
 
       <label
         className='label is-uppercase has-text-weight-light has-text-grey-darker'
@@ -206,8 +207,8 @@ const RecipeForm = ({
         required
       />
 
-      <div className='columns is-mobile'>
-        <div style={{ paddingBottom: 0 }} className='column'>
+      <Columns breakpoint='mobile'>
+        <Columns.Column style={{ paddingBottom: 0 }}>
           <FormField
             id='servingsize'
             name='Serving Size'
@@ -217,8 +218,8 @@ const RecipeForm = ({
             type='number'
             min='1'
           />
-        </div>
-        <div style={{ paddingBottom: 0 }} className='column'>
+        </Columns.Column>
+        <Columns.Column style={{ paddingBottom: 0 }}>
           <FormField
             id='cookingtime'
             name='Cooking Time'
@@ -228,8 +229,8 @@ const RecipeForm = ({
             type='number'
             min='1'
           />
-        </div>
-      </div>
+        </Columns.Column>
+      </Columns>
 
       <div className='control'>
         <Label name='Recipe Availability' />
