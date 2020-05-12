@@ -10,6 +10,8 @@ const Button = ({
   to,
   fullwidth,
   loading,
+  disabled,
+  onClick,
   className,
   children,
   ...props
@@ -20,6 +22,8 @@ const Button = ({
     <Element
       {...props}
       to={to}
+      disabled={disabled}
+      onClick={disabled ? undefined : onClick}
       className={classnames('button', 'is-uppercase', className, {
         [`is-${color}`]: color,
         'is-rounded': rounded,
@@ -41,7 +45,8 @@ Button.defaultProps = {
   loading: false,
   to: undefined,
   className: undefined,
-  onClick: () => null
+  onClick: () => null,
+  disabled: false
 };
 
 Button.propTypes = {
@@ -53,7 +58,8 @@ Button.propTypes = {
   to: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node,
+  disabled: PropTypes.bool
 };
 
 export default Button;

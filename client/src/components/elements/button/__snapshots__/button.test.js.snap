@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component Should exist 1`] = `[Function]`;
+
+exports[`Button Component Should render a default button 1`] = `
+<button
+  className="button is-uppercase is-primary is-rounded"
+  disabled={false}
+  onClick={[Function]}
+>
+  Click
+</button>
+`;
+
+exports[`Button Component Should render a disabled button 1`] = `
+<button
+  className="button is-uppercase is-primary is-rounded"
+  disabled={true}
+>
+  Click
+</button>
+`;
+
+exports[`Button Component Should render a full width button 1`] = `
+<button
+  className="button is-uppercase is-primary is-rounded is-fullwidth"
+  disabled={false}
+  onClick={[Function]}
+>
+  Click
+</button>
+`;
+
+exports[`Button Component Should render a loading button 1`] = `
+<button
+  className="button is-uppercase is-primary is-rounded is-loading"
+  disabled={false}
+  onClick={[Function]}
+>
+  Click
+</button>
+`;
+
+exports[`Button Component Should render a secondary button 1`] = `
+<button
+  className="button is-uppercase is-secondary is-rounded"
+  disabled={false}
+  onClick={[Function]}
+>
+  Click
+</button>
+`;
+
+exports[`Button Component Should render an outlined button 1`] = `
+<button
+  className="button is-uppercase is-primary is-rounded is-outlined"
+  disabled={false}
+  onClick={[Function]}
+>
+  Click
+</button>
+`;
