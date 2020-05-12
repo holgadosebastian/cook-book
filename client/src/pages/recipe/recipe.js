@@ -66,14 +66,11 @@ const Recipe = ({ match, history }) => {
     <Fragment>
       <Hero color='light'>
         <div className='hero-container with-image'>
-          <div
-            className='hero-image square-image has-border has-background-grey-lighter'
-            style={{ backgroundImage: `url(${recipeImage})` }}
-          ></div>
+          <Hero.Image imageUrl={recipeImage} />
           <div>
             {currentRecipe.isPrivate && (
               <p>
-                <Tag color='danger' label='Private' />
+                <Tag color='danger'>Private</Tag>
               </p>
             )}
             <h1 className='is-size-3 is-uppercase has-text-weight-light has-text-grey-darker'>

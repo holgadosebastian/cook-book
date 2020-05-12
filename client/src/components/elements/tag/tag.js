@@ -1,31 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import TagGroup from './components/tagGroup';
 
-const Tag = ({ className, color, label, ...props }) => {
+const Tag = ({ className, children, color, remove, ...props }) => {
   return (
     <span
       {...props}
       className={classnames('tag', 'is-uppercase', className, {
-        [`is-${color}`]: color
+        [`is-${color}`]: color,
+        'is-delete': remove
       })}
     >
-      {label}
+      {!remove && children}
     </span>
   );
 };
 
+Tag.Group = TagGroup;
+
 Tag.defaultProps = {
   style: undefined,
   className: undefined,
-  color: 'primary'
+  color: undefined,
+  remove: false
 };
 
 Tag.propTypes = {
   style: PropTypes.shape({}),
   className: PropTypes.string,
+  children: PropTypes.node,
   color: PropTypes.string,
-  label: PropTypes.node.isRequired
+  remove: PropTypes.bool
 };
 
 export default Tag;

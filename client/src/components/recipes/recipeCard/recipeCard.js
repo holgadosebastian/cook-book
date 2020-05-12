@@ -15,7 +15,9 @@ const RecipeCard = ({ loader, recipe }) => {
         image={mainImage ? mainImage.imageUrl : recipeCardPlaceholder}
       >
         {isPrivate && (
-          <Tag className='card-badge' color='danger' label='Private' />
+          <Tag className='card-badge' color='danger'>
+            Private
+          </Tag>
         )}
       </Card.Image>
       <Card.Content className='content'>

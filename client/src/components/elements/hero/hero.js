@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import HeroImage from './components/image';
 
 const Hero = ({ color, size, className, children, ...props }) => {
   return (
@@ -17,6 +18,8 @@ const Hero = ({ color, size, className, children, ...props }) => {
     </section>
   );
 };
+
+Hero.Image = HeroImage;
 
 Hero.defaultProps = {
   color: 'primary',

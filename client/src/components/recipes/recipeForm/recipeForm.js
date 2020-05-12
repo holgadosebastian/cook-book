@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { FormField, FormAddons, FileUpload, Radio, Label } from '../../form';
 import Columns from '../../elements/columns';
 import Button from '../../elements/button';
+import Tag from '../../elements/tag';
 import validate from '../../../utils/validate';
 import recipeShape from '../../../utils/recipeShape';
 import {
@@ -156,29 +157,15 @@ const RecipeForm = ({
         </Columns.Column>
       </Columns>
 
-      <label
-        className='label is-uppercase has-text-weight-light has-text-grey-darker'
-        htmlFor='ingredients'
-      >
-        Ingredients <span className='has-text-danger'>*</span>
-      </label>
-      <div>
-        {ingredients.map((ingredient) => (
-          <div
-            className='control'
-            key={ingredient.id}
-            style={{ marginBottom: '12px' }}
-          >
-            <div className='tags has-addons'>
-              <span className='tag'>{ingredient.name}</span>
-              <span
-                className='tag is-delete'
-                onClick={() => removeIngredient(ingredient.id)}
-              ></span>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Label name='Ingredients' htmlFor='ingredients' required />
+      {ingredients.map((ingredient) => (
+        <div key={ingredient.id} style={{ marginBottom: '12px' }}>
+          <Tag.Group>
+            <Tag>{ingredient.name}</Tag>
+            <Tag remove onClick={() => removeIngredient(ingredient.id)} />
+          </Tag.Group>
+        </div>
+      ))}
 
       <FormAddons
         id='ingredients'

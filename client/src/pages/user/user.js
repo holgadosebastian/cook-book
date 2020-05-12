@@ -82,10 +82,7 @@ const User = ({ match }) => {
     <Fragment>
       <Hero color='light'>
         <div className='hero-container with-image'>
-          <div
-            className='hero-image has-border square-image is-rounded has-background-grey-lighter'
-            style={{ backgroundImage: `url(${userImage})` }}
-          >
+          <Hero.Image imageUrl={userImage} rounded>
             {isAuthUser &&
               (!profileImageLoading ? (
                 <input
@@ -96,7 +93,7 @@ const User = ({ match }) => {
               ) : (
                 <Spinner size='medium' centered />
               ))}
-          </div>
+          </Hero.Image>
           <div>
             {(firstName || lastName) && (
               <p className='is-size-5 is-uppercase'>{username}</p>
